@@ -7,13 +7,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>헤더</title>
 
-<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-<script src="../resources/js/jquery.js"></script>
-<script src="../resources/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="../resources/css/header.css">
-<link rel="stylesheet" href="../resources/css/footer.css">
-<link rel="stylesheet" href="../resources/css/default.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css">
+<script src="${pageContext.request.contextPath }/resources/js/jquery.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/default.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/header.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/footer.css">
 <!--highlight Start  -->
 <link rel="stylesheet"
 	href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
@@ -44,7 +44,7 @@
 <body>
 	<header class="header">
 		<div class="logo">
-			<img src="../resources/img/logo.png" alt="로고">
+			<img src="${pageContext.request.contextPath }/resources/img/logo.png" alt="로고">
 		</div>
 		<div class="header-menu">
 			<button type="button" onclick="location.href = '#'" class="menu-btn">자유
@@ -75,12 +75,10 @@
 		var page = pages[pages.length - 1];
 		var cssFile = page.substring(0, page.length - 3);
 		var folder = pages[pages.length - 2];
-		//console.log('${pageContext.request.contextPath }/resources/css/' + folder + "/" + cssFile + "css");
-
 		var link = document.createElement("link");
 		link.rel = "stylesheet";
 		link.href = "${pageContext.request.contextPath }/resources/css/"
 				+ cssFile + "css";
-
+	
 		document.querySelector("head").appendChild(link);
 	</script>

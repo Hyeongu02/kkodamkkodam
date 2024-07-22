@@ -116,7 +116,7 @@
         <div class="home-board">
             <h2>질문</h2>
             <div class="post">
-                <a href="#" class="test111">요즘 모발이식 3천모 평균가평asdasd균가나다라마바사아자평균가나다라마바사아자나다라마바사아자 평균이야?</a>
+                <a href="#" class="post-content">요즘 모발이식 3천모 평균가평asdasd균가나다라마바사아자평균가나다라마바사아자나다라마바사아자 평균이야?</a>
                 <span class="icon">
                     <span class="material-symbols-outlined" style="font-size:18px;">
                         visibility
