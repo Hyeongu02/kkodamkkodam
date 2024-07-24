@@ -1,4 +1,4 @@
-package com.firstline.user.model;
+package com.kkodamkkodam.user.model;
 
 public class UserDAO {
 

@@ -1,4 +1,4 @@
-package com.firstline.user.service;
+package com.kkodamkkodam.user.service;
 
 public class UserServiceImpl {
 
