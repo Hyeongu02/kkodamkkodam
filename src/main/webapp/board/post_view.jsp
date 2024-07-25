@@ -28,13 +28,13 @@
                     visibility
                 </span>
             </span>
-            <span class="num">${dto.view_count}</span>
+            <span class="num">${dto.viewCount}</span>
             <span class="icon">
                 <span class="material-symbols-outlined" style="font-size:18px;">
                     thumb_up
                 </span>
             </span>
-            <span class="num">${dto.like}</span>
+            <span class="num">${dto.likeCount}</span>
             <span class="icon">
                 <span class="material-symbols-outlined" style="font-size:18px;">
                     chat

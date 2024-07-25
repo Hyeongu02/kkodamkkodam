@@ -38,15 +38,13 @@ public class BoardController extends HttpServlet {
 		String path = request.getContextPath(); //프로젝트 식별 이름
 		String command = uri.substring( path.length() );
 		
-		System.out.println(command);
-		System.out.println(request.getRemoteAddr());
 		
-		//boardservice선언
-		BoardService service;
+		BoardService service =new BoardServiceImpl();;
 		
-		
-		if(command.equals("/board/list.board")) { 
-			
+		if(command.equals("/board/list.board")) { //글 목록
+			service.getList(request, response);
+		}else if(command.equals("/board/getContent.board")) { //글 내용 보기
+			service.getContent(request, response);
 		}
 	}
 }

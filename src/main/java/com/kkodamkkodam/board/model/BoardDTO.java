@@ -5,58 +5,60 @@ import java.sql.Timestamp;
 public class BoardDTO {
 	
 	//테이블의 컬럼명과 동일하게 멤버변수 선언합니다.
-	private int post_no;
-	private int user_no;
-	private int board_id;
+	private int postNo;
+	private int userNo;
+	private int boardId;
+//	private String boardType;
+//	private String boardCategory;
 	private String title;
-	private int view_count;
-	private int like_count;
-	private String content;
+	private int viewCount;
 	private Timestamp regdate;
-	private String code_language;
-	private String code_content;
+	private int likeCount;
+	private String content;
+	private String codeLanguage;
+	private String codeContent;
 	
 	public BoardDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public BoardDTO(int post_no, int user_no, int board_id, String title, int view_count, int like_count,
-			String content, Timestamp regdate, String code_language, String code_content) {
+	public BoardDTO(int postNo, int userNo, int boardId, String title, int viewCount, Timestamp regdate, int likeCount,
+			String content, String codeLanguage, String codeContent) {
 		super();
-		this.post_no = post_no;
-		this.user_no = user_no;
-		this.board_id = board_id;
+		this.postNo = postNo;
+		this.userNo = userNo;
+		this.boardId = boardId;
 		this.title = title;
-		this.view_count = view_count;
-		this.like_count = like_count;
-		this.content = content;
+		this.viewCount = viewCount;
 		this.regdate = regdate;
-		this.code_language = code_language;
-		this.code_content = code_content;
+		this.likeCount = likeCount;
+		this.content = content;
+		this.codeLanguage = codeLanguage;
+		this.codeContent = codeContent;
 	}
 
-	public int getPost_no() {
-		return post_no;
+	public int getPostNo() {
+		return postNo;
 	}
 
-	public void setPost_no(int post_no) {
-		this.post_no = post_no;
+	public void setPostNo(int postNo) {
+		this.postNo = postNo;
 	}
 
-	public int getUser_no() {
-		return user_no;
+	public int getUserNo() {
+		return userNo;
 	}
 
-	public void setUser_no(int user_no) {
-		this.user_no = user_no;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
-	public int getBoard_id() {
-		return board_id;
+	public int getBoardId() {
+		return boardId;
 	}
 
-	public void setBoard_id(int board_id) {
-		this.board_id = board_id;
+	public void setBoardId(int boardId) {
+		this.boardId = boardId;
 	}
 
 	public String getTitle() {
@@ -67,28 +69,12 @@ public class BoardDTO {
 		this.title = title;
 	}
 
-	public int getView_count() {
-		return view_count;
+	public int getViewCount() {
+		return viewCount;
 	}
 
-	public void setView_count(int view_count) {
-		this.view_count = view_count;
-	}
-
-	public int getLike_count() {
-		return like_count;
-	}
-
-	public void setLike_count(int like_count) {
-		this.like_count = like_count;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
 	}
 
 	public Timestamp getRegdate() {
@@ -99,19 +85,39 @@ public class BoardDTO {
 		this.regdate = regdate;
 	}
 
-	public String getCode_language() {
-		return code_language;
+	public int getLikeCount() {
+		return likeCount;
 	}
 
-	public void setCode_language(String code_language) {
-		this.code_language = code_language;
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 
-	public String getCode_content() {
-		return code_content;
+	public String getContent() {
+		return content;
 	}
 
-	public void setCode_content(String code_content) {
-		this.code_content = code_content;
+	public void setContent(String content) {
+		this.content = content;
 	}
+
+	public String getCodeLanguage() {
+		return codeLanguage;
+	}
+
+	public void setCodeLanguage(String codeLanguage) {
+		this.codeLanguage = codeLanguage;
+	}
+
+	public String getCodeContent() {
+		return codeContent;
+	}
+
+	public void setCodeContent(String codeContent) {
+		this.codeContent = codeContent;
+	}
+	
+	
+	
+
 }

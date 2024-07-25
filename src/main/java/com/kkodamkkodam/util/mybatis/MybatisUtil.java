@@ -11,14 +11,13 @@ public class MybatisUtil {
 	static {
 		
 		try {
-			String resource = "mybatis/config/mybatis-config.xml";
-			
-			InputStream inputStream = Resources.getResourceAsStream(resource);
+			InputStream inputStream = Resources.getResourceAsStream("mybatis/config/mybatis-config.xml");
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
-			System.out.println("잘실행됨:" + sqlSessionFactory);
+			System.out.println("실행성공:" + sqlSessionFactory);
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("실행오류");
 		}
 	}
 	//GETTER
