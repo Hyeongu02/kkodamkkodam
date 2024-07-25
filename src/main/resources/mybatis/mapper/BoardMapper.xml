@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kkodamkkodam.board.model.BoardMapper">
+	<select id="getContent" resultType="com.kkodamkkodam.board.model.BoardDTO">
+		select * from post where post_no=#{post_no} and board_id = #{board_id};
+	</select>
+	<update id="increaseView" parameterType="string">
+		UPDATE post
+	 	SET view_count = view_count + 1
+	 	WHERE post_no = #{post_no}
+	 	AND board_id = #{board_id}
+	</update>
+
+</mapper>
+
+
+
+
+
+
+
+
