@@ -51,7 +51,7 @@
       <section id="board-title" class="title">
         <div class="wrap" >
           <div class="left">
-          <h4 class="board-connected">현재 게시판</h4>
+          <h4 class="board-connected"><c:out value="${list[0].boardType}" /> 게시판</h4>
         </div>
         <div class="input-group right">
             <input type="text" class="form-control" placeholder="Search">
@@ -86,14 +86,6 @@
 				<td>${dto.viewCount}</td>
 				</tr>
 		</c:forEach>
-        <tr class="">
-          <td class="td_num">253</td>
-          <td class="td_subject"><a href="#">요즘, 제가 즐겨듣는 노래입니다.</a> </td>
-          <td class="td_name sv_use">신비</td>
-          <td class="td_datetime">01-19</td>
-          <td class="td_hits">99</td>
-        </tr>
-
       </tbody>
       </table>
 

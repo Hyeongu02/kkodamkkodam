@@ -8,8 +8,6 @@ public class BoardDTO {
 	private int postNo;
 	private int userNo;
 	private int boardId;
-//	private String boardType;
-//	private String boardCategory;
 	private String title;
 	private int viewCount;
 	private Timestamp regdate;
@@ -17,13 +15,15 @@ public class BoardDTO {
 	private String content;
 	private String codeLanguage;
 	private String codeContent;
+	private String boardType;
+	private String boardCategory;
 	
 	public BoardDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public BoardDTO(int postNo, int userNo, int boardId, String title, int viewCount, Timestamp regdate, int likeCount,
-			String content, String codeLanguage, String codeContent) {
+			String content, String codeLanguage, String codeContent, String boardType, String boardCategory) {
 		super();
 		this.postNo = postNo;
 		this.userNo = userNo;
@@ -35,6 +35,8 @@ public class BoardDTO {
 		this.content = content;
 		this.codeLanguage = codeLanguage;
 		this.codeContent = codeContent;
+		this.boardType = boardType;
+		this.boardCategory = boardCategory;
 	}
 
 	public int getPostNo() {
@@ -116,8 +118,20 @@ public class BoardDTO {
 	public void setCodeContent(String codeContent) {
 		this.codeContent = codeContent;
 	}
-	
-	
-	
 
+	public String getBoardType() {
+		return boardType;
+	}
+
+	public void setBoardType(String boardType) {
+		this.boardType = boardType;
+	}
+
+	public String getBoardCategory() {
+		return boardCategory;
+	}
+
+	public void setBoardCategory(String boardCategory) {
+		this.boardCategory = boardCategory;
+	}
 }

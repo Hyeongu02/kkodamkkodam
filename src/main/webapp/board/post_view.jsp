@@ -46,7 +46,7 @@
     <div class="comment-bigbox">
         <span class="comment-input">
             <input type="text"></input>
-            <button><span class="material-symbols-outlined" style="font-size:18px;"> edit</span></button>
+            <button onclick="location.href='commentWrite.board'"><span class="material-symbols-outlined" style="font-size:18px;"> edit</span></button>
         </span>
         <div class="comment-box">
             <div class="comment">

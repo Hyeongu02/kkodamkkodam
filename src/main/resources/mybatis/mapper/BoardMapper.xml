@@ -6,13 +6,29 @@
 <mapper namespace="com.kkodamkkodam.board.model.BoardMapper">
 
 	<select id="getList" resultType="com.kkodamkkodam.board.model.BoardDTO">
-		SELECT * FROM POST WHERE board_id = 1
+		SELECT 
+		    p.post_no,
+		    p.board_id,
+		    p.title,
+		    p.view_count,
+		    p.regdate,
+		    b.board_type
+		FROM 
+		    post p
+		JOIN 
+		    board b
+		ON 
+		    p.board_id = b.board_id
+		where p.board_id=#{boardId}
 	</select>
 	<select id="getContent" resultType="com.kkodamkkodam.board.model.BoardDTO">
 		SELECT * FROM post WHERE board_id = #{boardId} AND POST_No = #{postNo}
 	</select>
 	<update id="increaseView" parameterType="Map">
-		UPDATE BOARD SET HIT = HIT + 1 WHERE board_id = #{boardId} AND POST_No = #{postNo}
+		UPDATE post SET VIEW_COUNT = VIEW_COUNT + 1 WHERE board_id = #{boardId} AND POST_No = #{postNo}
+	</update>
+	
+	<update id="commentWrite" parameterType="Map">
 	</update>
 	
 </mapper>
