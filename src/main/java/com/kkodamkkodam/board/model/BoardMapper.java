@@ -3,7 +3,6 @@ package com.kkodamkkodam.board.model;
 import java.util.ArrayList;
 import java.util.Map;
 
-
 public interface BoardMapper {
 	
 	public ArrayList<BoardDTO> getList(int boardId); //글 목록 조회
