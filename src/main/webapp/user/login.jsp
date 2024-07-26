@@ -13,7 +13,7 @@
 			<label>
 				<input type="checkbox" class="id-save">아이디 기억하기
 			</label>
-            <button type="button" onclick="location.href = '#'" class="check-btn">로그인</button>
+            <button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/loginForm.user'" class="check-btn">로그인</button>
 			<div class="find-all">
 				<a href="#">아이디 찾기 | </a>
 				<a href="#">비밀번호 찾기</a>

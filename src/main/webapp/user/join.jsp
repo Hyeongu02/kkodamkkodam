@@ -6,31 +6,31 @@
 
 
 
+
 <div id="wrapped">
 	<div class="join-page">
-		<h3>회원 가입 페이지</h3>
+		<h3>회원 가입</h3>
+		<form action="joinForm.user" method="post">
 		<div class="join-box">
 			<div>
-				<i class="fa-regular fa-user user-icon1"></i> <input type="text"
-					placeholder=" 아이디" class="join-input id-input">
-				<button type="button" onclick="location.href = '#'"
-					class="check-btn">중복 확인</button>
-				<i class="fa-solid fa-lock user-icon2"></i> <input type="password"
-					placeholder=" 비밀번호" class="join-input"> <i
+				<i class="fa-regular fa-envelope user-icon1"></i> <input type="email"
+					placeholder=" 이메일" class="join-input id-input" name="id">
+				<button type="button" onclick="checkId()" class="check-btn">중복 확인</button>
+				<i class="fa-solid fa-lock user-icon2"></i> <label></label><input type="password"
+					placeholder=" 비밀번호" class="join-input" name="pw" required="required"> <i
 					class="fa-solid fa-lock user-icon3"></i> <input type="password"
-					placeholder=" 비밀번호 확인" class="join-input"> <i
+					placeholder=" 비밀번호 확인" class="join-input" name="rePw" required="required"> <i
 					class="fa-regular fa-user user-icon4"></i> <input type="text"
-					placeholder=" 닉네임" class="join-input"> <i
-					class="fa-regular fa-envelope user-icon5"></i> <input type="email"
-					placeholder=" 이메일 - 비밀번호 찾기 등 본인 확인용" class="join-input"> <i
-					class="fa-solid fa-phone user-icon6"></i> <input type="tel"
-					placeholder=" 전화번호" class="join-input">
+					placeholder=" 닉네임" class="join-input" name="name"> 
 			</div>
 		</div>
 		<div>
-			<button type="button" onclick="location.href = '#'" class="join-btn">회원
+			<button type="submit" class="join-btn">회원
 				가입</button>
 		</div>
+		</form>
 	</div>
 </div>
+
+
 <%@ include file="../include/footer.jsp"%>
