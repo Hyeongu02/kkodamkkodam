@@ -65,8 +65,8 @@
 			</div>
 		</div>
 		<div class="right-btn">
-			<button type="button" onclick="location.href = '#'" class="btn-join">회원가입</button>
-			<button type="button" onclick="location.href = '#'" class="btn-login">로그인</button>
+			<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/join.jsp'" class="btn-join">회원가입</button>
+			<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/login.jsp'" class="btn-login">로그인</button>
 		</div>
 		
 		
