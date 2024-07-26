@@ -2,7 +2,7 @@ package com.kkodamkkodam.user.model;
 
 public class UserDTO {
 
-	private int userNo;
+	private Long userNo;
 	private String id;
 	private String pw;
 	private String name;
@@ -12,15 +12,14 @@ public class UserDTO {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public UserDTO(String id, String pw, String name, String deleted) {
+	public UserDTO(String id, String pw, String name) {
 		super();
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
-		this.deleted = deleted;
 	}
 
-	public UserDTO(int userNo, String id, String pw, String name, String deleted) {
+	public UserDTO(Long userNo, String id, String pw, String name, String deleted) {
 		super();
 		this.userNo = userNo;
 		this.id = id;
@@ -29,11 +28,11 @@ public class UserDTO {
 		this.deleted = deleted;
 	}
 
-	public int getuserNo() {
+	public Long getuserNo() {
 		return userNo;
 	}
 
-	public void setuserNo(int userNo) {
+	public void setuserNo(Long userNo) {
 		this.userNo = userNo;
 	}
 

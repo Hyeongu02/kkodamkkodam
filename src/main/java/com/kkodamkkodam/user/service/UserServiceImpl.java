@@ -12,6 +12,7 @@ import com.kkodamkkodam.user.model.UserMapper;
 import com.kkodamkkodam.util.mybatis.MybatisUtil;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -21,63 +22,90 @@ public class UserServiceImpl implements UserService {
 	private SqlSessionFactory sqlSessionFactory = MybatisUtil.getSqlSessionFactory();
 
 
+	// 가입
 	@Override
-	public void signUp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		String name = request.getParameter("name");
-		
-		UserDTO dto = new UserDTO(id, pw, name, null);
-		
-		SqlSession sql = sqlSessionFactory.openSession(true);
-		
-		UserMapper user = sql.getMapper(UserMapper.class);
-		
-		user.signUp(dto);
-		
-		sql.close();
-		
-		response.sendRedirect("mypage.user");
-		
-		
-		
-		
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            UserMapper mapper = session.getMapper(UserMapper.class);
+
+            String id = request.getParameter("id");
+            String pw = request.getParameter("pw");
+            String name = request.getParameter("name");
+
+            String rePw = request.getParameter("rePw");
+            if (!pw.equals(rePw)) {
+                request.setAttribute("message", "비밀번호가 일치하지 않습니다.");
+                request.getRequestDispatcher("join.jsp").forward(request, response);
+                return;
+            }
+
+            if (mapper.checkId(id) != null) {
+                request.setAttribute("message", "이미 사용 중인 아이디입니다.");
+                request.getRequestDispatcher("join.jsp").forward(request, response);
+                return;
+            }
+
+            UserDTO dto = new UserDTO();
+            dto.setId(id);
+            dto.setPw(pw);
+            dto.setName(name);
+
+            mapper.join(dto);
+            session.commit();
+
+            response.sendRedirect("login.jsp"); 
+        }
 
 	}
 
-
+	// 로그인
 	@Override
 	public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    // 사용자로부터 입력 받은 로그인 정보
-	    String id = request.getParameter("id");
+	  
+		
+		String id = request.getParameter("id");
 	    String pw = request.getParameter("pw");
+	    String check =  request.getParameter("check");
 	    
-	    // 로그인 인증 결과를 저장할 변수
-	    UserDTO userDTO = null;
-
-	    // SqlSession을 try-with-resources로 열어 리소스 자동 관리를 보장
+	    UserDTO dto = new UserDTO();
+	    
+	    dto.setId(id);
+	    dto.setPw(pw);
+	    
+	    UserDTO resultDto = null;
+	    
 	    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-	        // UserMapper 인터페이스의 구현체를 얻음
 	        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 	        
-	        // 로그인 인증을 위한 쿼리 실행
-	        userDTO = userMapper.login(id, pw);
+	        resultDto = userMapper.login(id, pw);
 	        
-	        if (userDTO != null) {
-	            // 로그인 성공
+	        if (resultDto != null) { // 로그인 성공 시
 	            HttpSession session = request.getSession();
-	            session.setAttribute("user", userDTO); // 세션에 사용자 정보 저장
-	            response.sendRedirect("welcome.jsp"); // 로그인 성공 후 리다이렉트
-	        } else {
-	            // 로그인 실패
-	            request.setAttribute("loginError", "Invalid ID or Password");
-	            request.getRequestDispatcher("login.jsp").forward(request, response); // 로그인 페이지로 포워드
+	            session.setAttribute("id", resultDto.getId());
+	            session.setAttribute("pw", resultDto.getPw());
+	            
+	            // 쿠키
+	            if(check != null) {
+	            	Cookie getCookie = new Cookie("userId", id);
+	            	getCookie.setMaxAge(20);
+	            	response.addCookie(getCookie);
+	            } else {
+	            	Cookie noCookie = new Cookie("userId", null);
+	            	noCookie.setMaxAge(0);
+	            	response.addCookie(noCookie);
+	            }
+	           
+	            response.sendRedirect("mypage.jsp");
+	            
+	            
+	        } else { // 로그인 실패 시
+	            request.setAttribute("error", "아이디 또는 비밀번호가 틀렸습니다.");
+	            request.getRequestDispatcher("login.jsp").forward(request, response); 
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        // 에러 처리
-	        request.setAttribute("loginError", "An error occurred during login.");
+	        request.setAttribute("error", "다시 시도해 주세요.");
 	        request.getRequestDispatcher("login.jsp").forward(request, response);
 	    }
 	}

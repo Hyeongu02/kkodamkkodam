@@ -15,7 +15,7 @@
 			<div>
 				<i class="fa-regular fa-envelope user-icon1"></i> <input type="email"
 					placeholder=" 이메일" class="join-input id-input" name="id">
-				<button type="button" onclick="checkId()" class="check-btn">중복 확인</button>
+				<button type="button" class="check-btn">중복 확인</button>
 				<i class="fa-solid fa-lock user-icon2"></i> <label></label><input type="password"
 					placeholder=" 비밀번호" class="join-input" name="pw" required="required"> <i
 					class="fa-solid fa-lock user-icon3"></i> <input type="password"
@@ -31,6 +31,5 @@
 		</form>
 	</div>
 </div>
-
 
 <%@ include file="../include/footer.jsp"%>
