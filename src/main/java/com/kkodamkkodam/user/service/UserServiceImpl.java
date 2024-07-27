@@ -32,18 +32,24 @@ public class UserServiceImpl implements UserService {
             String id = request.getParameter("id");
             String pw = request.getParameter("pw");
             String name = request.getParameter("name");
-
             String rePw = request.getParameter("rePw");
+            boolean checked = mapper.checkId(id) != null;
+            
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            
             if (!pw.equals(rePw)) {
                 request.setAttribute("message", "비밀번호가 일치하지 않습니다.");
                 request.getRequestDispatcher("join.jsp").forward(request, response);
                 return;
             }
 
-            if (mapper.checkId(id) != null) {
-                request.setAttribute("message", "이미 사용 중인 아이디입니다.");
+            if (checked) {
+                out.print("{\"이미 존재하는 아이디입니다.\"}");
                 request.getRequestDispatcher("join.jsp").forward(request, response);
                 return;
+            } else {
+            	out.print("{\"사용 가능한 아이디입니다.\"}");
             }
 
             UserDTO dto = new UserDTO();
@@ -86,17 +92,19 @@ public class UserServiceImpl implements UserService {
 	            session.setAttribute("pw", resultDto.getPw());
 	            
 	            // 쿠키
-	            if(check != null) {
-	            	Cookie getCookie = new Cookie("userId", id);
-	            	getCookie.setMaxAge(20);
-	            	response.addCookie(getCookie);
+	            if(check != null && check.equals("check")) {
+	            	Cookie cookie = new Cookie("id", id);
+	            	cookie.setMaxAge(10); // 쿠키 유효 시간 임시로 10초 설정 - 추후 수정할 것
+	            	response.addCookie(cookie);
+	            	response.sendRedirect("../index.jsp");
+	            	cookie.setPath("/");
 	            } else {
-	            	Cookie noCookie = new Cookie("userId", null);
+	            	Cookie noCookie = new Cookie("check", null);
 	            	noCookie.setMaxAge(0);
 	            	response.addCookie(noCookie);
+	            	response.sendRedirect("../index.jsp");
 	            }
 	           
-	            response.sendRedirect("mypage.jsp");
 	            
 	            
 	        } else { // 로그인 실패 시
@@ -110,20 +118,53 @@ public class UserServiceImpl implements UserService {
 	    }
 	}
 		
-
-	@Override
-	public void getInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	@Override
 	public void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+		String rePw = request.getParameter("rePw");
+		String name = request.getParameter("name");
+		
+		UserDTO dto = new UserDTO(id, pw, name);
+        
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+        	UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        	
+        	if (pw == null || rePw == null || !pw.equals(rePw)) {
+        		request.setAttribute("error", "비밀번호를 정확히 입력해주세요.");
+        		request.getRequestDispatcher("modify.jsp").forward(request, response);
+        		return;
+        	}
+        	
+        	
+        	int result = mapper.update(dto);
+        	
+        	if (result == 1) {
+        		HttpSession session = request.getSession();
+        		PrintWriter out = response.getWriter();
+    			out.println("<script>");
+    			out.println("alert('회원 정보가 수정되었습니다.');");
+    			out.println("location.href='mypage.user';");
+    			out.println("</script>");
+        		
+        	} else {
+        		response.sendRedirect("mypage.user");
+        	}
+		}
+        
+        catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("error", "다시 시도해 보세요.");
+			request.getRequestDispatcher("modify.jsp").forward(request, response);
+		}
+	} 
+	
+	@Override
+	public void getPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

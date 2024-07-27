@@ -16,7 +16,7 @@ public interface UserService {
 	void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
 	// 정보 조회
-	void getInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	void getPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
 	// 정보 수정
 	void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;

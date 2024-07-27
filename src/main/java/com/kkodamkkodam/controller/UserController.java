@@ -50,6 +50,8 @@ public class UserController extends HttpServlet{
 	    	service.login(request, response);
 	    } else if (command.equals("/user/modify.user")) {
 	    	request.getRequestDispatcher("modify.jsp").forward(request, response);
+	    } else if (command.equals("/user/modifyForm.user")) {
+	    	service.update(request, response);
 	    } else if (command.equals("/user/mypage.user")) {
 	    	request.getRequestDispatcher("mypage.jsp").forward(request, response);
 	    } else if (command.equals("/user/logout.user")) {
@@ -58,6 +60,8 @@ public class UserController extends HttpServlet{
 			response.sendRedirect(request.getContextPath()+"/index.jsp"); // 메인 화면으로
 		} else if (command.equals("/user/delete.user")) {
 			request.getRequestDispatcher("delete.jsp").forward(request, response);
+		} else if (command.equals("/user/delete_check.user")) {
+			request.getRequestDispatcher("delete_check.jsp").forward(request, response);
 		}
 	}
 }

@@ -22,7 +22,7 @@
 	</select>
 	
 	<!-- 정보 조회 -->
-	<select id="getInfo" resultType="com.kkodamkkodam.user.model.UserDTO">
+	<select id="getPost" resultType="com.kkodamkkodam.user.model.UserDTO">
 		SELECT * FROM USERS WHERE USER_NO = #{user_no}
 	</select>
 	
