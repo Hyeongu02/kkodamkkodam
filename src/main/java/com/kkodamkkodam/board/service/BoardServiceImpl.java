@@ -38,8 +38,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public void getContent(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void getContent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int postNo=Integer.parseInt(request.getParameter("postNo"));
 		int boardId=Integer.parseInt(request.getParameter("boardId"));
 		Map<String, Object> params = new HashMap<>();
@@ -71,7 +70,6 @@ public class BoardServiceImpl implements BoardService {
 		Long postNo=Long.parseLong(request.getParameter("postNo"));
 		String commentContent=request.getParameter("commentContent");
 		CommentDTO dto = new CommentDTO(userNo, boardId, postNo, commentContent, null, null, null, null);
-		
 		//마이바티스 실행
 		SqlSession sql = sqlSessionFactory.openSession(true);
 		BoardMapper mapper = sql.getMapper(BoardMapper.class);
@@ -82,5 +80,24 @@ public class BoardServiceImpl implements BoardService {
 		//dto를 request에 담고 forward 화면으로 이동
 		request.getRequestDispatcher("post_view.jsp").forward(request, response);	
 		
+	}
+  @Override
+	public void miniWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int postNo=Integer.parseInt(request.getParameter("postNo"));
+		int boardId=Integer.parseInt(request.getParameter("boardId"));
+		Map<String, Object> params = new HashMap<>();
+        params.put("postNo", postNo);
+        params.put("boardId", boardId);
+        
+
+		//마이바티스 실행
+		SqlSession sql = sqlSessionFactory.openSession(true);
+		BoardMapper mapper = sql.getMapper(BoardMapper.class);
+		mapper.commentWrite(params);
+		sql.close(); //마이바티스 세션 종료
+		
+		//dto를 request에 담고 forward 화면으로 이동
+		request.getRequestDispatcher("post_list.jsp").forward(request, response);	
 	}
 }

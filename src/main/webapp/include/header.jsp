@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-	
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>헤더</title>
-
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css">
 <script src="${pageContext.request.contextPath }/resources/js/jquery.js"></script>
@@ -58,15 +57,17 @@
 			<div class="dropdown drop-btn">
 				<button type="button" class="menu-btn dropdown-toggle"
 					data-toggle="dropdown">미니 게시판</button>
+				<!-- ul 태그 전체 수정 -->
 				<ul class="dropdown-menu drop-menu">
-					<li><a class="dropdown-item drop-list" href="#">개설 신청</a></li>
-					<li><a class="dropdown-item drop-list" href="#">목록</a></li>
+					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/post_write_mini.jsp">개설 신청</a></li>
+					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/post_list.jsp">개설 신청 목록</a></li>
+					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/mini.jsp">게시판 전체보기</a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="right-btn">
-			<button type="button" onclick="location.href = '#'" class="btn-join">회원가입</button>
-			<button type="button" onclick="location.href = '#'" class="btn-login">로그인</button>
+			<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/join.jsp'" class="btn-join">회원가입</button>
+			<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/login.jsp'" class="btn-login">로그인</button>
 		</div>
 		
 		

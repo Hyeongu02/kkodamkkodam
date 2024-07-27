@@ -58,6 +58,10 @@
 		)
 	</insert>
 	
+	<insert id="miniWrite" parameterType="Map">
+		INSERT INTO POST (POST_NO, USER_NO, BOARD_ID, TITLE, VIEW_COUNT, REGDATE, CONTENT) VALUES ({#postNo}, #{userNo}, #{boardId}, #{title}, {#viewCount}, SYSDATE, {#content})
+	</insert>
+		
 </mapper>
 
 
