@@ -48,12 +48,12 @@
 			<img src="${pageContext.request.contextPath }/resources/img/logo.png" alt="로고">
 		</div>
 		<div class="header-menu">
-			<button type="button" onclick="location.href='${pageContext.request.contextPath}/board/list.board'" class="menu-btn">자유
+			<button type="button" onclick="location.href='${pageContext.request.contextPath}/board/list.board?boardId=1'" class="menu-btn">자유
 				게시판</button>
-			<button type="button" onclick="location.href = '#'" class="menu-btn">질문
+			<button type="button" onclick="location.href='${pageContext.request.contextPath}/board/list.board?boardId=2'" class="menu-btn">질문
 				게시판</button>
-                <button type="button"  onclick="location.href = '#'" class="menu-btn">코드 리뷰</button>
-                <button type="button"  onclick="location.href = '#'" class="menu-btn">정보 공유</button>
+                <button type="button"  onclick="location.href='${pageContext.request.contextPath}/board/list.board?boardId=3'" class="menu-btn">코드 리뷰</button>
+                <button type="button"  onclick="location.href='${pageContext.request.contextPath}/board/list.board?boardId=4'" class="menu-btn">정보 공유</button>
 			<div class="dropdown drop-btn">
 				<button type="button" class="menu-btn dropdown-toggle"
 					data-toggle="dropdown">미니 게시판</button>
