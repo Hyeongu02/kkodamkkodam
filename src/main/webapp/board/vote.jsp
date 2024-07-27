@@ -21,7 +21,7 @@
 		<button type="button" class="title_right">
 			<span class="glyphicon glyphicon-thumbs-up"></span>
 		</button>
-		<button type="button" class="title_left" onclick="location.href='${pageContext.request.contextPath }/board/post_write.jsp'">새 글(write)</button>
+		<button type="button" class="title_left" onclick="location.href='${pageContext.request.contextPath }/board/post_write_mini.jsp'">새 글(write)</button>
 	</div>
 
 	<div class="content">

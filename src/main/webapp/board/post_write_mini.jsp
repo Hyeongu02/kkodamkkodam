@@ -19,16 +19,16 @@
             <p>데뷔 예정 그룹의 경우 데뷔명이 확정되지 않아도 신청이 가능합니다.</p>
 
             <div class="detail">신설 요청 방법</div>
-            <p>1. '새 글'을 누르고 게시물 제목을 'OO 미니 게시판 신설 요청합니다'로 적습니다.</p>
+            <p>1. '새 글'을 누르고 게시물 제목을 신설하시고 싶은 게시물 이름으로 적습니다.</p>
             <p>2. 내용란 하단에 양식이 준비되어 있으며, 요청 사유를 적습니다. <span class="remarks">(투표는 자동으로 생성됩니다)</span></p>
-            <p>3. 투표는 7일 간 진행되며, 7일 간 찬성이 15명이 넘으면 신설을 검토합니다.</p>
+            <p>3. 투표는 7일 간 진행되며, 20명 이상이 투표를 하고 찬성이 60%를 넘으면 신설을 검토합니다.</p>
             <p>데뷔 예정 그룹의 경우 데뷔명이 확정되지 않아도 신청이 가능합니다.</p>
         </div>
 
         <div class="form-group title">
-            <div class="title">게시물 이름</div>
+            <div class="title">게시물 제목</div>
             <div class="input-group">
-                    <input type="text" class="title-name" placeholder="OOO 미니 게시판 신설 요청합니다"> 
+                    <input type="text" class="title-name" placeholder="게시물 이름"> 
             </div>
         </div>
 
@@ -61,7 +61,7 @@
      
         <div class="form-group contents">
             <div class="content">요청 사유</div>
-            <textarea class="form-control" rows="10" id="content" style="resize:none;"></textarea>
+            <textarea class="form-control" rows="10" id="content"></textarea>
         </div>
 
         <div class="btn-wrap btns">
@@ -69,3 +69,4 @@
             <button type="button" class="btn btn-default right" onclick="location.href = '${pageContext.request.contextPath }/board/post_list.jsp'">취소</button>
         </div>
     </div>  
+<%@ include file="../include/footer.jsp"%>
