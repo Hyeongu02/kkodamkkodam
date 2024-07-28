@@ -24,7 +24,7 @@
 					placeholder=" 닉네임" class="join-input" name="name"> 
 			</div>
 		</div>
-		<p style="font-size : 13px; colo : red;">${message }</p>
+		<p style="font-size : 13px; color : red;" class="idCheck"></p>
 		<div>
 			<button type="submit" class="join-btn">회원
 				가입</button>
@@ -34,25 +34,29 @@
 </div>
 
 <script>
-	function checkId() {
-	    var id = document.getElementById("userId").value;
-	    var resultElement = document.getElementById("idCheckResult");
-	    
-	    if (id.trim() === "") {
-	        resultElement.textContent = "아이디를 입력해주세요.";
-	        return;
-	    }
-	
-	    fetch('joinForm.user?action=checkId&id=' + encodeURIComponent(id))
-	        .then(response => response.text())
-	        .then(result => {
-	            resultElement.textContent = result;
-	        })
-	        .catch(error => {
-	            resultElement.textContent = "오류가 발생했습니다.";
-	            console.error('Error:', error);
-	        });
-	}
+	var checkId = function() {
+	  var id = document.querySelector("input[name=id]").value;
+	  var idCheck = document.querySelector(".idCheck");
+
+	  if (id.trim() == "") { // 공백이어도 사용 가능하다고 떠서 추가함
+	    idCheck.textContent = "아이디를 입력해주세요.";
+	    return;
+	  }
+
+	  var url = "joinForm.user?action=checkId&id=" + encodeURIComponent(id);
+
+	  fetch(url)
+	    .then(function(response) {
+	      return response.text();
+	    })
+	    .then(function(result) {
+	      idCheck.textContent = result;
+	    })
+	    .catch(function(error) {
+	      idCheck.textContent = "오류가 발생했습니다.";
+	      console.error('Error:', error);
+	    });
+	};
 </script>
 
 

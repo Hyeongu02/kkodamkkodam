@@ -9,6 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public interface UserService {
+	
+	// 중복 확인
+	void checkId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+
 	// 가입
 	void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	

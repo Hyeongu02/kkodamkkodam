@@ -21,10 +21,44 @@ public class UserServiceImpl implements UserService {
 	
 	private SqlSessionFactory sqlSessionFactory = MybatisUtil.getSqlSessionFactory();
 	
+
+	@Override
+	public void checkId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String id = request.getParameter("id");
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = sqlSessionFactory.openSession();
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+            response.setContentType("text/plain;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+
+            if (mapper.checkId(id) != null) {
+                out.print("이미 존재하는 아이디입니다.");
+            } else {
+                out.print("사용 가능한 아이디입니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().print("오류가 발생했습니다.");
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+	}
+	
 	// 가입
 	@Override
 	public void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	    String action = request.getParameter("action");
+	    
+	    if ("checkId".equals(action)) {
+	        checkId(request, response);
+	        return;
+	    }
+	    
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		String name = request.getParameter("name");
@@ -41,15 +75,7 @@ public class UserServiceImpl implements UserService {
             	request.getRequestDispatcher("join.jsp").forward(request, response);
             	return;
             }          
-            
-            if (mapper.checkId(id) != null) {
-            	request.setAttribute("message", "이미 존재하는 아이디입니다.");
-                request.getRequestDispatcher("join.jsp").forward(request, response);
-                return;
-            } else {
-            	request.setAttribute("message", "사용 가능한 아이디입니다.");
-            }
-
+          
             UserDTO dto = new UserDTO();
             dto.setId(id);
             dto.setPw(pw);
@@ -190,7 +216,6 @@ public class UserServiceImpl implements UserService {
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-
 		UserDTO userInfo = (UserDTO) session.getAttribute("user");
 	    if (userInfo == null) {
 	        response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -248,5 +273,7 @@ public class UserServiceImpl implements UserService {
 	        }
 	    }
 	}
+
+
 
 }
