@@ -1,7 +1,8 @@
+<%@page import="com.kkodamkkodam.user.model.UserDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-	
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,7 +68,7 @@
 
 		 <!-- 로그인 유무에 따라 변하는 버튼 -->
 		 <c:choose>
-           	<c:when test="${sessionScope.id == null }">
+           	<c:when test="${sessionScope.user == null }">
 				<div class="right-btn">
 					<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/join.jsp'" class="btn-join">회원가입</button>
 					<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/login.jsp'" class="btn-login">로그인</button>
