@@ -19,8 +19,11 @@ public interface UserService {
 	// 로그인
 	void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
-	// 정보 조회
+	// 내가 쓴 조회
 	void getPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	
+	// 내가 쓴 댓글 조회
+	void getComment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	
 	// 정보 수정
 	void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;

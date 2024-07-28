@@ -213,6 +213,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void getComment(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
@@ -273,6 +280,7 @@ public class UserServiceImpl implements UserService {
 	        }
 	    }
 	}
+
 
 
 
