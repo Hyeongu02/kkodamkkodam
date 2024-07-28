@@ -28,7 +28,10 @@
 	</select>
 	<select id="getComment" resultType="com.kkodamkkodam.board.model.CommentDTO">
 		SELECT
+			c.comment_no,
 		    c.user_no,
+		    c.board_id,
+		    c.post_no,
 		    c.comment_content,
 		    c.regdate,
 		    c.like_count,
@@ -38,6 +41,7 @@
 		join post_comment c
 		on p.post_no=c.post_no
 		WHERE p.board_id = 1 AND p.POST_No = 1
+        order by c.comment_no asc, c.parent_id asc
 	</select>
 	<update id="increaseView" parameterType="Map">
 		UPDATE post SET VIEW_COUNT = VIEW_COUNT + 1 WHERE board_id = #{boardId} AND POST_No = #{postNo}
@@ -55,6 +59,24 @@
 		    #{postNo},                     
 		    #{commentContent},       
 		    SYSTIMESTAMP
+		)
+	</insert>
+	
+	<insert id="replyWrite" parameterType="com.kkodamkkodam.board.model.CommentDTO">
+		INSERT INTO POST_COMMENT (
+		    USER_NO,
+		    BOARD_ID,
+		    POST_NO,
+		    COMMENT_CONTENT,
+		    REGDATE,
+		    PARENT_ID
+		) VALUES (
+		    #{userNo},                         
+		    #{boardId},
+		    #{postNo},                     
+		    #{commentContent},       
+		    SYSTIMESTAMP,
+		    #{parentId}
 		)
 	</insert>
 	

@@ -45,8 +45,10 @@ public class BoardController extends HttpServlet {
 			service.getList(request, response);
 		}else if(command.equals("/board/getContent.board")) { //글 내용 보기
 			service.getContent(request, response);
-		}else if(command.equals("/board/commentWrite.board")) { //글 내용 보기
+		}else if(command.equals("/board/commentWrite.board")) { //댓글 작성
 			service.commentWrite(request, response);
+		}else if(command.equals("/board/replyWrite.board")) { //대댓글 작성
+			service.replyWrite(request, response);
 		}
 		////////////////////////////////////////////////////////////////
 		else if(command.equals("/board/miniWrite.board")) { // 미니 게시판 

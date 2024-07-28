@@ -69,7 +69,7 @@ public class BoardServiceImpl implements BoardService {
 		Long boardId=Long.parseLong(request.getParameter("boardId"));
 		Long postNo=Long.parseLong(request.getParameter("postNo"));
 		String commentContent=request.getParameter("commentContent");
-		CommentDTO dto = new CommentDTO(userNo, boardId, postNo, commentContent, null, null, null, null);
+		CommentDTO dto = new CommentDTO(null, userNo, boardId, postNo, commentContent, null, null, null, null);
 		//마이바티스 실행
 		SqlSession sql = sqlSessionFactory.openSession(true);
 		BoardMapper mapper = sql.getMapper(BoardMapper.class);
@@ -78,10 +78,35 @@ public class BoardServiceImpl implements BoardService {
 		sql.close(); //마이바티스 세션 종료
 		
 		//dto를 request에 담고 forward 화면으로 이동
-		request.getRequestDispatcher("post_view.jsp").forward(request, response);	
+		request.getRequestDispatcher("getContent.board").forward(request, response);	
 		
 	}
-  @Override
+	
+	@Override
+	public void replyWrite(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+//		int userNo=(int)session.getAttribute("userNo");
+		Long userNo=1L;
+		Long boardId=Long.parseLong(request.getParameter("boardId"));
+		Long postNo=Long.parseLong(request.getParameter("postNo"));
+		String commentContent=request.getParameter("commentContent");
+		Long parentId=Long.parseLong(request.getParameter("parentId"));
+		
+		CommentDTO dto = new CommentDTO(null, userNo, boardId, postNo, commentContent, null, null, parentId, null);
+		//마이바티스 실행
+		SqlSession sql = sqlSessionFactory.openSession(true);
+		BoardMapper mapper = sql.getMapper(BoardMapper.class);
+		mapper.replyWrite(dto);
+		
+		sql.close(); //마이바티스 세션 종료
+		
+		//dto를 request에 담고 forward 화면으로 이동
+		request.getRequestDispatcher("getContent.board").forward(request, response);
+		
+	}
+	@Override
 	public void miniWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int postNo=Integer.parseInt(request.getParameter("postNo"));
@@ -94,7 +119,6 @@ public class BoardServiceImpl implements BoardService {
 		//마이바티스 실행
 		SqlSession sql = sqlSessionFactory.openSession(true);
 		BoardMapper mapper = sql.getMapper(BoardMapper.class);
-		mapper.commentWrite(params);
 		sql.close(); //마이바티스 세션 종료
 		
 		//dto를 request에 담고 forward 화면으로 이동
