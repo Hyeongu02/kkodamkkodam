@@ -2,7 +2,6 @@ package com.kkodamkkodam.user.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -21,7 +20,7 @@ public class UserServiceImpl implements UserService {
 	
 	private SqlSessionFactory sqlSessionFactory = MybatisUtil.getSqlSessionFactory();
 	
-
+	// 중복 검사
 	@Override
 	public void checkId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -100,7 +99,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 	
-	
+	// 로그인
 	@Override
 	public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    
@@ -155,11 +154,11 @@ public class UserServiceImpl implements UserService {
 	    }
 	}
 
+	// 수정
 	@Override
 	public void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 
 		HttpSession session = request.getSession();
-		UserDTO userInfo = (UserDTO) session.getAttribute("user");
 		
 		String id = request.getParameter("id");
 	    String pw = request.getParameter("pw");
@@ -204,21 +203,8 @@ public class UserServiceImpl implements UserService {
 	        }
 	    }
 	}
-	
-	
-	@Override
-	public void getPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-	}
 
-	@Override
-	public void getComment(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		
-	}
-	
+	// 삭제
 	@Override
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -279,6 +265,94 @@ public class UserServiceImpl implements UserService {
 	            sqlSession.close();
 	        }
 	    }
+	}
+
+	// 계정 조회
+	@Override
+	public void find(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		
+		UserDTO dto = new UserDTO();
+		dto.setId(id);
+		dto.setName(name);
+		
+		UserDTO resultDto = null;
+		SqlSession sqlSession = null;
+		
+		try {
+			sqlSession = sqlSessionFactory.openSession();
+			UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+			
+			resultDto = mapper.find(id, name);
+			
+			if (resultDto != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("user", resultDto);
+			} else {
+				request.setAttribute("error", "사용자 정보를 찾을 수 없습니다.");
+				request.getRequestDispatcher("password.jsp").forward(request, response);
+			}
+				request.getRequestDispatcher("rePassword.jsp").forward(request, response);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+	
+	
+	}
+
+	// 비밀번호 변경
+	@Override
+	public void change(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+		String rePw = request.getParameter("rePw");
+		String name = request.getParameter("name");
+		
+		if (pw == null || rePw == null || !pw.equals(rePw)) {
+			session.setAttribute("error ", "비밀번호를 올바르게 입력해 주세요.");
+			request.getRequestDispatcher("rePassword.jsp").forward(request, response);
+			return;
+		}
+		
+		UserDTO dto = new UserDTO(id, pw, name);
+		SqlSession sqlSession = null;
+		
+		try {
+			sqlSession  = sqlSessionFactory.openSession();
+			UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+			
+			int result = mapper.change(dto);
+			
+			if (result == 1) {
+				sqlSession.commit();
+				session.setAttribute("pw", dto);
+	            response.setContentType("text/html; charset=UTF-8");
+	            PrintWriter out = response.getWriter();
+	            out.println("<script>");
+	            out.println("alert('비밀번호가 변경되었습니다.');");
+	            out.println("location.href='" + request.getContextPath() + "/user/login.user';");
+	            out.println("</script>");
+			} else {
+				request.getRequestDispatcher("rePassword.jsp").forward(request, response);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("error", "다시 시도해 주세요.");
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
 	}
 
 

@@ -69,7 +69,7 @@
 
 		 <!-- 로그인 유무에 따라 변하는 버튼 -->
 		 <c:choose>
-           	<c:when test="${sessionScope.user == null }">
+           	<c:when test="${sessionScope.user == null}">
 				<div class="right-btn">
 					<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/join.user'" class="btn-join">회원가입</button>
 					<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/login.user'" class="btn-login">로그인</button>

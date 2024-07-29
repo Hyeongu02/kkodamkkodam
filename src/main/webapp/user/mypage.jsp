@@ -21,7 +21,7 @@
               <thead>
                 <tr>
                   <th>선택</th>
-                  <th>글 번호</th>
+                  <th>게시판</th>
                   <th>글 제목</th>
                   <th>작성일</th>
                   <th>조회수</th>
@@ -31,7 +31,7 @@
               <tbody>
                 <tr>
                   <td class="td_check"><input type="checkbox"></td>
-                  <td class="num">253</td>
+                  <td class="board_type">자유 게시판</td>
                   <td class="subject"><a href="#">요즘, 제가 즐겨듣는 노래입니다.</a></td>
                   <td class="date">01-19</td>
                   <td class="hits">99</td>
@@ -39,7 +39,7 @@
                 </tr>
                 <tr>
                   <td class="td_check"><input type="checkbox"></td>
-                  <td class="num">253</td>
+                  <td class="board_type">자유 게시판</td>
                   <td class="subject"><a href="#">요즘, 제가 즐겨듣는 노래입니다.</a></td>
                   <td class="date">01-19</td>
                   <td class="hits">99</td>
@@ -71,7 +71,7 @@
               <thead>
                 <tr>
                   <th>선택</th>
-                  <th>댓글 번호</th>
+                  <th>게시판</th>
                   <th>댓글 내용</th>
                   <th>작성일</th>
                   <th>좋아요</th>
@@ -80,14 +80,14 @@
               <tbody>
                 <tr>
                   <td class="td_check"><input type="checkbox"></td>
-                  <td class="num">253</td>
+                  <td class="board_type">자유 게시판</td>
                   <td class="subject"><a href="#">요즘, 제가 즐겨듣는 노래입니다.</a></td>
                   <td class="date">01-19</td>
                   <td class="likes">3</td>
                 </tr>
                 <tr>
                   <td class="td_check"><input type="checkbox"></td>
-                  <td class="num">253</td>
+                  <td class="board_type">자유 게시판</td>
                   <td class="subject"><a href="#">요즘, 제가 즐겨듣는 노래입니다.</a></td>
                   <td class="date">01-19</td>
                   <td class="likes">3</td>
