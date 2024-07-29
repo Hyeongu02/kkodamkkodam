@@ -81,7 +81,7 @@
 						<button type="button" class="dropdown-toggle btn-my" data-toggle="dropdown">내 정보</button>
 						<ul class="dropdown-menu drop-menu2" style="min-width: 65px;">
 							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/modify.user">정보 수정</a></li>
-							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/mypage.user">활동 내역</a></li>
+							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/mypage.user">활동 로그</a></li>
 							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/delete.user">회원 탈퇴</a></li>
 						</ul>
 					</div>			

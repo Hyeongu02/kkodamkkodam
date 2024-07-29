@@ -14,7 +14,7 @@
 		<div class="join-box">
 			<div>
 				<i class="fa-regular fa-envelope user-icon1"></i> <input type="email"
-					placeholder=" 이메일" class="join-input id-input" name="id">
+					placeholder=" 아이디 - 이메일 주소" class="join-input id-input" name="id">
 				<button type="button" class="check-btn" onclick="checkId()">중복 확인</button>
 				<i class="fa-solid fa-lock user-icon2"></i> <label></label><input type="password"
 					placeholder=" 비밀번호 - 특수문자 제외 6자 이상" class="join-input" name="pw" required="required" pattern="[0-9A-Za-z]{6,}"> <i

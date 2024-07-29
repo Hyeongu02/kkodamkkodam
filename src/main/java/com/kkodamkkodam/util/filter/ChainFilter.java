@@ -30,7 +30,7 @@ public class ChainFilter implements Filter{
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession();
         
-        String user = (String)session.getAttribute("user");
+        UserDTO user = (UserDTO)session.getAttribute("user");
         
         if (user == null) {
         	// 로그인 되지 않은 상태
