@@ -20,19 +20,19 @@
                  이미지 크기는 항상 똑같아야함-->
             <div class="carousel-inner">
               <div class="item active">
-                <img src="img/slide01.jpg" alt="슬라이드1">
+                <img src="../resources/img/slide1.jpg" alt="슬라이드1">
               </div>
           
               <div class="item">
-                <img src="img/slide02.png" alt="슬라이드2">
+                <img src="../resources/img/slide2.png" alt="슬라이드2">
               </div>
           
               <div class="item">
-                <img src="img/slide03.jpg" alt="슬라이드3">
+                <img src="../resources/img/slide3.jpg" alt="슬라이드3">
               </div>
 
               <div class="item">
-                <img src="img/slide04.png" alt="슬라이드4">
+                <img src="../resources/img/slide4.png" alt="슬라이드4">
               </div>
             </div>
           
@@ -51,7 +51,7 @@
       <section id="board-title" class="title">
         <div class="wrap" >
           <div class="left">
-          <h4 class="board-connected"><c:out value="${list[0].boardType}" /> 게시판</h4>
+          <h4 class="board-connected"><c:out value="${boardType}" /> 게시판</h4>
         </div>
         <div class="input-group right">
             <input type="text" class="form-control" placeholder="Search">
@@ -89,14 +89,18 @@
       </tbody>
       </table>
 
+	  <div style="text-align: right;">
+      	<button type="button" class="btn btn-info" style="margin-right : 25px; margin-top:15px; min-width:70px" onclick = "location.href='post_write.board?boardId=${list[0].boardId}'">글쓰기</button>
+	  </div>
+
       <div class="numlist">
-      <ul class="pagination num">
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-      </ul>
+	      <ul class="pagination num">
+	        <li><a href="#">1</a></li>
+	        <li><a href="#">2</a></li>
+	        <li><a href="#">3</a></li>
+	        <li><a href="#">4</a></li>
+	        <li><a href="#">5</a></li>
+	      </ul>
       </div>
   </div>
   
