@@ -31,6 +31,10 @@
 	<update id="commentWrite" parameterType="Map">
 	</update>
 	
+	<update id="postRegi" parameterType="com.kkodamkkodam.board.model.BoardDTO">
+		INSERT INTO POST (post_no, title, content, user_no, board_id)
+		values(post_seq.nextval, #{title}, #{content}, #{userNo}, #{boardId})
+	</update>
 </mapper>
 
 

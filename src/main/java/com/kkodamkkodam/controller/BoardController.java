@@ -41,12 +41,19 @@ public class BoardController extends HttpServlet {
 		
 		BoardService service =new BoardServiceImpl();;
 		
-		if(command.equals("/board/list.board")) { //글 목록
+		if(command.equals("/board/post_list.board")) { //글 목록
 			service.getList(request, response);
 		}else if(command.equals("/board/getContent.board")) { //글 내용 보기
 			service.getContent(request, response);
-		}else if(command.equals("/board/commentWrite.board")) { //글 내용 보기
+		}else if(command.equals("/board/commentWrite.board")) { //댓글 내용 보기
 			service.commentWrite(request, response);
+		}else if(command.equals("/board/post_write.board")) { //글 작성 화면
+			service.postWrite(request, response);
+//		}else if(command.equals(service)) {            //글 삭제
+//			service.postDelete(request, response);
+		}else if(command.equals("/board/post_regi.board")) { //글 등록
+			service.postRegi(request, response);
+			
 		}
 	}
 }
