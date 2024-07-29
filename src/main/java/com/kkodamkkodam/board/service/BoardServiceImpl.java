@@ -155,16 +155,16 @@ public class BoardServiceImpl implements BoardService {
 //		int boardId = Integer.parseInt(request.getParameter("boardId"));
 	    String boardIdStr = request.getParameter("boardId");
 
-	    int boardId = 0;
+	    Long boardId = 0L;
 	    if (boardIdStr != null && !boardIdStr.isEmpty()) {
 	        try {
-	            boardId = Integer.parseInt(boardIdStr);
+	            boardId = Long.parseLong(boardIdStr);
 	        } catch (NumberFormatException e) {
 	            // Handle the exception
 	            throw new ServletException("Invalid boardId format", e);
 	        }
 	    }
-		int userNo = 1;
+		Long userNo = 1L;
 
 //		TIMESTAMP regdate = new TIMESTAMP(Date.getCurrentDate());
 //		System.out.println(regdate);
@@ -183,8 +183,8 @@ public class BoardServiceImpl implements BoardService {
 		sql.close();
 		
 		response.sendRedirect("post_list.board");
-		
-
+	}
+	
 	@Override
 	public void miniWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -192,7 +192,7 @@ public class BoardServiceImpl implements BoardService {
       String boardType = request.getParameter("boardType");
       String content = request.getParameter("content");
       
-      BoardDTO dto = new BoardDTO(0, 0, 0, null, 0, null, 0, content, null, null, boardType, boardCategory);
+      BoardDTO dto = new BoardDTO(null, null, null, null, null, null, null, content, null, null, boardType, boardCategory);
       
       SqlSession sql = sqlSessionFactory.openSession(true);
       BoardMapper mapper = sql.getMapper(BoardMapper.class);
@@ -207,7 +207,7 @@ public class BoardServiceImpl implements BoardService {
 		
 		String boardCategory=request.getParameter("boardCategory");
 		
-	    BoardDTO dto = new BoardDTO(0, 0, 0, null, 0, null, 0, null, null, null, null, boardCategory);
+	    BoardDTO dto = new BoardDTO(null, null, null, null, null, null, null, null, null, null, null, boardCategory);
 	    
 	    SqlSession sql = sqlSessionFactory.openSession(true);
 	    BoardMapper mapper = sql.getMapper(BoardMapper.class);

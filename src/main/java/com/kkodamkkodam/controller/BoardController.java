@@ -57,12 +57,11 @@ public class BoardController extends HttpServlet {
 			service.commentWrite(request, response);
 		}else if(command.equals("/board/replyWrite.board")) { //대댓글 작성
 			service.replyWrite(request, response);
-		}
 		}else if(command.equals("/board/miniWrite.board")) {
 	        request.getRequestDispatcher("post_write_mini.jsp").forward(request, response);
-	  } else if(command.equals("/board/miniWriteForm.board")) {
+		}else if(command.equals("/board/miniWriteForm.board")) {
 	        service.miniWrite(request, response);
-	  }
+		}
 	        
 		////////////////////////////
 //		else if(command.equals("/board/voteContent.board")) { // 투표
