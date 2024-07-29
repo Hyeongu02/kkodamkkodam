@@ -2,6 +2,7 @@ package com.kkodamkkodam.board.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -130,6 +131,60 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void postWrite(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		response.sendRedirect("post_write.jsp");
+	}
+
+	@Override
+	public void postDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		
+	}
+
+	@Override
+	public void postRegi(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+//		int boardId = Integer.parseInt(request.getParameter("boardId"));
+	    String boardIdStr = request.getParameter("boardId");
+
+	    int boardId = 0;
+	    if (boardIdStr != null && !boardIdStr.isEmpty()) {
+	        try {
+	            boardId = Integer.parseInt(boardIdStr);
+	        } catch (NumberFormatException e) {
+	            // Handle the exception
+	            throw new ServletException("Invalid boardId format", e);
+	        }
+	    }
+		int userNo = 1;
+
+//		TIMESTAMP regdate = new TIMESTAMP(Date.getCurrentDate());
+//		System.out.println(regdate);
+		
+		BoardDTO dto = new BoardDTO();
+		dto.setTitle(title);
+		dto.setContent(content);
+		dto.setUserNo(userNo);
+		dto.setBoardId(boardId);
+//		dto.setRegdate(regdate);
+		
+		SqlSession sql = sqlSessionFactory.openSession(true);
+		BoardMapper mapper = sql.getMapper(BoardMapper.class);
+		mapper.postRegi(dto);
+		
+		sql.close();
+		
+		response.sendRedirect("post_list.board");
+		
+
 	@Override
 	public void miniWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
