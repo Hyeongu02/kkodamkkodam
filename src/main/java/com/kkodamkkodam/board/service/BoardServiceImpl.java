@@ -81,23 +81,38 @@ public class BoardServiceImpl implements BoardService {
 		request.getRequestDispatcher("post_view.jsp").forward(request, response);	
 		
 	}
-  @Override
+	//////////////////////////////////////////////////////////////
+	@Override
 	public void miniWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int postNo=Integer.parseInt(request.getParameter("postNo"));
-		int boardId=Integer.parseInt(request.getParameter("boardId"));
-		Map<String, Object> params = new HashMap<>();
-        params.put("postNo", postNo);
-        params.put("boardId", boardId);
-        
+	  String boardCategory = request.getParameter("boardCategory");
+      String boardType = request.getParameter("boardType");
+      String content = request.getParameter("content");
+      
+      BoardDTO dto = new BoardDTO(0, 0, 0, null, 0, null, 0, content, null, null, boardType, boardCategory);
+      
+      SqlSession sql = sqlSessionFactory.openSession(true);
+      BoardMapper mapper = sql.getMapper(BoardMapper.class);
+      mapper.miniWrite(dto);
+      sql.close();
 
-		//마이바티스 실행
-		SqlSession sql = sqlSessionFactory.openSession(true);
-		BoardMapper mapper = sql.getMapper(BoardMapper.class);
-		mapper.commentWrite(params);
-		sql.close(); //마이바티스 세션 종료
+      response.sendRedirect(request.getContextPath() + "/board/list.board");
+	}
+  
+	@Override
+	public void voteContent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String boardCategory=request.getParameter("boardCategory");
+		
+	    BoardDTO dto = new BoardDTO(0, 0, 0, null, 0, null, 0, null, null, null, null, boardCategory);
+	    
+	    SqlSession sql = sqlSessionFactory.openSession(true);
+	    BoardMapper mapper = sql.getMapper(BoardMapper.class);
+	    mapper.voteContent(dto);
+	    sql.close();
 		
 		//dto를 request에 담고 forward 화면으로 이동
-		request.getRequestDispatcher("post_list.jsp").forward(request, response);	
+		request.setAttribute("dto", dto);
+		request.getRequestDispatcher("post_view.jsp").forward(request, response);		
 	}
 }

@@ -57,9 +57,10 @@
 		    SYSTIMESTAMP
 		)
 	</insert>
-	
-	<insert id="miniWrite" parameterType="Map">
-		INSERT INTO POST (POST_NO, USER_NO, BOARD_ID, TITLE, VIEW_COUNT, REGDATE, CONTENT) VALUES ({#postNo}, #{userNo}, #{boardId}, #{title}, {#viewCount}, SYSDATE, {#content})
+	<!--  -->
+	<insert id="miniWrite" parameterType="com.kkodamkkodam.board.model.BoardDTO">
+		INSERT INTO POST(boardCategory, boardType, content) 
+		VALUES (#{boardCategory}, #{boardType}, #{content} )
 	</insert>
 		
 </mapper>

@@ -11,6 +11,8 @@ public interface BoardMapper {
 	public ArrayList<CommentDTO> getComment(Map<String, Object> params); //댓글 보기
 	public void increaseView(Map<String, Object> params); //조회수
 	public void commentWrite(CommentDTO dto); //댓글작성
-	public void miniWrite(Map<String, Object> params); // 미니 게시판 신설 요청
+	////////////////////////
+	public void miniWrite(BoardDTO dto); // 미니 게시판 신설 요청
+	public void voteContent(BoardDTO dto); // 투표 
 } 
 
