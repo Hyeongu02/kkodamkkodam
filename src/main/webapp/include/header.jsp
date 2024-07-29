@@ -46,7 +46,7 @@
 <body>
 	<header class="header">
 		<div class="logo">
-			<img src="${pageContext.request.contextPath }/resources/img/logo.png" alt="로고">
+			<img src="${pageContext.request.contextPath }/resources/img/logo.png" alt="로고" onclick="home()">
 		</div>
 		<div class="header-menu">
 			<button type="button" onclick="location.href='${pageContext.request.contextPath}/board/list.board?boardId=1'" class="menu-btn">자유
@@ -71,8 +71,8 @@
 		 <c:choose>
            	<c:when test="${sessionScope.user == null }">
 				<div class="right-btn">
-					<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/join.jsp'" class="btn-join">회원가입</button>
-					<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/login.jsp'" class="btn-login">로그인</button>
+					<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/join.user'" class="btn-join">회원가입</button>
+					<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/login.user'" class="btn-login">로그인</button>
 				</div>
            	</c:when> 
             <c:otherwise>
@@ -113,4 +113,10 @@
 		<@ if (request.getAttribute("error") != null) { %>
 			alert('<@ request.getAttribute("error") @>');
 		<@ } @>	
+	</script>
+	
+	<script type="text/javascript">
+		function home() {
+			location.href = '${pageContext.request.contextPath }/index.jsp'
+		}
 	</script>

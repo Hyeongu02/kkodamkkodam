@@ -109,7 +109,7 @@
                   <td class="likes">3</td>
                 </tr>
               </tbody>
-              <button type="button" id="select-all">전체 선택</button>
+              <button type="button" id="select-all" onclick="selectAll(this)">전체 선택</button>
               <button type="button" id="delete-btn">삭제</button>
             </table>
             <div class="pagination-wrap">
@@ -210,7 +210,7 @@
                   <td class="likes">3</td>
                 </tr>
               </tbody>
-              <button type="button" id="select-all">전체 선택</button>
+              <button type="button" id="select-all" onclick="selectAll(this)">전체 선택</button>
               <button type="button" id="delete-btn">삭제</button>
             </table>
             <div class="pagination-wrap">
@@ -229,20 +229,30 @@
    </section>
 </div>
 
-        <script>    
-            var toggle = document.querySelector(".toggle");
-            toggle.addEventListener('click', function(e) {
-    
-                if (e.target.tagName != ("LI")) return;
-    
-                var active = document.querySelector(".toggle-menu.active");
-                active.classList.remove("active");
-    
-                var value = event.target.dataset.id;
-                var tag = document.querySelector(value); // 클릭한 대상에 연결되는 태그
-                tag.classList.add("active");
-            })
-        </script>
+<script>    
+    var toggle = document.querySelector(".toggle");
+    toggle.addEventListener('click', function(e) {
+
+        if (e.target.tagName != ("LI")) return;
+
+        var active = document.querySelector(".toggle-menu.active");
+        active.classList.remove("active");
+
+        var value = event.target.dataset.id;
+        var tag = document.querySelector(value); // 클릭한 대상에 연결되는 태그
+        tag.classList.add("active");
+    })
+</script>
+
+<script type="text/javascript">
+	function selectAll(selectAll) {
+		var checkbox = document.querySelectorAll("input[type=checkbox]");
+		
+		for (var i=0; i<checkbox.length; i++) {
+			checkbox[i].checked = selectAll.checked;
+		}
+	}
+</script>
 
 
 

@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService {
 	            // 쿠키
 	            if (check != null && check.equals("check")) { // 아이디 기억하기 체크했을 시
 	                Cookie cookie = new Cookie("id", id);
-	                cookie.setMaxAge(10); // 쿠키 유효 시간 테스트 때문에 10초 설정 - 추후 수정할 것
+	                cookie.setMaxAge(60); // 쿠키 유효 시간 테스트 때문에 10초 설정 - 추후 수정할 것
 	                cookie.setPath("/");
 	                response.addCookie(cookie);
 	            } else { // 체크 해지 했을 시
@@ -208,14 +208,14 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public void getPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void getComment(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	

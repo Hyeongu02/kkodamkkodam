@@ -94,7 +94,7 @@ public class BoardServiceImpl implements BoardService {
 		//마이바티스 실행
 		SqlSession sql = sqlSessionFactory.openSession(true);
 		BoardMapper mapper = sql.getMapper(BoardMapper.class);
-		mapper.commentWrite(params);
+//		mapper.commentWrite(params); Mapper에는 매개변수가 dto타입으로 설정되어 있는데 map타입으로 넣으니까 오류 발생함, 확인하고 수정할 것
 		sql.close(); //마이바티스 세션 종료
 		
 		//dto를 request에 담고 forward 화면으로 이동
