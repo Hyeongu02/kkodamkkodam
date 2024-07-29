@@ -39,10 +39,11 @@ public class BoardController extends HttpServlet {
 		String command = uri.substring( path.length() );
 		
 		
-		BoardService service =new BoardServiceImpl();;
+		BoardService service =new BoardServiceImpl();
 		
 		if(command.equals("/board/list.board")) { //글 목록
 			service.getList(request, response);
+			request.getRequestDispatcher("post_list.jsp").forward(request, response);
 		}else if(command.equals("/board/getContent.board")) { //글 내용 보기
 			service.getContent(request, response);
 		}else if(command.equals("/board/commentWrite.board")) { //댓글 작성
@@ -50,9 +51,17 @@ public class BoardController extends HttpServlet {
 		}else if(command.equals("/board/replyWrite.board")) { //대댓글 작성
 			service.replyWrite(request, response);
 		}
-		////////////////////////////////////////////////////////////////
-		else if(command.equals("/board/miniWrite.board")) { // 미니 게시판 
-			service.miniWrite(request, response);
-		}
+		}else if(command.equals("/board/miniWrite.board")) {
+	        request.getRequestDispatcher("post_write_mini.jsp").forward(request, response);
+	  } else if(command.equals("/board/miniWriteForm.board")) {
+	        service.miniWrite(request, response);
+	  }
+	        
+		////////////////////////////
+//		else if(command.equals("/board/voteContent.board")) { // 투표
+//			service.voteContent(request, response); 
+//		}
 	}
 }
+
+

@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="title">
-		<h3 class="bold">뉴진스 카테고리 신설 요청합니다</h3>
+		<h3 class="bold">${dto.boardCategory } 카테고리 신설 요청합니다</h3>
 		<p>
 			${dto.regdate }일 전 | 조회 ${dto.viewCount } | <span class="glyphicon glyphicon-thumbs-up"></span>${dto.likeCount }
 		</p>
