@@ -34,11 +34,6 @@
 #wrapped > .post > .post-info > .icon{
     position: relative;
 }
-#wrapped > .post > .post-info > .icon > img{
-    position: absolute;
-    top: 50%; 
-    transform: translateY(-50%); 
-}
 #wrapped > .post > .post-info > .icon > span{
     position: absolute; 
     top: 50%; 

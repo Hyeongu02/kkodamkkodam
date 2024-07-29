@@ -46,6 +46,9 @@
 	<update id="increaseView" parameterType="Map">
 		UPDATE post SET VIEW_COUNT = VIEW_COUNT + 1 WHERE board_id = #{boardId} AND POST_No = #{postNo}
 	</update>
+	<update id="increasePostLike" parameterType="com.kkodamkkodam.board.model.BoardDTO">
+		UPDATE post SET LIKE_COUNT = LIKE_COUNT + 1 WHERE board_id = #{boardId} AND POST_No = #{postNo}
+	</update>
 	<insert id="commentWrite" parameterType="com.kkodamkkodam.board.model.CommentDTO">
 		INSERT INTO POST_COMMENT (
 		    USER_NO,
@@ -79,6 +82,10 @@
 		    #{parentId}
 		)
 	</insert>
+	
+	<update id="increaseCommentLike" parameterType="com.kkodamkkodam.board.model.BoardDTO">
+		UPDATE POST_COMMENT SET LIKE_COUNT = LIKE_COUNT + 1 WHERE COMMENT_NO = #{commentNo};
+	</update>
 	
 	<insert id="miniWrite" parameterType="Map">
 		INSERT INTO POST (POST_NO, USER_NO, BOARD_ID, TITLE, VIEW_COUNT, REGDATE, CONTENT) VALUES ({#postNo}, #{userNo}, #{boardId}, #{title}, {#viewCount}, SYSDATE, {#content})

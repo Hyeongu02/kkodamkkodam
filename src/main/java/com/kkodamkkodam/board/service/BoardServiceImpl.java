@@ -61,6 +61,23 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public void increasePostLike(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Long postNo=Long.parseLong(request.getParameter("postNo"));
+		Long boardId=Long.parseLong(request.getParameter("boardId"));
+		BoardDTO dto=new BoardDTO(postNo, null, boardId, null, null, null, null, null, null, null, null, null);
+		//마이바티스 실행
+		SqlSession sql = sqlSessionFactory.openSession(true);
+		BoardMapper mapper = sql.getMapper(BoardMapper.class);
+		mapper.increasePostLike(dto);
+		
+		sql.close(); //마이바티스 세션 종료
+		
+		//dto를 request에 담고 forward 화면으로 이동
+		request.getRequestDispatcher("getContent.board").forward(request, response);	
+	}
+	
+	@Override
 	public void commentWrite(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -106,6 +123,14 @@ public class BoardServiceImpl implements BoardService {
 		request.getRequestDispatcher("getContent.board").forward(request, response);
 		
 	}
+	
+	@Override
+	public void increaseCommentLike(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public void miniWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

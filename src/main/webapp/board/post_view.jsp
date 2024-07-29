@@ -23,23 +23,23 @@
         <p class="post-content">${dto.content}</p>
 
         <div class="post-info">
-            <span class="icon">
+            <span class="icon" style="height: 0px; display: inline-block;">
                 <span class="material-symbols-outlined" style="font-size:18px;">
                     visibility
                 </span>
             </span>
             <span class="num">${dto.viewCount}</span>
-            <span class="icon">
+            <button class="icon">
                 <span class="material-symbols-outlined" style="font-size:18px;">
                     thumb_up
                 </span>
-            </span>
+            </button>
             <span class="num">${dto.likeCount}</span>
-            <span class="icon">
+            <button class="icon">
                 <span class="material-symbols-outlined" style="font-size:18px;">
                     chat
                 </span>
-            </span>
+            </button>
             <span class="num">2</span>
         </div>
     </div>
