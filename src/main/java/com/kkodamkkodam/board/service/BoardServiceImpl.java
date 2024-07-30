@@ -1,6 +1,7 @@
 package com.kkodamkkodam.board.service;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -13,6 +14,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import com.kkodamkkodam.board.model.BoardDTO;
 import com.kkodamkkodam.board.model.CommentDTO;
 import com.kkodamkkodam.board.model.MiniDTO;
+import com.kkodamkkodam.board.model.VoteDTO;
 import com.kkodamkkodam.user.model.UserDTO;
 import com.kkodamkkodam.board.model.BoardMapper;
 import com.kkodamkkodam.util.mybatis.MybatisUtil;
@@ -300,7 +302,7 @@ public class BoardServiceImpl implements BoardService {
 		request.setAttribute("boardId", boardId);
 		request.getRequestDispatcher("postList.board").forward(request, response);
 	}
-	
+//////////////////////////////////////////////////////// 나린//
 	@Override
 	public void miniWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	  UserDTO userdto = new UserDTO();
@@ -334,8 +336,6 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void voteContent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-        
 		String boardType = request.getParameter("boardType");
 	    String boardCategory = request.getParameter("boardCategory");
 	    Long postNo = Long.parseLong(request.getParameter("postNo"));
@@ -358,7 +358,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void increaseVoteLike(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Long postNo=Long.parseLong(request.getParameter("postNo"));
-		
+
 		MiniDTO dto=new MiniDTO(postNo, null, null, null, null, null, null, null);
 
 		SqlSession sql = sqlSessionFactory.openSession(true);
@@ -367,14 +367,54 @@ public class BoardServiceImpl implements BoardService {
 		
 		sql.close(); //마이바티스 세션 종료
 		
-		//dto를 request에 담고 forward 화면으로 이동
 		request.getRequestDispatcher("voteContent.board").forward(request, response);	
-		
 	}			
+	////////////////////////////////
 	@Override
-	public void getAllList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public void addVote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		try {
+		    Long voteId = Long.parseLong(request.getParameter("voteId"));
+		    Long postNo = Long.parseLong(request.getParameter("postNo"));
+		    Long userNo = Long.parseLong(request.getParameter("userNo"));
+		    Long yesVotes = Long.parseLong(request.getParameter("yesVotes"));
+		    Long noVotes = Long.parseLong(request.getParameter("noVotes"));
+		    String BoardCategory = request.getParameter("BoardCategory");
+		    String boardType = request.getParameter("boardType");
+
+
+		    // 총 투표 수 계산
+		    Long totalVotes = yesVotes + noVotes;
+
+		    // 찬성 비율
+		    double yesPercentage = (yesVotes.doubleValue() / totalVotes.doubleValue()) * 100;
+
+		    // 찬성 비율이 60% 이상인지 확인합니다.
+		    if (totalVotes >= 20 & yesPercentage >= 60) {
+		        // 찬성 비율이 60% 이상인 경우
+		        VoteDTO dto = new VoteDTO(voteId, postNo, null, userNo, yesVotes, null, BoardCategory, boardType);
+
+		        SqlSession sql = sqlSessionFactory.openSession(true);
+		        BoardMapper mapper = sql.getMapper(BoardMapper.class);
+
+		        // 데이터베이스 작업을 수행합니다.
+		        // mapper.someMethod(dto);
+
+		        sql.close(); // 마이바티스 세션 종료
+
+		        // 성공적인 작업 후 mini.jsp로 포워딩합니다.
+		        request.getRequestDispatcher("mini.jsp").forward(request, response);
+//		    } else {
+//		        // 찬성 비율이 60% 미만인 경우
+//		        response.sendRedirect("notEnoughSupport.jsp"); // 찬성 비율 부족 페이지로 리다이렉트
+		    }
+		} catch (NumberFormatException e) {
+		    // 파라미터가 숫자 형식이 아닐 경우 에러 페이지로 리다이렉트합니다.
+		    response.sendRedirect("error.jsp");
+		} catch (Exception e) {
+		    // 기타 예외를 처리합니다.
+		    response.sendRedirect("error.jsp");
+		}
 	}
   
 	@Override
@@ -446,7 +486,6 @@ public class BoardServiceImpl implements BoardService {
         }
 		
 	}
-
 	@Override
 	public void postCodeWrite(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

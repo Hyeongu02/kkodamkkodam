@@ -18,24 +18,35 @@
 
 			<!-- Wrapper for slides 
                  이미지 크기는 항상 똑같아야함-->
-			<div class="carousel-inner">
-				<div class="item active">
-					<img src="../resources/img/slide1.jpg" alt="슬라이드1">
-				</div>
+            <div class="carousel-inner">
+              <div class="item active">
+                <img src="../resources/img/slide1.jpg" alt="슬라이드1">
+              </div>
+          
+              <div class="item">
+                <img src="../resources/img/slide2.jpg" alt="슬라이드2">
+              </div>
+          
+              <div class="item">
+                <img src="../resources/img/slide3.jpg" alt="슬라이드3">
+              </div>
 
-				<div class="item">
-					<img src="../resources/img/slide2.png" alt="슬라이드2">
-				</div>
-
-				<div class="item">
-					<img src="../resources/img/slide3.jpg" alt="슬라이드3">
-				</div>
-
-				<div class="item">
-					<img src="../resources/img/slide4.png" alt="슬라이드4">
-				</div>
-			</div>
-
+              <div class="item">
+                <img src="../resources/img/slide4.jpg" alt="슬라이드4">
+              </div>
+            </div>
+          
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+      </article>
 			<!-- Left and right controls -->
 			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
 				<span class="glyphicon glyphicon-chevron-left"></span> <span
