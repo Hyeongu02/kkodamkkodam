@@ -63,6 +63,10 @@ public class UserController extends HttpServlet{
 			request.getRequestDispatcher("delete_check.jsp").forward(request, response);
 		} else if (command.equals("/user/deleteForm.user")) {
 			service.delete(request, response);
+		} else if (command.equals("/user/findForm.user")) {
+			service.find(request, response);
+		} else if (command.equals("/user/changeForm.user")) {
+			service.change(request, response);
 		}
 	}
 }

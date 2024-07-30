@@ -30,4 +30,14 @@
     <update id="delete" parameterType="string">
         UPDATE USERS SET DELETED = 'Y' WHERE ID = #{id}
     </update>
+    
+    <!-- 계정 조회 -->
+    <select id="find" parameterType="map" resultType="com.kkodamkkodam.user.model.UserDTO">
+    	SELECT * FROM USERS WHERE ID = #{id} AND NAME = #{name}
+    </select>
+    
+    <!-- 비밀번호 변경 -->
+    <update id="change" parameterType="com.kkodamkkodam.user.model.UserDTO">
+    	UPDATE USERS SET PW = #{pw} WHERE ID = #{id}
+    </update>
 </mapper>
