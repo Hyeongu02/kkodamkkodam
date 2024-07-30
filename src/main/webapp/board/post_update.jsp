@@ -22,7 +22,7 @@
 	
 	        <div class="btn-wrap btns">
 	            <button type="submit" class="btn btn-default right" >수정</button>
-	            <button type="button" class="btn btn-default right" onclick = "location.href='post_list.board'">취소</button>
+	            <button type="button" class="btn btn-default right" onclick = "location.href='postList.board?boardId=${dto.boardId}'">취소</button>
 	        </div> 
 	    </form>    
     </div>  

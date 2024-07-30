@@ -149,7 +149,6 @@
         WHERE c.user_no = #{userNo}
   </select>	
   
-	</insert>
 	<delete id="deletePost" parameterType="com.kkodamkkodam.board.model.BoardDTO">
 		DELETE 
 		FROM POST

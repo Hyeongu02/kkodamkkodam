@@ -27,11 +27,11 @@ public interface BoardMapper {
 	public MiniDTO voteContent(Map<String, Object> params); // 미니 신설 투표
 	public void miniListView(Map<String, Object> params); 
 	public void increaseVoteLike(MiniDTO dto);
-  // 내가 쓴 글 목록 조회
-  public ArrayList<BoardDTO> getPostsByUser(Long userNo);
+	// 내가 쓴 글 목록 조회
+	public ArrayList<BoardDTO> getPostsByUser(Long userNo);
 
-  // 내가 쓴 댓글 목록 조회
-  public ArrayList<CommentDTO> getCommentsByUser(Long userNo);
+	// 내가 쓴 댓글 목록 조회
+	public ArrayList<CommentDTO> getCommentsByUser(Long userNo);
 	public void deleteComment(CommentDTO dto);							//댓글 삭제
 	public void updateDeleteComment(CommentDTO dto);					//댓글 삭제 - 대댓글 있는경우
 } 

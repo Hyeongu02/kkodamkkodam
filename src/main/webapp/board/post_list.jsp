@@ -90,7 +90,7 @@
       </table>
 
     <div style="text-align: right;">
-      	<button type="button" class="btn btn-info" style="margin-right : 25px; margin-top:15px; min-width:70px" onclick = "location.href='post_write.board?boardId=${list[0].boardId}'">글쓰기</button>
+      	<button type="button" class="btn btn-info" style="margin-right : 25px; margin-top:15px; min-width:70px" onclick = "location.href='post_write.board?boardId=${boardId}'">글쓰기</button>
 	  </div>
     <div class="pagination-wrap">
       <ul class="pagination page-number">
