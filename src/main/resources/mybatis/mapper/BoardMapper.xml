@@ -40,7 +40,7 @@
 		FROM post p
 		join post_comment c
 		on p.post_no=c.post_no
-		WHERE p.board_id = 1 AND p.POST_No = 1
+		WHERE p.board_id =  #{boardId} AND p.POST_No = #{postNo}
         order by c.comment_no asc, c.parent_id asc
 	</select>
 	<update id="increaseView" parameterType="Map">
@@ -87,13 +87,13 @@
 		INSERT INTO POST (post_no, title, content, user_no, board_id)
 		values(post_seq.nextval, #{title}, #{content}, #{userNo}, #{boardId})
 	</update>
-  
-	<update id="increaseCommentLike" parameterType="com.kkodamkkodam.board.model.BoardDTO">
-		UPDATE POST_COMMENT SET LIKE_COUNT = LIKE_COUNT + 1 WHERE COMMENT_NO = #{commentNo};
+ 
+	<update id="increaseCommentLike" parameterType="com.kkodamkkodam.board.model.CommentDTO">
+		UPDATE POST_COMMENT SET LIKE_COUNT = LIKE_COUNT + 1 WHERE COMMENT_NO = #{commentNo}
 	</update>
 		
   
-  <insert id="miniWrite" parameterType="com.kkodamkkodam.board.model.BoardDTO">
+	<insert id="miniWrite" parameterType="com.kkodamkkodam.board.model.BoardDTO">
 		INSERT INTO POST(boardCategory, boardType, content) 
 		VALUES (#{boardCategory}, #{boardType}, #{content} )
   </insert>
@@ -133,6 +133,39 @@
         JOIN board b ON p.board_id = b.board_id
         WHERE c.user_no = #{userNo}
   </select>	
+  
+	</insert>
+	<delete id="deletePost" parameterType="com.kkodamkkodam.board.model.BoardDTO">
+		DELETE 
+		FROM POST
+		WHERE POST_NO=#{postNo}
+	</delete>
+	
+	<update id="updatePost" parameterType="com.kkodamkkodam.board.model.BoardDTO">
+		UPDATE POST
+		SET TITLE = #{title},
+    		CONTENT = #{content}
+		WHERE POST_NO = #{postNo}
+	</update>
+
+	<select id="findReply" resultType="int">
+		select count(*)
+		from post_comment
+		where PARENT_ID=#{commentNo}
+	</select>
+	
+	<delete id="deleteComment" parameterType="com.kkodamkkodam.board.model.CommentDTO">
+		DELETE 
+		FROM post_comment
+		WHERE COMMENT_NO = #{commentNo}
+	</delete>
+	
+	<update id="updateDeleteComment" parameterType="com.kkodamkkodam.board.model.CommentDTO">
+		UPDATE post_comment
+	    SET COMMENT_CONTENT = '삭제된 댓글입니다',
+	        REGDATE=NULL
+		WHERE COMMENT_NO = #{commentNo}
+	</update>
 </mapper>
 
 
