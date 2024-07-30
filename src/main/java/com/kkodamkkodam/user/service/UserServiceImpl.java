@@ -2,6 +2,7 @@ package com.kkodamkkodam.user.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -22,31 +23,29 @@ public class UserServiceImpl implements UserService {
 	
 // 중복 검사
 	@Override
-	public void checkId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String id = request.getParameter("id");
+    public void checkId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
         SqlSession sqlSession = null;
         try {
             sqlSession = sqlSessionFactory.openSession();
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 
-            response.setContentType("text/plain;charset=UTF-8");
+            response.setContentType("application/json;charset=UTF-8");
             PrintWriter out = response.getWriter();
-
+            
             if (mapper.checkId(id) != null) {
-                out.print("이미 존재하는 아이디입니다.");
-            } else {
-                out.print("사용 가능한 아이디입니다.");
+            	out.print("이미 존재하는 아이디입니다.");
+            	} else {
+            	out.print("사용 가능한 아이디입니다.");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.getWriter().print("오류가 발생했습니다.");
         } finally {
             if (sqlSession != null) {
                 sqlSession.close();
             }
         }
-	}
+    }
 	
 // 가입
 	@Override
@@ -62,6 +61,7 @@ public class UserServiceImpl implements UserService {
 		String pw = request.getParameter("pw");
 		String name = request.getParameter("name");
 		String rePw = request.getParameter("rePw");		
+		
 		
 	    SqlSession sqlSession = null;
 	    
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 
             mapper.join(dto);
             sqlSession.commit();
-
+            
             response.sendRedirect("login.user"); 
             
         } 
@@ -132,13 +132,15 @@ public class UserServiceImpl implements UserService {
 	            // 쿠키
 	            if (check != null && check.equals("check")) { // 아이디 기억하기 체크했을 시
 	                Cookie cookie = new Cookie("id", id);
-	                cookie.setMaxAge(60); // 쿠키 유효 시간 테스트 때문에 10초 설정 - 추후 수정할 것
+	                cookie.setMaxAge(60*60*24*7);
 	                cookie.setPath("/");
 	                response.addCookie(cookie);
 	            } else { // 체크 해지 했을 시
-	                Cookie noCookie = new Cookie("check", null);
+	                Cookie noCookie = new Cookie("id", "");
 	                noCookie.setMaxAge(0);
+	                noCookie.setPath("/");
 	                response.addCookie(noCookie);
+	                System.out.println("쿠키 삭제 완료");
 	            }
 	            response.sendRedirect("../index.jsp");
 	            

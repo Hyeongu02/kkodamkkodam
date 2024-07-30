@@ -7,10 +7,11 @@
 <%
 	Cookie[] cookies = request.getCookies();
 	String id = "";
-	if (cookies != null) {
+	if(cookies != null) {
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equals("id")) {
 			id = cookie.getValue();
+			break;
 			}
 		}
 	}
@@ -25,9 +26,9 @@
             </div>
             <p style="color : red; font-size : 13px;">${error }</p>
 			<label>
-				<input type="checkbox" class="id-save">아이디 기억하기
+				<input type="checkbox" class="id-save" name="check" value="check" <%= id != null && !id.isEmpty() ? "checked" : "" %>>아이디 기억하기
 			</label>
-            <button type="submit" class="check-btn" name="check" value="check" >로그인</button>
+            <button type="submit" class="check-btn">로그인</button>
 			<div class="find-all">
 				<a href="${pageContext.request.contextPath }/user/password.jsp">비밀번호를 잊으셨나요?</a>
 			</div>
