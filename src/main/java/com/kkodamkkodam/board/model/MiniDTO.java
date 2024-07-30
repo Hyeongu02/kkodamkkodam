@@ -93,4 +93,5 @@ public class MiniDTO {
 	public void setlikeCount(Long likeCount) {
 		this.likeCount = likeCount;
 	}
+
 }

@@ -24,7 +24,7 @@
               </div>
           
               <div class="item">
-                <img src="../resources/img/slide2.png" alt="슬라이드2">
+                <img src="../resources/img/slide2.jpg" alt="슬라이드2">
               </div>
           
               <div class="item">
@@ -32,7 +32,7 @@
               </div>
 
               <div class="item">
-                <img src="../resources/img/slide4.png" alt="슬라이드4">
+                <img src="../resources/img/slide4.jpg" alt="슬라이드4">
               </div>
             </div>
           

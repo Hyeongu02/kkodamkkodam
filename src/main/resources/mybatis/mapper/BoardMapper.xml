@@ -100,20 +100,25 @@
     	VALUES (#{boardType}, #{boardCategory}, #{content}, SYSTIMESTAMP, #{userNo})
   </insert>
   <select id="voteContent" resultType="com.kkodamkkodam.board.model.MiniDTO">
-	    SELECT boardType, boardCategory, regdate, viewCount, likeCount
+	    SELECT POST_NO, BOARD_TYPE, BOARD_CATEGORY, REGDATE, VIEW_COUNT, LIKE_COUNT
 	    FROM POST_MINI
-	    WHERE postNo = #{postNo}
+	    WHERE POST_NO = #{postNo}
   </select>
   <update id="miniListView" parameterType="Map">
 	    UPDATE POST_MINI 
     	SET VIEW_COUNT = VIEW_COUNT + 1 
     	WHERE POST_NO = #{postNo}
   </update>
-  <update id="increaseVoteLike" parameterType="Map">
+  <update id="increaseVoteLike" parameterType="com.kkodamkkodam.board.model.MiniDTO">
   		UPDATE POST_MINI
   		SET LIKE_COUNT = LIKE_COUNT + 1 
   		WHERE POST_NO = #{postNo} 
   </update>
+  <!-- dsadasda -->
+  <insert id="addVote" parameterType="com.kkodamkkodam.board.model.VoteDTO">
+    INSERT INTO VOTE (VOTE_ID, POST_NO, REGDATE, USER_NO, YESVOTES,BOARD_CATEGORY,BOARD_TYPE )
+    VALUES (#{voteId}, #{postNo}, SYSTIMESTAMP, #{userNo}, #{yesVotes}, #{boardCategory}, #{boardType})
+  </insert>
   <!-- 작성글 보기 -->
   <select id="getPostsByUser" parameterType="Long" resultType="com.kkodamkkodam.board.model.BoardDTO">
          

@@ -77,22 +77,27 @@ public class BoardController extends HttpServlet {
 		else if(command.equals("/board/increaseCommentLike.board")) { //댓글 좋아요 증가
 			service.increaseCommentLike(request, response);
 		}
-		else if(command.equals("/board/miniWrite.board")) {
+		else if(command.equals("/board/miniWrite.board")) {  // 미니 게시판 신설 요청
 	        request.getRequestDispatcher("/board/post_write_mini.jsp").forward(request, response);
 		}
-		else if(command.equals("/board/postMiniList.board")) {
+		else if(command.equals("/board/postMiniList.board")) { //  미니 요청 목록
 		    service.getMiniList(request, response);
 		}
-		else if(command.equals("/board/miniWriteForm.board")) {
+		else if(command.equals("/board/miniWriteForm.board")) { // 미니 신설 요청 등록
 	        service.miniWrite(request, response);
 		}    
-		else if(command.equals("/board/voteContent.board")) { // 투표
+		else if(command.equals("/board/voteContent.board")) { // 신청글 내용
 			service.voteContent(request, response);
+		}
+		else if(command.equals("/board/increaseVoteLike.board")) { // 신청글 좋아요
+			service.increaseVoteLike(request, response);
+		}
+		/////
+		else if(command.equals("/board/voteForm.board")) { // 투표 결과
+			service.addVote(request, response);
 		}
 		else if(command.equals("/board/mypage.board")) {         //내 글, 내 댓글 보기
 			service.getUserActivityLog(request, response);
 		}
 	}
 }
-
-

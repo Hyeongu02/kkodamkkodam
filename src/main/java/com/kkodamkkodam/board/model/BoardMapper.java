@@ -24,9 +24,12 @@ public interface BoardMapper {
 	public void replyWrite(CommentDTO dto); 							//대댓글작성
 	public void miniWrite(MiniDTO dto); // 미니 게시판 신설 요청 작성
 	public ArrayList<MiniDTO> getMiniList(); 	 // 미니 요청 목록
-	public MiniDTO voteContent(Map<String, Object> params); // 미니 신설 투표
-	public void miniListView(Map<String, Object> params); 
-	public void increaseVoteLike(MiniDTO dto);
+	public MiniDTO voteContent(Map<String, Object> params); // 미니 신설 요청 글
+	public void miniListView(Map<String, Object> params);  // 미니 글 조회수
+	public void increaseVoteLike(MiniDTO dto); // 미니 신설 요청 글 좋아요 수
+	//////////////// 나린 /////////////
+	public void addVote(VoteDTO dto);
+	
 	// 내가 쓴 글 목록 조회
 	public ArrayList<BoardDTO> getPostsByUser(Long userNo);
 
