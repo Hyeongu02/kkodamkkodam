@@ -102,19 +102,6 @@ tr:not(.bo_notice) .td_subject a {
     font-weight: normal; 
 }
 
-/* 페이지 번호 */
-#wrapped .pagination-wrap {
+.numlist {
     text-align: center;
-    height: 60px;
-}
-
-#wrapped .pagination-wrap > .page-number > li > a {
-    color: #333;
-    border: 0;
-    line-height: 60px;
-}
-
-#wrapped .page-number > li > a:focus, .page-number > li > a:hover {
-    background-color: #fff;
-    font-weight: 900;
 }

@@ -58,10 +58,10 @@
 			<div class="dropdown drop-btn">
 				<button type="button" class="menu-btn dropdown-toggle"
 					data-toggle="dropdown">미니 게시판</button>
-				<!-- ul 태그 전체 수정 -->
+				<!-- ----------------------------------------------------------- -->
 				<ul class="dropdown-menu drop-menu">
 					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/post_write_mini.jsp">개설 신청</a></li>
-					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/postList.board?boardId=5">개설 신청 목록</a></li>
+					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/postMiniList.board">개설 신청 목록</a></li>
 					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/mini.jsp">게시판 전체보기</a></li>
 				</ul>
 			</div>
@@ -69,7 +69,7 @@
 
 		 <!-- 로그인 유무에 따라 변하는 버튼 -->
 		 <c:choose>
-           	<c:when test="${sessionScope.user == null }">
+           	<c:when test="${sessionScope.user == null}">
 				<div class="right-btn">
 					<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/join.user'" class="btn-join">회원가입</button>
 					<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/login.user'" class="btn-login">로그인</button>
@@ -81,7 +81,7 @@
 						<button type="button" class="dropdown-toggle btn-my" data-toggle="dropdown">내 정보</button>
 						<ul class="dropdown-menu drop-menu2" style="min-width: 65px;">
 							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/modify.user">정보 수정</a></li>
-							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/mypage.user">활동 로그</a></li>
+							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/board/mypage.board">활동 로그</a></li>
 							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/delete.user">회원 탈퇴</a></li>
 						</ul>
 					</div>			

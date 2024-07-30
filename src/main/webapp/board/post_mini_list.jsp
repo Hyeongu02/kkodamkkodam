@@ -7,7 +7,7 @@
 
   <div id="wrapped">
       <article id="my-slide">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel"> 
             <!-- Indicators -->
             <ol class="carousel-indicators">
               <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -75,11 +75,11 @@
         </tr>
       </thead>
       <tbody>
-        <c:forEach var="dto" items="${list}">
+        <c:forEach var="dto" items="${Minilist}">
 			<tr>
 				<td>${dto.postNo}</td>
 				<td>
-					<a href="getContent.board?postNo=${dto.postNo}&boardId=${dto.boardId}">${dto.title }</a>
+					<a href="${pageContext.request.contextPath}/board/voteContent.board?postNo=${dto.postNo}">${dto.boardType}</a>
 				</td>
 				<td>${dto.userNo}</td>
 				<td><fmt:formatDate value="${dto.regdate}" pattern="MM-dd"/></td>
@@ -89,20 +89,15 @@
       </tbody>
       </table>
 
-    <div style="text-align: right;">
-      	<button type="button" class="btn btn-info" style="margin-right : 25px; margin-top:15px; min-width:70px" onclick = "location.href='post_write.board?boardId=${boardId}'">글쓰기</button>
-	  </div>
-    <div class="pagination-wrap">
-      <ul class="pagination page-number">
-        <li><a href="#">이전</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">다음</a></li>
-      </ul>
-    </div>
+      <div class="numlist">
+	      <ul class="pagination num">
+	        <li><a href="#">1</a></li>
+	        <li><a href="#">2</a></li>
+	        <li><a href="#">3</a></li>
+	        <li><a href="#">4</a></li>
+	        <li><a href="#">5</a></li>
+	      </ul>
+      </div>
   </div>
   
   <%@ include file="../include/footer.jsp" %>
