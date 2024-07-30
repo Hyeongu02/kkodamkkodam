@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 	
 	private SqlSessionFactory sqlSessionFactory = MybatisUtil.getSqlSessionFactory();
 	
-	// 중복 검사
+// 중복 검사
 	@Override
 	public void checkId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
         }
 	}
 	
-	// 가입
+// 가입
 	@Override
 	public void join(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String action = request.getParameter("action");
@@ -73,7 +73,12 @@ public class UserServiceImpl implements UserService {
             	request.setAttribute("message", "비밀번호가 일치하지 않습니다.");
             	request.getRequestDispatcher("join.jsp").forward(request, response);
             	return;
-            }          
+            }
+    		if (pw.length() < 6) {
+    			request.setAttribute("message", "비밀번호는 최소 6자리 이상이어야 합니다.");
+    			request.getRequestDispatcher("join.jsp").forward(request, response);
+    			return;
+    		}
           
             UserDTO dto = new UserDTO();
             dto.setId(id);
@@ -83,7 +88,7 @@ public class UserServiceImpl implements UserService {
             mapper.join(dto);
             sqlSession.commit();
 
-            response.sendRedirect("login.jsp"); 
+            response.sendRedirect("login.user"); 
             
         } 
         
@@ -99,7 +104,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 	
-	// 로그인
+// 로그인
 	@Override
 	public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    
@@ -154,7 +159,7 @@ public class UserServiceImpl implements UserService {
 	    }
 	}
 
-	// 수정
+// 수정
 	@Override
 	public void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 
@@ -165,12 +170,24 @@ public class UserServiceImpl implements UserService {
 	    String rePw = request.getParameter("rePw");
 	    String name = request.getParameter("name");
 	    	    
-	    if (pw == null || rePw == null || !pw.equals(rePw)) { // 입력한 비밀번호에 문제 있을 시
-	        request.setAttribute("error", "비밀번호를 정확히 입력해주세요.");
-	        request.getRequestDispatcher("modify.jsp").forward(request, response);
-	        return;	        
-	    }
-
+		if (pw == null || rePw == null) {
+			request.setAttribute("error", "비밀번호를 입력해 주세요.");
+			request.getRequestDispatcher("modify.jsp").forward(request, response);
+			return;
+		}
+		
+		if (!pw.equals(rePw)) {
+			request.setAttribute("error", "비밀번호가 일치하지 않습니다.");
+			request.getRequestDispatcher("modify.jsp").forward(request, response);
+			return;
+		}
+		
+		if (pw.length() < 6) {
+			request.setAttribute("error", "비밀번호는 최소 6자리 이상이어야 합니다.");
+			request.getRequestDispatcher("modify.jsp").forward(request, response);
+			return;
+		}
+		
 	    UserDTO dto = new UserDTO(id, pw, name);
 	    SqlSession sqlSession = null;
 	    
@@ -204,14 +221,14 @@ public class UserServiceImpl implements UserService {
 	    }
 	}
 
-	// 삭제
+// 삭제
 	@Override
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
 		UserDTO userInfo = (UserDTO) session.getAttribute("user");
 	    if (userInfo == null) {
-	        response.sendRedirect(request.getContextPath() + "/login.jsp");
+	        response.sendRedirect(request.getContextPath() + "/login.user");
 	        return;
 	    }
 	    
@@ -220,8 +237,14 @@ public class UserServiceImpl implements UserService {
 	    String pw = request.getParameter("pw");
 	    String rePw = request.getParameter("rePw");
 
-	    if (pw == null || rePw == null || !pw.equals(rePw)) {
-	        request.setAttribute("error", "비밀번호를 다시 입력해 주세요.");
+	    if (pw == null || rePw == null) {
+	        request.setAttribute("error", "비밀번호를 입력해 주세요.");
+	        request.getRequestDispatcher("delete_check.jsp").forward(request, response);
+	        return;
+	    }
+	    
+	    if (!pw.equals(rePw)) {
+	        request.setAttribute("error", "비밀번호가 일치하지 않습니다.");
 	        request.getRequestDispatcher("delete_check.jsp").forward(request, response);
 	        return;
 	    }
@@ -267,7 +290,7 @@ public class UserServiceImpl implements UserService {
 	    }
 	}
 
-	// 계정 조회
+// 계정 조회
 	@Override
 	public void find(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
@@ -288,12 +311,12 @@ public class UserServiceImpl implements UserService {
 			
 			if (resultDto != null) {
 				HttpSession session = request.getSession();
-				session.setAttribute("user", resultDto);
+				session.setAttribute("findId", id);
+				request.getRequestDispatcher("rePassword.jsp").forward(request, response);
 			} else {
 				request.setAttribute("error", "사용자 정보를 찾을 수 없습니다.");
 				request.getRequestDispatcher("password.jsp").forward(request, response);
 			}
-				request.getRequestDispatcher("rePassword.jsp").forward(request, response);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -306,23 +329,37 @@ public class UserServiceImpl implements UserService {
 	
 	}
 
-	// 비밀번호 변경
+// 비밀번호 변경
 	@Override
 	public void change(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		String id = request.getParameter("id");
+		String id = (String)session.getAttribute("findId");
 		String pw = request.getParameter("pw");
 		String rePw = request.getParameter("rePw");
-		String name = request.getParameter("name");
-		
-		if (pw == null || rePw == null || !pw.equals(rePw)) {
-			session.setAttribute("error ", "비밀번호를 올바르게 입력해 주세요.");
+
+		if (pw == null || rePw == null) {
+			request.setAttribute("error", "비밀번호를 입력해 주세요.");
 			request.getRequestDispatcher("rePassword.jsp").forward(request, response);
 			return;
 		}
 		
-		UserDTO dto = new UserDTO(id, pw, name);
+		if (!pw.equals(rePw)) {
+			request.setAttribute("error", "비밀번호가 일치하지 않습니다.");
+			request.getRequestDispatcher("rePassword.jsp").forward(request, response);
+			return;
+		}
+		
+		if (pw.length() < 6) {
+			request.setAttribute("error", "비밀번호는 최소 6자리 이상이어야 합니다.");
+			request.getRequestDispatcher("rePassword.jsp").forward(request, response);
+			return;
+		}
+		
+		UserDTO dto = new UserDTO();
+		dto.setId(id);
+		dto.setPw(pw);
+
 		SqlSession sqlSession = null;
 		
 		try {
@@ -330,10 +367,9 @@ public class UserServiceImpl implements UserService {
 			UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 			
 			int result = mapper.change(dto);
-			
+		
 			if (result == 1) {
 				sqlSession.commit();
-				session.setAttribute("pw", dto);
 	            response.setContentType("text/html; charset=UTF-8");
 	            PrintWriter out = response.getWriter();
 	            out.println("<script>");
@@ -341,6 +377,7 @@ public class UserServiceImpl implements UserService {
 	            out.println("location.href='" + request.getContextPath() + "/user/login.user';");
 	            out.println("</script>");
 			} else {
+				request.setAttribute("error", "비밀번호 변경에 실패했습니다.");
 				request.getRequestDispatcher("rePassword.jsp").forward(request, response);
 			}
 			
@@ -348,6 +385,7 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "다시 시도해 주세요.");
+			request.getRequestDispatcher("rePassword.jsp").forward(request, response);
 		} finally {
 			if (sqlSession != null) {
 				sqlSession.close();

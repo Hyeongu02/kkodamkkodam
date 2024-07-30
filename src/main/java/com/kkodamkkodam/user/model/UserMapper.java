@@ -18,6 +18,6 @@ public interface UserMapper {
 	
 	public UserDTO find(@Param("id") String id, @Param("name") String name);
 
-//	public int change(UserDTO dto);
+	public int change(UserDTO dto);
 	
 }

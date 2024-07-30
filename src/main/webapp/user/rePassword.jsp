@@ -12,7 +12,7 @@
         	<p>새 비밀번호 : </p>
             <input type="password" placeholder=" 특수문자 제외 6자 이상 입력해 주세요." class="pw-update" name="pw" required="required" pattern="[0-9A-Za-z]{6,}">
             <p>새 비밀번호 확인 : </p>
-            <input type="password" placeholder=" 한번 더 입력해 주세요."
+            <input type="password" placeholder=" 한 번 더 입력해 주세요."
                 class="pw-update" name="rePw" required="required" pattern="[0-9A-Za-z]{6,}">
         </div>
         <p style="color : red; margin-bottom : 0;">${error }</p>

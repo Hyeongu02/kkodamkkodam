@@ -37,17 +37,9 @@
                   <td class="hits">99</td>
                   <td class="likes">3</td>
                 </tr>
-                <tr>
-                  <td class="td_check"><input type="checkbox"></td>
-                  <td class="board_type">자유 게시판</td>
-                  <td class="subject"><a href="#">요즘, 제가 즐겨듣는 노래입니다.</a></td>
-                  <td class="date">01-19</td>
-                  <td class="hits">99</td>
-                  <td class="likes">3</td>
-                </tr>
               </tbody>
             </table>
-            <button type="button" id="select-all" onclick="selectAll(this)">전체 선택</button>
+            <button type="button" id="select-all" onclick="selectAll()">전체 선택</button>
             <button type="button" id="delete-btn">삭제</button>
             
 <!-- =================페이지 넘기기=============== -->   
@@ -85,16 +77,9 @@
                   <td class="date">01-19</td>
                   <td class="likes">3</td>
                 </tr>
-                <tr>
-                  <td class="td_check"><input type="checkbox"></td>
-                  <td class="board_type">자유 게시판</td>
-                  <td class="subject"><a href="#">요즘, 제가 즐겨듣는 노래입니다.</a></td>
-                  <td class="date">01-19</td>
-                  <td class="likes">3</td>
-                </tr>
               </tbody>
             </table>
-            <button type="button" id="select-all" onclick="selectAll(this)">전체 선택</button>
+            <button type="button" id="select-all" onclick="selectAll()">전체 선택</button>
             <button type="button" id="delete-btn">삭제</button>
             
 <!-- =================페이지 넘기기=============== -->   
@@ -128,21 +113,32 @@
         var tag = document.querySelector(value); // 클릭한 대상에 연결되는 태그
         tag.classList.add("active");
     })
+    
+    
+// 전체 선택 기능 구현 스크립트    
+    function selectAll() {
+    var activeTog = document.querySelector(".toggle-menu.active");
+    if (!activeTog) return;
+
+    var checkboxes = activeTog.querySelectorAll("table tbody input[type=checkbox]");
+
+    var allChecked = true;
+    
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (!checkboxes[i].checked) {
+            allChecked = false;
+            break;
+        }
+    }
+
+    var reverse = !allChecked;
+
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = reverse;
+    }
+}
+    
 </script>
-
-<script type="text/javascript">
-	// 전체 선택 기능 구현 스크립트
-	function selectAll(all) {
-	    var checkbox = document.querySelectorAll(`#${toggleId} table tbody input[type=checkbox]`);
-	    var selectAllButton = document.querySelector(`#${toggleId} #select-all`); // 버튼의 id
-	
-		for (var i=0; i<checkbox.length; i++) {
-			checkbox[i].checked = selectAllButton.checked;
-		}
-	}
-</script>
-
-
 
 
 <%@ include file="../include/footer.jsp"%>
