@@ -90,7 +90,7 @@
       </table>
 
     <div style="text-align: right;">
-      	<button type="button" class="btn btn-info" style="margin-right : 25px; margin-top:15px; min-width:70px" onclick = "location.href='post_write.board?boardId=${boardId}'">글쓰기</button>
+      	<button type="button" class="btn btn-info" style="margin-right : 25px; margin-top:15px; min-width:70px" onclick = "selectPage()">글쓰기</button>
 	  </div>
     <div class="pagination-wrap">
       <ul class="pagination page-number">
@@ -106,3 +106,11 @@
   </div>
   
   <%@ include file="../include/footer.jsp" %>
+  
+    <script>
+    function selectPage() {
+      var boardId = '<c:out value="${boardId}"/>'; 
+      var url = (boardId == 3) ? '/kkodamkkodam/board/post_code_write.board' : '/kkodamkkodam/board/post_write.board';
+      window.location.href = url + '?boardId=' + boardId;
+    }
+  </script>
