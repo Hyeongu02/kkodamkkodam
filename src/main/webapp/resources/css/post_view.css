@@ -11,6 +11,15 @@
 	justify-content: flex-end;
 }
 
+.dropdown{
+	display: inline-block;
+	height: 30px;
+}
+.dropdown .dropdown-menu{
+	min-width: 0;
+	left:-30px;
+}
+
 #wrapped{
 	position: relative;
 }
@@ -34,13 +43,21 @@
 #wrapped > .post > .post-info > .icon{
     position: relative;
 }
+#wrapped > .post > .post-info > .icon{
+    position: relative;
+}
+
+#wrapped > .post > .post-info > a.icon{
+	cursor: pointer;
+}
 #wrapped > .post > .post-info > .icon > span{
     position: absolute; 
     top: 50%; 
-    transform: translateY(-50%); 
+    transform: translateY(-46%); 
 }
 #wrapped > .post > .post-info > .num {
-    margin-left: 22px;
+    margin-left: 23px;
+    margin-right: 7px;
     font-size: 0.8em;
 }
 
@@ -59,19 +76,19 @@
 .user-bigbox .user-box .user span{
     position: relative;
     top: -2px;
-    font-size: 0.5em;
+    font-size: 0.7em;
     color: red;
     display: inline-block;
 }
-.comment-icon .icon{
-	position: relative;
-}
-.comment-icon .icon > span{
-	position: absolute;
+.comment-icon .icon {
+    margin-right: 3px;
 }
 .comment-icon .num {
-    margin-left: 22px;
+	position:relative;
+	top: -5px;
     font-size: 0.8em;
+    left: -3px;
+    margin-right: 5px;
 }
 .comment-bigbox{
     margin-top: 20px;
