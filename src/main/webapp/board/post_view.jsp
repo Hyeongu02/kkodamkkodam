@@ -6,40 +6,48 @@
 
 <div id="wrapped">
     <div class="board-type">
-        <p>게시판 종류</p>
+        <p><c:out value="${boardType}" /> 게시판</p>
     </div>
     <div class="post">
         <div class="user-bigbox">
             <img src="../resources/img/userCircle.png" alt="userCircle" style="width: 45px;">
-            <div class="user-box">
+            <div class="user-box flex-1">
                 <div class="user">
                     <p>익명</p>
                     <p>10분전</p>
                 </div>
             </div>
+            <div class="dropdown">
+				<button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+					<span class="material-symbols-outlined">more_vert</span>
+				</button>
+				<ul class="dropdown-menu">
+			    	<li><a href="updatePostPage.board?postNo=${dto.postNo}&boardId=${dto.boardId}">수정</a></li>
+			    	<li><a href="deletePost.board?postNo=${dto.postNo}&boardId=${dto.boardId}">삭제</a></li>
+			 	</ul>
+			</div>
         </div>
-
         <h3>${dto.title}</h3>
         <p class="post-content">${dto.content}</p>
 
         <div class="post-info">
-            <span class="icon" style="height: 0px; display: inline-block;">
+            <span class="icon">
                 <span class="material-symbols-outlined" style="font-size:18px;">
                     visibility
                 </span>
             </span>
             <span class="num">${dto.viewCount}</span>
-            <button class="icon">
+            <a class="icon" href="increasePostLike.board?postNo=${dto.postNo}&boardId=${dto.boardId}">
                 <span class="material-symbols-outlined" style="font-size:18px;">
                     thumb_up
                 </span>
-            </button>
+            </a>
             <span class="num">${dto.likeCount}</span>
-            <button class="icon">
+            <span class="icon">
                 <span class="material-symbols-outlined" style="font-size:18px;">
                     chat
                 </span>
-            </button>
+            </span>
             <span class="num">2</span>
         </div>
     </div>
@@ -61,7 +69,7 @@
 			        	<img src="../resources/img/userCircle.png" alt="userCircle" style="width: 45px;">
 			        	<div class="user-box flex flex-1">
                         	<div class="user flex flex-col">
-	                            <p>익명 
+	                            <p>${comment.regDate != null ? '익명' : '(삭제)'}
 		                            <c:if test="${dto.userNo == comment.userNo}">
 	            						<span>작성자</span>
 	        						</c:if>
@@ -69,16 +77,19 @@
 	                            <p>10분전</p>
 	                        </div>
 	                    </div>
-	                    <div class="flex">
-                    	<div class="comment-icon">
-                    		<span class="icon">
-			               		<span class="material-symbols-outlined" style="font-size:18px;">
-			                    	thumb_up
-			                	</span>
-		            		</span>	
-		            		<span class="num">23</span>
-                    	</div>
-                    </div>
+	                    <div class="comment-icon">
+	                    	<a class="icon" href="increaseCommentLike.board?commentNo=${comment.commentNo}&postNo=${dto.postNo}&boardId=${dto.boardId}">
+				               	<span class="material-symbols-outlined" style="font-size:18px;">
+				                   	thumb_up
+				                </span>
+			            	</a>	
+			            	<span class="num">${comment.likeCount}</span>
+			            	<a class="icon" href="deleteComment.board?commentNo=${comment.commentNo}&postNo=${dto.postNo}&boardId=${dto.boardId}">
+				            	<span class="material-symbols-outlined"	style="font-size:18px;">
+									delete
+								</span>
+			            	</a>
+	                    </div>
 	                </div>
 	              	<p class="comment-content">
 	                    ${comment.commentContent}

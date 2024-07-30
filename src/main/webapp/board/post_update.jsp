@@ -4,22 +4,24 @@
 
 <%@ include file="../include/header.jsp" %>    
     <div id="wrapped">
-        <form action="post_regi.board" method="post">
-	        <input type="hidden" name="boardId" value="${param.boardId }">
+        <form action="updatePost.board" method="post">
+	        <input type="hidden" name="boardId" value="${dto.boardId}">
+	        <input type="hidden" name="postNo" value="${dto.postNo}">
 	        <div class="form-group title">
 	            <label for="title">글 제목</label>
 	            <div class="input-group">
-	                    <input type="text" name=title class="form-control" placeholder="글제목을 입력해주세요" required>
+	                    <input type="text" name=title class="form-control" value="${dto.title}" required>
 	            </div>
 	        </div>
 	     
 	        <div class="form-group contents">
 	            <label for="content">글 내용</label>
-	            <textarea class="form-control" rows="20" name="content" style="resize:none;" required></textarea>
+	            <textarea class="form-control" rows="20" name="content" style="resize:none;" required>${dto.content}</textarea>
+	        
 	        </div>
 	
 	        <div class="btn-wrap btns">
-	            <button type="submit" class="btn btn-default right" >등록</button>
+	            <button type="submit" class="btn btn-default right" >수정</button>
 	            <button type="button" class="btn btn-default right" onclick = "location.href='post_list.board'">취소</button>
 	        </div> 
 	    </form>    
