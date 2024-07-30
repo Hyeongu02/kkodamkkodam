@@ -14,12 +14,12 @@
 	</div>
 
 	<div class="title">
-		<h3 class="bold">${dto.boardCategory } 카테고리 신설 요청합니다</h3>
+		<h3 class="bold">${dto.boardType } 카테고리 신설 요청합니다</h3>
 		<p>
 			${dto.regdate }일 전 | 조회 ${dto.viewCount } | <span class="glyphicon glyphicon-thumbs-up"></span>${dto.likeCount }
 		</p>
 		<button type="button" class="title_right">
-			<span class="glyphicon glyphicon-thumbs-up"></span>
+			<span class="glyphicon glyphicon-thumbs-up">${dto.likeCount }</span>
 		</button>
 		<button type="button" class="title_left" onclick="location.href='${pageContext.request.contextPath }/board/post_write_mini.jsp'">새 글(write)</button>
 	</div>
@@ -31,20 +31,26 @@
 			<p>2. 비회원은 투표에 참여하실 수 없습니다.</p>
 		</div>
 	</div>
-
-	<div class="container">
-		<h4>뉴진스 카테고리를 만드시는 걸 찬성하시겠습니까?</h4>
-		<div class="grid">
-			<div class="option" id="yes" onclick="submitVote('yes')" style="border: 1px solid #ccc;">
-				<p class="text">찬성</p>
-				<p class="percentage" id="percentageYes">%</p>
-			</div>
-			<div class="option" id="no" onclick="submitVote('no')" style="border: 1px solid #ccc;">
-				<p class="text">반대</p>
-				<p class="percentage" id="percentageNo">%</p>
+	
+	
+    <form action="voteForm.board" method="post">
+	    <input type="hidden" name="boardType" value="${dto.boardType}">
+	    <input type="hidden" name="boardCategory" value="${dto.boardCategory}">
+	    <input type="hidden" name="postNo" value="${dto.postNo}">
+		<div class="container">
+			<h4>${dto.boardType } 카테고리를 만드시는 걸 찬성하시겠습니까?</h4>
+			<div class="grid">
+				<button type="submit" name="voteOption" value="yes" class="option" id="yes" style="border: 1px solid #ccc;">
+					<p class="text">찬성</p>
+					<p class="percentage" id="percentageYes">%</p>
+				</button>
+				<button type="submit" name="voteOption" value="no" class="option" id="no" style="border: 1px solid #ccc;">
+					<p class="text">반대</p>
+					<p class="percentage" id="percentageNo">%</p>
+				</button>
 			</div>
 		</div>
-	</div>
+	</form>
 </div>
 
 <script>

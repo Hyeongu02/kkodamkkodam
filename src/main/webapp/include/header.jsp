@@ -58,10 +58,10 @@
 			<div class="dropdown drop-btn">
 				<button type="button" class="menu-btn dropdown-toggle"
 					data-toggle="dropdown">미니 게시판</button>
-				<!-- ul 태그 전체 수정 -->
+				<!-- ----------------------------------------------------------- -->
 				<ul class="dropdown-menu drop-menu">
 					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/post_write_mini.jsp">개설 신청</a></li>
-					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/postList.board?boardId=5">개설 신청 목록</a></li>
+					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/postMiniList.board">개설 신청 목록</a></li>
 					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/mini.jsp">게시판 전체보기</a></li>
 				</ul>
 			</div>

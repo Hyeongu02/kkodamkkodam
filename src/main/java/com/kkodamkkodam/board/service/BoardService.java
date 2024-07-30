@@ -14,7 +14,7 @@ public interface BoardService {
 	//목록조회
 	void getList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
   
-  	//글 작성 화면
+  //글 작성 화면
 	void postWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	//글 작성하여 등록
 	void postRegi(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
@@ -38,17 +38,19 @@ public interface BoardService {
 	void increaseCommentLike(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;	
 	// 미니 게시판 신설 요청
 	void miniWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-	/////////////////////////
+	//신설 요청 글목록 
+	void getMiniList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	// 투표
 	void voteContent (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+  // 신청글 좋아요 증가
+	void increaseVoteLike(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	
+	void getAllList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;;
 	// 내가 쓴 글 목록 조회
 	void getPostsByUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-
-    // 내가 쓴 댓글 목록 조회
-    void getCommentsByUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-    // 내가 쓴 글, 댓글 한번에 조회
-    void getUserActivityLog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+  // 내가 쓴 댓글 목록 조회
+  void getCommentsByUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+  // 내가 쓴 글, 댓글 한번에 조회
+  void getUserActivityLog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 }
-
-
 

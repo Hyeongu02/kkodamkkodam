@@ -12,6 +12,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.kkodamkkodam.board.model.BoardDTO;
 import com.kkodamkkodam.board.model.CommentDTO;
+import com.kkodamkkodam.board.model.MiniDTO;
 import com.kkodamkkodam.user.model.UserDTO;
 import com.kkodamkkodam.board.model.BoardMapper;
 import com.kkodamkkodam.util.mybatis.MybatisUtil;
@@ -161,7 +162,6 @@ public class BoardServiceImpl implements BoardService {
 		
 		//dto를 request에 담고 forward 화면으로 이동
 		request.getRequestDispatcher("getContent.board").forward(request, response);	
-		
 	}
 
 	@Override
@@ -270,42 +270,88 @@ public class BoardServiceImpl implements BoardService {
 		request.getRequestDispatcher("postList.board").forward(request, response);
 	}
 	
+	//////////////////////////////////////////////////////////////////
 	@Override
 	public void miniWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	  UserDTO userdto = new UserDTO();
+	  HttpSession session = request.getSession(); // 세션값에 저장되어 있는 걸 뽑음
+	  userdto = (UserDTO) session.getAttribute("user"); 
+	  
 	  String boardCategory = request.getParameter("boardCategory");
       String boardType = request.getParameter("boardType");
       String content = request.getParameter("content");
-      
-      BoardDTO dto = new BoardDTO(null, null, null, null, null, null, null, content, null, null, boardType, boardCategory);
-      
-      SqlSession sql = sqlSessionFactory.openSession(true);
+    
+      MiniDTO dto = new MiniDTO(null, boardType, boardCategory, content, null, null, userdto.getuserNo(), null);
+      SqlSession sql = sqlSessionFactory.openSession(true); 
       BoardMapper mapper = sql.getMapper(BoardMapper.class);
       mapper.miniWrite(dto);
       sql.close();
-
-      response.sendRedirect(request.getContextPath() + "/board/list.board");
+      
+      request.getRequestDispatcher("postMiniList.board").forward(request, response);
 	}
   
 	@Override
-	public void voteContent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String boardCategory=request.getParameter("boardCategory");
-		
-	    BoardDTO dto = new BoardDTO(null, null, null, null, null, null, null, null, null, null, null, boardCategory);
-	    
+	public void getMiniList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 	    SqlSession sql = sqlSessionFactory.openSession(true);
 	    BoardMapper mapper = sql.getMapper(BoardMapper.class);
-	    mapper.voteContent(dto);
+	    ArrayList<MiniDTO> Minilist = mapper.getMiniList();
 	    sql.close();
 
+	    request.setAttribute("Minilist", Minilist);
+	    request.getRequestDispatcher("post_mini_list.jsp").forward(request, response);
+	} 
+	
+	@Override
+	public void voteContent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+//		HttpSession session = request.getSession();
+//        if (session.getAttribute("userId") == null) {
+//            response.sendRedirect(request.getContextPath() + "/login.jsp");
+//            return;
+//        }
+        
+		String boardType = request.getParameter("boardType");
+	    String boardCategory = request.getParameter("boardCategory");
+	    Long postNo = Long.parseLong(request.getParameter("postNo"));
+	    
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("boardType", boardType);
+	    params.put("boardCategory", boardCategory);
+	    params.put("postNo", postNo); // 추가된 부분
+
+	    SqlSession sql = sqlSessionFactory.openSession(true);
+	    BoardMapper mapper = sql.getMapper(BoardMapper.class);
+
+	    mapper.miniListView(params); // 조회수 증가
+	    MiniDTO dto = mapper.voteContent(params); // 결과 반환
+	    sql.close();
+	    
+	    request.setAttribute("dto", dto);
+	    request.getRequestDispatcher("vote.jsp").forward(request, response); // forward 경로 확인
+	}
+	@Override
+	public void increaseVoteLike(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Long postNo=Long.parseLong(request.getParameter("postNo"));
+		
+		MiniDTO dto=new MiniDTO(postNo, null, null, null, null, null, null, null);
+
+		SqlSession sql = sqlSessionFactory.openSession(true);
+		BoardMapper mapper = sql.getMapper(BoardMapper.class);
+		mapper.increaseVoteLike(dto);
+		
+		sql.close(); //마이바티스 세션 종료
 		
 		//dto를 request에 담고 forward 화면으로 이동
-		request.setAttribute("dto", dto);
-		request.getRequestDispatcher("post_view.jsp").forward(request, response);		
+		request.getRequestDispatcher("voteContent.board").forward(request, response);	
+		
+	}			
+	@Override
+	public void getAllList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
 	}
-
-	
+  
 	@Override
 	public void getPostsByUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -377,9 +423,4 @@ public class BoardServiceImpl implements BoardService {
         }
 		
 	}
-
-	
-
-
-	
 }
