@@ -17,14 +17,14 @@ public class BoardDTO {
 	private String codeContent;
 	private String boardType;
 	private String boardCategory;
+	private Long commentCount;
 	
 	public BoardDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public BoardDTO(Long postNo, Long userNo, Long boardId, String title, Long viewCount, Timestamp regdate,
 			Long likeCount, String content, String codeLanguage, String codeContent, String boardType,
-			String boardCategory) {
+			String boardCategory, Long commentCount) {
 		super();
 		this.postNo = postNo;
 		this.userNo = userNo;
@@ -38,6 +38,7 @@ public class BoardDTO {
 		this.codeContent = codeContent;
 		this.boardType = boardType;
 		this.boardCategory = boardCategory;
+		this.commentCount = commentCount;
 	}
 
 	public Long getPostNo() {
@@ -136,5 +137,13 @@ public class BoardDTO {
 		this.boardCategory = boardCategory;
 	}
 
+	public Long getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(Long commentCount) {
+		this.commentCount = commentCount;
+	}
+	
 	
 }

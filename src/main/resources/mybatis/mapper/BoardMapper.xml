@@ -8,21 +8,68 @@
 		SELECT board_type from board where board_id=#{boardId}
 	</select>
 	<select id="getList" resultType="com.kkodamkkodam.board.model.BoardDTO">
-		SELECT 
-		    p.post_no,
-		    p.board_id,
-		    p.title,
-		    p.view_count,
-		    p.regdate,
-		    b.board_type
-		FROM 
-		    post p
-		JOIN 
-		    board b
-		ON 
-		    p.board_id = b.board_id
-		where p.board_id=#{boardId}
+	    SELECT 
+	        p.post_no,
+	        p.board_id,
+	        p.title,
+	        p.view_count,
+	        p.regdate,
+	        b.board_type,
+	        COUNT(pc.post_no) AS comment_count
+	    FROM 
+	        post p
+	    JOIN 
+	        board b
+	    ON 
+	        p.board_id = b.board_id
+	    LEFT JOIN 
+	        post_comment pc
+	    ON 
+	        p.post_no = pc.post_no
+	    WHERE 
+	        p.board_id = #{boardId}
+	    GROUP BY 
+	        p.post_no, p.board_id, p.title, p.view_count, p.regdate, b.board_type
+	    ORDER BY 
+	        p.regdate DESC
 	</select>
+
+	<select id="getBestList" resultType="com.kkodamkkodam.board.model.BoardDTO">
+	    <![CDATA[
+	        SELECT * FROM (
+	            SELECT 
+	                p.post_no,
+	                p.board_id,
+	                p.title,
+	                p.view_count,
+	                p.regdate,
+	                b.board_type,
+	                COUNT(pc.post_no) AS comment_count
+	            FROM 
+	                post p
+	            JOIN 
+	                board b
+	            ON 
+	                p.board_id = b.board_id
+	            LEFT JOIN 
+	                post_comment pc
+	            ON 
+	                p.post_no = pc.post_no
+	            WHERE 
+	                p.regdate >= SYSDATE - 3
+	            GROUP BY 
+	                p.post_no,
+	                p.board_id,
+	                p.title,
+	                p.view_count,
+	                p.regdate,
+	                b.board_type
+	            ORDER BY 
+	                p.view_count DESC
+	        ) WHERE ROWNUM <= 6
+	    ]]>
+	</select>
+
 	<select id="getContent" resultType="com.kkodamkkodam.board.model.BoardDTO">
 		SELECT * FROM post WHERE board_id = #{boardId} AND POST_No = #{postNo}
 	</select>
@@ -100,20 +147,25 @@
     	VALUES (#{boardType}, #{boardCategory}, #{content}, SYSTIMESTAMP, #{userNo})
   </insert>
   <select id="voteContent" resultType="com.kkodamkkodam.board.model.MiniDTO">
-	    SELECT boardType, boardCategory, regdate, viewCount, likeCount
+	    SELECT POST_NO, BOARD_TYPE, BOARD_CATEGORY, REGDATE, VIEW_COUNT, LIKE_COUNT
 	    FROM POST_MINI
-	    WHERE postNo = #{postNo}
+	    WHERE POST_NO = #{postNo}
   </select>
   <update id="miniListView" parameterType="Map">
 	    UPDATE POST_MINI 
     	SET VIEW_COUNT = VIEW_COUNT + 1 
     	WHERE POST_NO = #{postNo}
   </update>
-  <update id="increaseVoteLike" parameterType="Map">
+  <update id="increaseVoteLike" parameterType="com.kkodamkkodam.board.model.MiniDTO">
   		UPDATE POST_MINI
   		SET LIKE_COUNT = LIKE_COUNT + 1 
   		WHERE POST_NO = #{postNo} 
   </update>
+  <!-- dsadasda -->
+  <insert id="addVote" parameterType="com.kkodamkkodam.board.model.VoteDTO">
+    INSERT INTO VOTE (VOTE_ID, POST_NO, REGDATE, USER_NO, YESVOTES,BOARD_CATEGORY,BOARD_TYPE )
+    VALUES (#{voteId}, #{postNo}, SYSTIMESTAMP, #{userNo}, #{yesVotes}, #{boardCategory}, #{boardType})
+  </insert>
   <!-- 작성글 보기 -->
   <select id="getPostsByUser" parameterType="Long" resultType="com.kkodamkkodam.board.model.BoardDTO">
          
@@ -180,6 +232,41 @@
 	        REGDATE=NULL
 		WHERE COMMENT_NO = #{commentNo}
 	</update>
+	
+	
+	<select id="searchPost" resultType="com.kkodamkkodam.board.model.BoardDTO">
+		SELECT 
+		    p.post_no,
+		    p.board_id,
+		    p.title,
+		    p.view_count,
+		    p.regdate,
+		    b.board_type
+		FROM 
+		    post p
+		JOIN 
+		    board b
+		ON 
+		    p.board_id = b.board_id
+		WHERE p.BOARD_ID=#{boardId} 
+		AND (p.title LIKE '%' || #{title} || '%' OR p.content LIKE '%' || #{content} || '%')
+	</select> 
+	
+	<select id="searchPostIndex" resultType="com.kkodamkkodam.board.model.BoardDTO">
+        SELECT 
+            p.post_no,
+            p.user_no,
+            p.board_id,
+            p.title,
+            p.view_count,
+            p.regdate,
+            p.like_count,
+            b.board_type AS boardType,
+            b.board_category
+        FROM post p
+        JOIN board b ON p.board_id = b.board_id
+        WHERE (p.title LIKE '%' || #{title} || '%' OR p.content LIKE '%' || #{content} || '%')
+	</select>  
 </mapper>
 
 

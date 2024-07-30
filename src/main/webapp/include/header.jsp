@@ -117,6 +117,6 @@
 	
 	<script type="text/javascript">
 		function home() {
-			location.href = '${pageContext.request.contextPath }/index.jsp'
+			location.href = '${pageContext.request.contextPath }/board/index.board'
 		}
 	</script>
