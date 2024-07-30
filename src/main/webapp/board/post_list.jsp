@@ -20,19 +20,19 @@
                  이미지 크기는 항상 똑같아야함-->
             <div class="carousel-inner">
               <div class="item active">
-                <img src="img/slide01.jpg" alt="슬라이드1">
+                <img src="../resources/img/slide1.jpg" alt="슬라이드1">
               </div>
           
               <div class="item">
-                <img src="img/slide02.png" alt="슬라이드2">
+                <img src="../resources/img/slide2.png" alt="슬라이드2">
               </div>
           
               <div class="item">
-                <img src="img/slide03.jpg" alt="슬라이드3">
+                <img src="../resources/img/slide3.jpg" alt="슬라이드3">
               </div>
 
               <div class="item">
-                <img src="img/slide04.png" alt="슬라이드4">
+                <img src="../resources/img/slide4.png" alt="슬라이드4">
               </div>
             </div>
           
@@ -89,17 +89,20 @@
       </tbody>
       </table>
 
-     <div class="pagination-wrap">
-       <ul class="pagination page-number">
-         <li><a href="#">이전</a></li>
-         <li><a href="#">1</a></li>
-         <li><a href="#">2</a></li>
-         <li><a href="#">3</a></li>
-         <li><a href="#">4</a></li>
-         <li><a href="#">5</a></li>
-         <li><a href="#">다음</a></li>
-       </ul>
-     </div>
+    <div style="text-align: right;">
+      	<button type="button" class="btn btn-info" style="margin-right : 25px; margin-top:15px; min-width:70px" onclick = "location.href='post_write.board?boardId=${list[0].boardId}'">글쓰기</button>
+	  </div>
+    <div class="pagination-wrap">
+      <ul class="pagination page-number">
+        <li><a href="#">이전</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">다음</a></li>
+      </ul>
+    </div>
   </div>
   
   <%@ include file="../include/footer.jsp" %>

@@ -39,18 +39,43 @@ public class BoardController extends HttpServlet {
 		String command = uri.substring( path.length() );
 		
 		
-		BoardService service =new BoardServiceImpl();;
+		BoardService service =new BoardServiceImpl();
 		
-		if(command.equals("/board/list.board")) { //글 목록
+		if(command.equals("/board/postList.board")) { //글 목록
 			service.getList(request, response);
 		}else if(command.equals("/board/getContent.board")) { //글 내용 보기
 			service.getContent(request, response);
-		}else if(command.equals("/board/commentWrite.board")) { //글 내용 보기
+		}else if(command.equals("/board/increasePostLike.board")) { //글 좋아요 증가
+			service.increasePostLike(request, response);
+		}else if(command.equals("/board/post_write.board")) { //글 작성 화면
+			service.postWrite(request, response);
+		}else if(command.equals("/board/post_regi.board")) { //글 등록
+			service.postRegi(request, response);
+		}else if(command.equals("/board/updatePostPage.board")) { //글 수정페이지 이동
+			service.updatePostPage(request, response);
+		}else if(command.equals("/board/updatePost.board")) { //글 수정
+			service.updatePost(request, response);
+		}else if(command.equals("/board/deletePost.board")){ //글 삭제
+			service.deletePost(request, response);
+		}else if(command.equals("/board/commentWrite.board")) { //댓글 작성
 			service.commentWrite(request, response);
-		}
-		////////////////////////////////////////////////////////////////
-		else if(command.equals("/board/miniWrite.board")) { // 미니 게시판 
-			service.miniWrite(request, response);
+		}else if(command.equals("/board/replyWrite.board")) { //대댓글 작성
+			service.replyWrite(request, response);
+		}else if(command.equals("/board/deleteComment.board")) { //댓글 삭제
+			service.deleteComment(request, response);
+		}else if(command.equals("/board/increaseCommentLike.board")) { //댓글 좋아요 증가
+			service.increaseCommentLike(request, response);
+		}else if(command.equals("/board/miniWrite.board")) {
+	        request.getRequestDispatcher("post_write_mini.jsp").forward(request, response);
+		}else if(command.equals("/board/miniWriteForm.board")) {
+	        service.miniWrite(request, response);
+		else if(command.equals("/board/mypage.board")) {         //내 글, 내 댓글 보기
+			service.getUserActivityLog(request, response);
+		} 
+		else if(command.equals("/board/voteContent.board")) { // 투표
+			service.voteContent(request, response); 
 		}
 	}
 }
+
+

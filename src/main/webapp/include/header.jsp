@@ -49,19 +49,19 @@
 			<img src="${pageContext.request.contextPath }/resources/img/logo.png" alt="로고" onclick="home()">
 		</div>
 		<div class="header-menu">
-			<button type="button" onclick="location.href='${pageContext.request.contextPath}/board/list.board?boardId=1'" class="menu-btn">자유
+			<button type="button" onclick="location.href='${pageContext.request.contextPath}/board/postList.board?boardId=1'" class="menu-btn">자유
 				게시판</button>
-			<button type="button" onclick="location.href='${pageContext.request.contextPath}/board/list.board?boardId=2'" class="menu-btn">질문
+			<button type="button" onclick="location.href='${pageContext.request.contextPath}/board/postList.board?boardId=2'" class="menu-btn">질문
 				게시판</button>
-                <button type="button"  onclick="location.href='${pageContext.request.contextPath}/board/list.board?boardId=3'" class="menu-btn">코드 리뷰</button>
-                <button type="button"  onclick="location.href='${pageContext.request.contextPath}/board/list.board?boardId=4'" class="menu-btn">정보 공유</button>
+                <button type="button"  onclick="location.href='${pageContext.request.contextPath}/board/postList.board?boardId=3'" class="menu-btn">코드 리뷰</button>
+                <button type="button"  onclick="location.href='${pageContext.request.contextPath}/board/postList.board?boardId=4'" class="menu-btn">정보 공유</button>
 			<div class="dropdown drop-btn">
 				<button type="button" class="menu-btn dropdown-toggle"
 					data-toggle="dropdown">미니 게시판</button>
 				<!-- ul 태그 전체 수정 -->
 				<ul class="dropdown-menu drop-menu">
 					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/post_write_mini.jsp">개설 신청</a></li>
-					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/post_list.jsp">개설 신청 목록</a></li>
+					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/postList.board?boardId=5">개설 신청 목록</a></li>
 					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/mini.jsp">게시판 전체보기</a></li>
 				</ul>
 			</div>
@@ -81,7 +81,7 @@
 						<button type="button" class="dropdown-toggle btn-my" data-toggle="dropdown">내 정보</button>
 						<ul class="dropdown-menu drop-menu2" style="min-width: 65px;">
 							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/modify.user">정보 수정</a></li>
-							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/mypage.user">활동 로그</a></li>
+							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/board/mypage.board">활동 로그</a></li>
 							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/delete.user">회원 탈퇴</a></li>
 						</ul>
 					</div>			
