@@ -25,66 +25,68 @@
 	        <p>데뷔 예정 그룹의 경우 데뷔명이 확정되지 않아도 신청이 가능합니다.</p>
 	    </div>
 	
-    	<form action="${pageContext.request.contextPath}/board/miniWriteForm.board" method="post">
+    	<form action="miniWriteForm.board" method="post">
 	        <div class="form-group title">
-	            <div class="title">게시물 제목</div>
+	            <div class="title">게시판 이름</div>
 	            <div class="input-group"> 
-	                    <input type="text" class="title-name" placeholder="게시물 이름"> ${dto.boardCategory } 
+	                    <input type="text" class="title-name" placeholder="게시판 이름" name="boardType">
 	            </div>
 	        </div>
 	
 	        <div class="form-group title">
 	            <div class="title">카테고리</div>
 	            <div class="input-group">
-	                    <div class="input-group-btn">
-	                        <div class="dropdown">
-	                            <button id="dropdownButton" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="line-height: 20px; font-size : 12px;">게시판을 선택해주세요
+	            	<div class="input-group-btn">
+	                	<div class="dropdown">
+	                    	<button id="dropdownButton" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="line-height: 20px; font-size : 12px;">카테고리를 선택해주세요
 	                            <span class="caret"></span></button>
 	                            <ul id="dropdownMenu" class="dropdown-menu" style="width: 180px;">
-	                            <li><a href="#">연예</a></li>
-	                            <li><a href="#">게임</a></li>
-	                            <li><a href="#">취미</a></li>
-	                            <li><a href="#">방송</a></li>
-	                            <li><a href="#">만화/애니</a></li>
-	                            <li><a href="#">스포츠</a></li>
-	                            <li><a href="#">건강/심리</a></li>
-	                            <li><a href="#">생활</a></li>
-	                            <li><a href="#">금융/재테크</a></li>
-	                            <li><a href="#">디지털/IT</a></li>
-	                            <li><a href="#">패션/장터</a></li>
-	                            <li><a href="#">성공/계발</a></li>
-	                            <li><a href="#">기타</a></li>
-	                        </ul>
+		                            <li><a href="#" data-value="연예">연예</a></li>
+		                            <li><a href="#" data-value="게임">게임</a></li>
+		                            <li><a href="#" data-value="취미">취미</a></li>
+		                            <li><a href="#" data-value="방송">방송</a></li>
+		                            <li><a href="#" data-value="만화/애니">만화/애니</a></li>
+		                            <li><a href="#" data-value="스포츠">스포츠</a></li>
+		                            <li><a href="#" data-value="건강/심리">건강/심리</a></li>
+		                            <li><a href="#" data-value="생활">생활</a></li>
+		                            <li><a href="#" data-value="금융/재테크">금융/재테크</a></li>
+		                            <li><a href="#" data-value="디지털/IT">디지털/IT</a></li>
+		                            <li><a href="#" data-value="패션/장터">패션/장터</a></li>
+		                            <li><a href="#" data-value="성공/계발">성공/계발</a></li>
+		                            <li><a href="#" data-value="기타">기타</a></li>
+	                        	</ul>
 	                    </div>
 	                </div>
+	            	<input type="hidden" id="boardCategory" name="boardCategory" value="">  
 	            </div>
 	        </div>
 	     
 	        <div class="form-group contents">
 	            <div class="content">요청 사유</div>
-	            <textarea class="form-control" rows="10" id="content">${dto.content }</textarea>
+	            <textarea class="form-control" rows="10" id="content" name="content"></textarea>
 	        </div>
 	
 	        <div class="btn-wrap btns">
 	            <button type="submit" class="btn btn-default right">등록</button>
+	            <button type="button" class="btn btn-default right" onclick="location.href='${pageContext.request.contextPath }/board/post_mini_list.jsp'">취소</button>
 	        </div>
-	            <button type="button" class="btn btn-default right" onclick="location.href='${pageContext.request.contextPath }/board/post_list.jsp'">취소</button>
 	    </form>
     </div>  
     
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // 드롭다운 메뉴에서 모든 항목 가져오기
-        var dropdownItems = document.querySelectorAll('#dropdownMenu li a');
-        var dropdownButton = document.getElementById('dropdownButton');
-
-        dropdownItems.forEach(function(item) {
-            item.addEventListener('click', function(e) {
-                e.preventDefault(); // 기본 링크 동작 막기
-                var selectedText = this.textContent; // 클릭한 항목의 텍스트
-                dropdownButton.innerHTML = selectedText + ' <span class="caret"></span>'; // 버튼 텍스트 업데이트
-            });
-        });
-    });
+	document.addEventListener('DOMContentLoaded', function() {
+	  var dropdownMenu = document.getElementById('dropdownMenu');
+	  var dropdownButton = document.getElementById('dropdownButton');
+	  var boardCategory = document.getElementById('boardCategory');
+	
+	  dropdownMenu.addEventListener('click', function(e) {
+		 if (e.target && e.target.nodeName == 'A') {
+		 	e.preventDefault();
+		    var selectedValue = e.target.getAttribute('data-value');
+		    dropdownButton.textContent = e.target.textContent;
+		    boardCategory.value = selectedValue;
+		 }
+	  });
+	});
 </script>
 <%@ include file="../include/footer.jsp"%>

@@ -92,11 +92,29 @@
 		UPDATE POST_COMMENT SET LIKE_COUNT = LIKE_COUNT + 1 WHERE COMMENT_NO = #{commentNo};
 	</update>
 		
-  
-  <insert id="miniWrite" parameterType="com.kkodamkkodam.board.model.BoardDTO">
-		INSERT INTO POST(boardCategory, boardType, content) 
-		VALUES (#{boardCategory}, #{boardType}, #{content} )
+  <!--  -->
+  <select id="getMiniList" resultType="com.kkodamkkodam.board.model.MiniDTO">
+		select * from post_mini
+	</select>
+  <insert id="miniWrite" parameterType="com.kkodamkkodam.board.model.MiniDTO">
+		INSERT INTO POST_MINI (BOARD_TYPE, BOARD_CATEGORY, CONTENT, REGDATE, USER_NO)
+    	VALUES (#{boardType}, #{boardCategory}, #{content}, SYSTIMESTAMP, #{userNo})
   </insert>
+  <select id="voteContent" resultType="com.kkodamkkodam.board.model.MiniDTO">
+	    SELECT boardType, boardCategory, regdate, viewCount, likeCount
+	    FROM POST_MINI
+	    WHERE postNo = #{postNo}
+  </select>
+  <update id="miniListView" parameterType="Map">
+	    UPDATE POST_MINI 
+    	SET VIEW_COUNT = VIEW_COUNT + 1 
+    	WHERE POST_NO = #{postNo}
+  </update>
+  <update id="increaseVoteLike" parameterType="Map">
+  		UPDATE POST_MINI
+  		SET LIKE_COUNT = LIKE_COUNT + 1 
+  		WHERE POST_NO = #{postNo} 
+  </update>
 </mapper>
 
 

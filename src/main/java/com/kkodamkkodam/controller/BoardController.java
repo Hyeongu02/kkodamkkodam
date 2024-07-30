@@ -49,7 +49,7 @@ public class BoardController extends HttpServlet {
 			service.commentWrite(request, response);
 		}else if(command.equals("/board/post_write.board")) { //글 작성 화면
 			service.postWrite(request, response);
-//		}else if(command.equals(service)) {            //글 삭제
+//		}else if(command.equals(service)) { //글 삭제
 //			service.postDelete(request, response);
 		}else if(command.equals("/board/post_regi.board")) { //글 등록
 			service.postRegi(request, response);
@@ -57,15 +57,24 @@ public class BoardController extends HttpServlet {
 			service.commentWrite(request, response);
 		}else if(command.equals("/board/replyWrite.board")) { //대댓글 작성
 			service.replyWrite(request, response);
+			
+		//////////////////////////////////////////////////////////////////////////////////
 		}else if(command.equals("/board/miniWrite.board")) {
-	        request.getRequestDispatcher("post_write_mini.jsp").forward(request, response);
+	        request.getRequestDispatcher("/board/post_write_mini.jsp").forward(request, response);
+		}else if(command.equals("/board/postMiniList.board")) {
+		    service.getMiniList(request, response);
 		}else if(command.equals("/board/miniWriteForm.board")) {
 	        service.miniWrite(request, response);
+		}    
+		else if(command.equals("/board/voteContent.board")) { // 투표
+			service.voteContent(request, response);
+//			request.getRequestDispatcher("/board/vote.jsp").forward(request, response);
 		}
-	        
-		////////////////////////////
-//		else if(command.equals("/board/voteContent.board")) { // 투표
-//			service.voteContent(request, response); 
+//		else if(command.equals("/board/voteForm.board")) {
+//			service.voteContent(request, response);
+//		}
+//		else if(command.equals("/board/miniAllList.board")) {
+//			service.getAllList(request, response);
 //		}
 	}
 }

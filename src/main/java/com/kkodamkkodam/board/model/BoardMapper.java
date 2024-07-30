@@ -21,7 +21,11 @@ public interface BoardMapper {
 	public void increaseCommentLike(CommentDTO dto); 					//댓글 좋아요
 	public void replyWrite(CommentDTO dto); 							//대댓글작성
   
-  public void miniWrite(BoardDTO dto); // 미니 게시판 신설 요청
-	public void voteContent(BoardDTO dto); // 투표 
+	/////////////////////////////////////
+	  public void miniWrite(MiniDTO dto); // 미니 게시판 신설 요청 작성
+	  public ArrayList<MiniDTO> getMiniList(); 	 // 미니 요청 목록
+	  public MiniDTO voteContent(Map<String, Object> params); // 미니 신설 투표
+	  public void miniListView(Map<String, Object> params); 
+	  public void increaseVoteLike(MiniDTO dto);
 } 
 

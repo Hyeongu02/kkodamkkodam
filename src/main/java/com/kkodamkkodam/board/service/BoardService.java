@@ -30,9 +30,17 @@ public interface BoardService {
 	void increaseCommentLike(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;	
 	// 미니 게시판 신설 요청
 	void miniWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-	/////////////////////////
+	
+	///////////////////////////////////
+	void getMiniList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 	// 투표
 	void voteContent (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+
+	void increaseVoteLike(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	
+	void getAllList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;;
+	
+
 	}
 
 
