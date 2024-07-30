@@ -16,11 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 
-@WebFilter({"/user/mypage.user", 
-			"/user/modify.user", 
-			"/user/delete.user", 
-			"/user/delete_check.user"})
-public class ChainFilter implements Filter{
+@WebFilter({""})
+public class BoardAuthenticationFilter implements Filter{
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -46,7 +43,5 @@ public class ChainFilter implements Filter{
         // 로그인 된 상태
         chain.doFilter(request, response);
 	}
-	
-
 	
 }

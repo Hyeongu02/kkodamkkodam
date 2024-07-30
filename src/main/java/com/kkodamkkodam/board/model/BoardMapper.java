@@ -5,7 +5,6 @@ import java.util.Map;
 
 public interface BoardMapper {
 	
-
 	public ArrayList<BoardDTO> getList(Long boardId); 					//글 목록 조회
 	public String getboardType(Long boardId);							//게시판 타입 조회
   
@@ -32,10 +31,14 @@ public interface BoardMapper {
 	
 	// 내가 쓴 글 목록 조회
 	public ArrayList<BoardDTO> getPostsByUser(Long userNo);
+	public ArrayList<BoardDTO>searchPost(BoardDTO dto); 				//글검색
+	public ArrayList<BoardDTO>searchPostIndex(BoardDTO dto); 				//메인페이지 글검색
 
 	// 내가 쓴 댓글 목록 조회
 	public ArrayList<CommentDTO> getCommentsByUser(Long userNo);
 	public void deleteComment(CommentDTO dto);							//댓글 삭제
 	public void updateDeleteComment(CommentDTO dto);					//댓글 삭제 - 대댓글 있는경우
+	
+	public ArrayList<BoardDTO> getBestList(); //베스트 게시판
 } 
 
