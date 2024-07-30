@@ -95,6 +95,10 @@ public class BoardController extends HttpServlet {
 		else if(command.equals("/board/mypage.board")) {         //내 글, 내 댓글 보기
 			service.getUserActivityLog(request, response);
 		}
+		else if(command.equals("/board/post_code_write.board")) { // 코드 작성 
+			service.postCodeWrite(request, response);
+		}
+		
 		else if(command.equals("/board/searchPost.board")) {  	//게시판안에서  글 찾기
 			service.searchPost(request, response);
 		}

@@ -70,14 +70,12 @@ public interface BoardService {
 
 	// 내가 쓴 글 목록 조회
 	void getPostsByUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-
-	// 내가 쓴 댓글 목록 조회
-	void getCommentsByUser(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException;
-
-	// 내가 쓴 글, 댓글 한번에 조회
-	void getUserActivityLog(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException;
+  // 내가 쓴 댓글 목록 조회
+  void getCommentsByUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+  // 내가 쓴 글, 댓글 한번에 조회
+  void getUserActivityLog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+  // 코드 리뷰 게시글 작성
+  void postCodeWrite(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
 	// 글 검색
 	void searchPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;

@@ -15,7 +15,7 @@
 	     
 	        <div class="form-group contents">
 	            <label for="content">글 내용</label>
-	            <textarea class="form-control" rows="20" name="content" style="resize:none;" required></textarea>
+	            <textarea class="form-control" rows="20" name="content" style="resize:none; " required></textarea>
 	        </div>
 	        <div class="btn-wrap btns">
 	            <button type="submit" class="btn btn-default right" >등록</button>

@@ -446,6 +446,15 @@ public class BoardServiceImpl implements BoardService {
         }
 		
 	}
+
+	@Override
+	public void postCodeWrite(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		Long boardId = Long.parseLong(request.getParameter("boardId"));
+		request.setAttribute("boardId", boardId);
+		request.getRequestDispatcher("post_code_write.jsp").forward(request, response);
+  }
 	
 	@Override
 	public void searchPost(HttpServletRequest request, HttpServletResponse response)

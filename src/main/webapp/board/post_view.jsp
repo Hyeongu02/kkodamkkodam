@@ -28,7 +28,7 @@
 			</div>
         </div>
         <h3>${dto.title}</h3>
-        <p class="post-content">${dto.content}</p>
+        <p class="post-content" style="white-space: pre-wrap; word-wrap: break-word;">${dto.content}</p>
 
         <div class="post-info">
             <span class="icon">
