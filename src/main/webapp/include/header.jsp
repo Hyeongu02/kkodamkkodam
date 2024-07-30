@@ -69,7 +69,7 @@
 
 		 <!-- 로그인 유무에 따라 변하는 버튼 -->
 		 <c:choose>
-           	<c:when test="${sessionScope.user == null }">
+           	<c:when test="${sessionScope.user == null}">
 				<div class="right-btn">
 					<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/join.user'" class="btn-join">회원가입</button>
 					<button type="button" onclick="location.href = '${pageContext.request.contextPath }/user/login.user'" class="btn-login">로그인</button>
@@ -81,7 +81,7 @@
 						<button type="button" class="dropdown-toggle btn-my" data-toggle="dropdown">내 정보</button>
 						<ul class="dropdown-menu drop-menu2" style="min-width: 65px;">
 							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/modify.user">정보 수정</a></li>
-							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/mypage.user">활동 로그</a></li>
+							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/board/mypage.board">활동 로그</a></li>
 							<li><a class="dropdown-item drop-list2" href="${pageContext.request.contextPath }/user/delete.user">회원 탈퇴</a></li>
 						</ul>
 					</div>			
