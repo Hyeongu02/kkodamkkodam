@@ -9,7 +9,7 @@
 	        <div class="form-group title">
 	            <label for="title">글 제목</label>
 	            <div class="input-group">
-	                    <input type="text" name=title class="form-control" placeholder="글제목을 입력해주세요" required>
+	            	<input type="text" name=title class="form-control" placeholder="글제목을 입력해주세요" required>
 	            </div>
 	        </div>
 	     
@@ -20,8 +20,8 @@
 	        <div class="btn-wrap btns">
 	            <button type="submit" class="btn btn-default right" >등록</button>
 	            <button type="button" class="btn btn-default right" onclick = "location.href='postList.board?boardId=${boardId}'">취소</button>
-	        </div> 
-	    </form>    
+	        </div>
+	    </form>
     </div>  
 
 <%@ include file="../include/footer.jsp" %>
