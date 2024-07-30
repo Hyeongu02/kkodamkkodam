@@ -8,21 +8,68 @@
 		SELECT board_type from board where board_id=#{boardId}
 	</select>
 	<select id="getList" resultType="com.kkodamkkodam.board.model.BoardDTO">
-		SELECT 
-		    p.post_no,
-		    p.board_id,
-		    p.title,
-		    p.view_count,
-		    p.regdate,
-		    b.board_type
-		FROM 
-		    post p
-		JOIN 
-		    board b
-		ON 
-		    p.board_id = b.board_id
-		where p.board_id=#{boardId}
+	    SELECT 
+	        p.post_no,
+	        p.board_id,
+	        p.title,
+	        p.view_count,
+	        p.regdate,
+	        b.board_type,
+	        COUNT(pc.post_no) AS comment_count
+	    FROM 
+	        post p
+	    JOIN 
+	        board b
+	    ON 
+	        p.board_id = b.board_id
+	    LEFT JOIN 
+	        post_comment pc
+	    ON 
+	        p.post_no = pc.post_no
+	    WHERE 
+	        p.board_id = #{boardId}
+	    GROUP BY 
+	        p.post_no, p.board_id, p.title, p.view_count, p.regdate, b.board_type
+	    ORDER BY 
+	        p.regdate DESC
 	</select>
+
+	<select id="getBestList" resultType="com.kkodamkkodam.board.model.BoardDTO">
+	    <![CDATA[
+	        SELECT * FROM (
+	            SELECT 
+	                p.post_no,
+	                p.board_id,
+	                p.title,
+	                p.view_count,
+	                p.regdate,
+	                b.board_type,
+	                COUNT(pc.post_no) AS comment_count
+	            FROM 
+	                post p
+	            JOIN 
+	                board b
+	            ON 
+	                p.board_id = b.board_id
+	            LEFT JOIN 
+	                post_comment pc
+	            ON 
+	                p.post_no = pc.post_no
+	            WHERE 
+	                p.regdate >= SYSDATE - 3
+	            GROUP BY 
+	                p.post_no,
+	                p.board_id,
+	                p.title,
+	                p.view_count,
+	                p.regdate,
+	                b.board_type
+	            ORDER BY 
+	                p.view_count DESC
+	        ) WHERE ROWNUM <= 6
+	    ]]>
+	</select>
+
 	<select id="getContent" resultType="com.kkodamkkodam.board.model.BoardDTO">
 		SELECT * FROM post WHERE board_id = #{boardId} AND POST_No = #{postNo}
 	</select>
@@ -180,6 +227,41 @@
 	        REGDATE=NULL
 		WHERE COMMENT_NO = #{commentNo}
 	</update>
+	
+	
+	<select id="searchPost" resultType="com.kkodamkkodam.board.model.BoardDTO">
+		SELECT 
+		    p.post_no,
+		    p.board_id,
+		    p.title,
+		    p.view_count,
+		    p.regdate,
+		    b.board_type
+		FROM 
+		    post p
+		JOIN 
+		    board b
+		ON 
+		    p.board_id = b.board_id
+		WHERE p.BOARD_ID=#{boardId} 
+		AND (p.title LIKE '%' || #{title} || '%' OR p.content LIKE '%' || #{content} || '%')
+	</select> 
+	
+	<select id="searchPostIndex" resultType="com.kkodamkkodam.board.model.BoardDTO">
+        SELECT 
+            p.post_no,
+            p.user_no,
+            p.board_id,
+            p.title,
+            p.view_count,
+            p.regdate,
+            p.like_count,
+            b.board_type AS boardType,
+            b.board_category
+        FROM post p
+        JOIN board b ON p.board_id = b.board_id
+        WHERE (p.title LIKE '%' || #{title} || '%' OR p.content LIKE '%' || #{content} || '%')
+	</select>  
 </mapper>
 
 

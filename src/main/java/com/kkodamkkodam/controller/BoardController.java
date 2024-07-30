@@ -41,7 +41,10 @@ public class BoardController extends HttpServlet {
 		
 		BoardService service =new BoardServiceImpl();
 		
-		if(command.equals("/board/postList.board")) { //글 목록
+		if(command.equals("/board/index.board")) { //메인 페이지
+			service.getIndex(request, response);
+		}
+		else if(command.equals("/board/postList.board")) { //글 목록
 			service.getList(request, response);
 		}
 		else if(command.equals("/board/getContent.board")) { //글 내용 보기
@@ -91,6 +94,12 @@ public class BoardController extends HttpServlet {
 		}
 		else if(command.equals("/board/mypage.board")) {         //내 글, 내 댓글 보기
 			service.getUserActivityLog(request, response);
+		}
+		else if(command.equals("/board/searchPost.board")) {  	//게시판안에서  글 찾기
+			service.searchPost(request, response);
+		}
+		else if(command.equals("/searchPostIndex.board")) {	//메인페이지 글 찾기
+			service.searchPostIndex(request, response);
 		}
 	}
 }

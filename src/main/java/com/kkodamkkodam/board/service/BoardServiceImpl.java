@@ -27,6 +27,42 @@ public class BoardServiceImpl implements BoardService {
 	//멤버변수에 세션팩토리 하나 선언
 	private SqlSessionFactory sqlSessionFactory = MybatisUtil.getSqlSessionFactory();
 	
+	@Override
+	public void getIndex(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		SqlSession sql = sqlSessionFactory.openSession(true);
+		BoardMapper mapper = sql.getMapper(BoardMapper.class);
+		ArrayList<BoardDTO> bastList = mapper.getBestList();
+		ArrayList<BoardDTO> freeList = mapper.getList(1L);
+		ArrayList<BoardDTO> QuestionList = mapper.getList(2L);
+		ArrayList<BoardDTO> codeReviewList = mapper.getList(3L);
+		ArrayList<BoardDTO> informationList = mapper.getList(4L);
+		
+		sql.close();
+		
+		if (freeList.size() > 6) {
+		    freeList = new ArrayList<>(freeList.subList(0, 6));
+		}
+		if (QuestionList.size() > 6) {
+			QuestionList = new ArrayList<>(QuestionList.subList(0, 6));
+		}
+		if (codeReviewList.size() > 6) {
+			codeReviewList = new ArrayList<>(codeReviewList.subList(0, 6));
+		}
+		if (informationList.size() > 6) {
+			informationList = new ArrayList<>(informationList.subList(0, 6));
+		}
+		
+		request.setAttribute("bastList", bastList);
+		request.setAttribute("freeList", freeList);
+		request.setAttribute("QuestionList", QuestionList);
+		request.setAttribute("codeReviewList", codeReviewList);
+		request.setAttribute("informationList", informationList);
+
+	    request.getRequestDispatcher("/index.jsp").forward(request, response);
+	}
+	
+	
 	//글목록
 	@Override
 	public void getList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,6 +76,7 @@ public class BoardServiceImpl implements BoardService {
 		request.setAttribute("list", list);
 		request.setAttribute("boardType", boardType);
 		request.setAttribute("boardId", boardId);
+		
 		request.getRequestDispatcher("post_list.jsp").forward(request, response);
 	}
 	
@@ -96,7 +133,7 @@ public class BoardServiceImpl implements BoardService {
 		Long postNo=Long.parseLong(request.getParameter("postNo"));
 		String title=request.getParameter("title");
 		String content=request.getParameter("content");
-		BoardDTO dto = new BoardDTO(postNo, null, boardId, title, null, null, null, content, null, null, null, null);
+		BoardDTO dto = new BoardDTO(postNo, null, boardId, title, null, null, null, content, null, null,null, null, null);
 		//마이바티스 실행
 		SqlSession sql = sqlSessionFactory.openSession(true);
 		BoardMapper mapper = sql.getMapper(BoardMapper.class);
@@ -112,7 +149,7 @@ public class BoardServiceImpl implements BoardService {
 	public void deletePost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Long postNo=Long.parseLong(request.getParameter("postNo"));
-		BoardDTO dto=new BoardDTO(postNo, null, null, null, null, null, null, null, null, null, null, null);
+		BoardDTO dto=new BoardDTO(postNo, null, null, null, null, null, null, null, null, null, null,null, null);
 		SqlSession sql = sqlSessionFactory.openSession(true);
 		BoardMapper mapper = sql.getMapper(BoardMapper.class);
 		mapper.deletePost(dto);
@@ -129,7 +166,7 @@ public class BoardServiceImpl implements BoardService {
 			throws ServletException, IOException {
 		Long postNo=Long.parseLong(request.getParameter("postNo"));
 		Long boardId=Long.parseLong(request.getParameter("boardId"));
-		BoardDTO dto=new BoardDTO(postNo, null, boardId, null, null, null, null, null, null, null, null, null);
+		BoardDTO dto=new BoardDTO(postNo, null, boardId, null, null, null, null, null, null, null, null, null,null);
 		//마이바티스 실행
 		SqlSession sql = sqlSessionFactory.openSession(true);
 		BoardMapper mapper = sql.getMapper(BoardMapper.class);
@@ -408,5 +445,44 @@ public class BoardServiceImpl implements BoardService {
             }
         }
 		
+	}
+	
+	@Override
+	public void searchPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Long boardId=Long.parseLong(request.getParameter("boardId"));
+		String search=request.getParameter("search");
+		
+		BoardDTO dto= new BoardDTO(null, null, boardId, search, null, null, null, search, null, null, null, null,null);
+		//마이바티스 실행
+		SqlSession sql = sqlSessionFactory.openSession(true);
+		BoardMapper mapper = sql.getMapper(BoardMapper.class);
+		
+		ArrayList<BoardDTO> list = mapper.searchPost(dto);
+		String boardType=mapper.getboardType(boardId);
+		sql.close();
+		
+		request.setAttribute("list", list);
+		request.setAttribute("boardType", boardType);
+		request.setAttribute("boardId", boardId);
+		
+		request.getRequestDispatcher("post_list.jsp").forward(request, response);
+	}
+	@Override
+	public void searchPostIndex(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String search=request.getParameter("search");
+		BoardDTO dto= new BoardDTO(null, null, null, search, null, null, null, search, null, null, null, null, null);
+		//마이바티스 실행
+		SqlSession sql = sqlSessionFactory.openSession(true);
+		BoardMapper mapper = sql.getMapper(BoardMapper.class);
+		
+        ArrayList<BoardDTO> posts = mapper.searchPostIndex(dto);
+        sql.close();
+        
+        request.setAttribute("search", search);
+        request.setAttribute("posts", posts);
+		
+		request.getRequestDispatcher("/board/post_index_search_list.jsp").forward(request, response);
 	}
 }

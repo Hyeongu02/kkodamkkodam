@@ -52,52 +52,36 @@
 		<div class="wrap">
 			<div class="left">
 				<h4 class="board-connected">
-					<c:out value="${boardType}"/>
-					게시판
+					<strong style="font-size: 1.3rem"><c:out value="${search}"/></strong>
+					검색결과
 				</h4>
-			</div>
-			<form action="searchPost.board" method="post">
-				<input type="hidden" name="boardId" value="${boardId}">
-				<div class="input-group right">
-					<input type="text" name="search" class="form-control" placeholder="Search">
-					<div class="input-group-btn">
-						<button class="btn btn-default" type="submit">
-							<i class="glyphicon glyphicon-search"></i>
-						</button>
-					</div>
-				</div>
-			</form>
+			</div>	
 		</div>
 	</section>
 
 	<table id="board-list">
 		<thead>
 			<tr>
-				<th scope="col">번호</th>
-				<th scope="col">제목</th>
-				<th scope="col">작성일</th>
-				<th scope="col">조회수</th>
+                  <th style="width : 15%;">게시판</th>
+                  <th style="width : 40%;">글 제목</th>
+                  <th style="width : 25%;">작성일</th>
+                  <th style="width : 10%;">조회수</th>
+                  <th style="width : 10%;">좋아요</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="dto" items="${list}">
+			<c:forEach var="post" items="${posts}">
 				<tr>
-					<td><c:out value="${dto.postNo}"/></td>
-					<td>
-						<a href="getContent.board?postNo=${dto.postNo}&boardId=${dto.boardId}"><c:out value="${dto.title}"/></a>
-					</td>
-					<td><fmt:formatDate value="${dto.regdate}" pattern="MM-dd" /></td>
-					<td>${dto.viewCount}</td>
+                	<td>${post.boardType}</td>
+                    <td><a href="${pageContext.request.contextPath }/board/getContent.board?postNo=${post.postNo}&boardId=${post.boardId}">${post.title }</a></td>
+                    <td><fmt:formatDate value="${post.regdate}" pattern="yyyy-MM-dd"/></td>
+                    <td>${post.viewCount}</td>
+                	<td>${post.likeCount}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 
-	<div style="text-align: right;">
-		<button type="button" class="btn btn-info"
-			style="margin-right: 25px; margin-top: 15px; min-width: 70px"
-			onclick="location.href='post_write.board?boardId=${boardId}'">글쓰기</button>
-	</div>
 	<div class="pagination-wrap">
 		<ul class="pagination page-number">
 			<li><a href="#">이전</a></li>
