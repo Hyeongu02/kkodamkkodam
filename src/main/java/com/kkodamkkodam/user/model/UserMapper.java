@@ -18,6 +18,6 @@ public interface UserMapper {
 
 	public int delete(@Param("id") String id);
 	
-
+	
 	
 }
