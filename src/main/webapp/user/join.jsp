@@ -4,9 +4,6 @@
 
 <%@ include file="../include/header.jsp"%>
 
-
-
-
 <div id="wrapped">
 	<div class="join-page">
 		<h3>회원 가입</h3>
@@ -34,29 +31,32 @@
 </div>
 
 <script>
-	var checkId = function() {
-	  var id = document.querySelector("input[name=id]").value;
-	  var idCheck = document.querySelector(".idCheck");
+  var rule = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,6}$/;
+  
+  // 이메일 형식과 중복 검사 함수
+  var checkId = function() {
+      var id = document.querySelector("input[name=id]").value;
+      var idCheck = document.querySelector(".idCheck");
 
-	  if (id.trim() == "") { // 공백이어도 사용 가능하다고 떠서 추가함
-	    idCheck.textContent = "아이디를 입력해주세요.";
-	    return;
-	  }
+      if (!rule.test(id)) {
+          idCheck.textContent = "올바른 이메일 형식이 아닙니다.";
+          return;
+      }
 
-	  var url = "joinForm.user?action=checkId&id=" + encodeURIComponent(id);
+      var url = "joinForm.user?action=checkId&id=" + encodeURIComponent(id);
 
-	  fetch(url)
-	    .then(function(response) {
-	      return response.text();
-	    })
-	    .then(function(result) {
-	      idCheck.textContent = result;
-	    })
-	    .catch(function(error) {
-	      idCheck.textContent = "오류가 발생했습니다.";
-	      console.error('Error:', error);
-	    });
-	};
+      fetch(url)
+          .then(function(response) {
+              return response.text();
+          })
+          .then(function(result) {
+              idCheck.textContent = result;
+          })
+          .catch(function(error) {
+              idCheck.textContent = "오류가 발생했습니다.";
+              console.error('Error:', error);
+          });
+  };
 </script>
 
 
