@@ -2,6 +2,7 @@ package com.kkodamkkodam.board.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.kkodamkkodam.board.model.BoardDTO;
 import com.kkodamkkodam.board.model.CommentDTO;
+import com.kkodamkkodam.user.model.UserDTO;
 import com.kkodamkkodam.board.model.BoardMapper;
 import com.kkodamkkodam.util.mybatis.MybatisUtil;
 
@@ -27,7 +29,7 @@ public class BoardServiceImpl implements BoardService {
 	//글목록
 	@Override
 	public void getList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardId=Integer.parseInt(request.getParameter("boardId"));
+		Long boardId=Long.parseLong(request.getParameter("boardId"));
 		SqlSession sql = sqlSessionFactory.openSession(true);
 		BoardMapper mapper = sql.getMapper(BoardMapper.class);
 		ArrayList<BoardDTO> list = mapper.getList(boardId);
@@ -142,11 +144,14 @@ public class BoardServiceImpl implements BoardService {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 //		int userNo=(int)session.getAttribute("userNo");
-		Long userNo=1L;
+
+		UserDTO udto = new UserDTO();
+		udto = (UserDTO) session.getAttribute("user");
+		Long userNo=udto.getuserNo();
 		Long boardId=Long.parseLong(request.getParameter("boardId"));
 		Long postNo=Long.parseLong(request.getParameter("postNo"));
 		String commentContent=request.getParameter("commentContent");
-		CommentDTO dto = new CommentDTO(null, userNo, boardId, postNo, commentContent, null, null, null, null);
+		CommentDTO dto = new CommentDTO(null, userNo, boardId, postNo, commentContent, null, null, null, null,null);
 		//마이바티스 실행
 		SqlSession sql = sqlSessionFactory.openSession(true);
 		BoardMapper mapper = sql.getMapper(BoardMapper.class);
@@ -165,13 +170,15 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 //		int userNo=(int)session.getAttribute("userNo");
-		Long userNo=1L;
+		UserDTO udto = new UserDTO();
+		udto = (UserDTO) session.getAttribute("user");
+		Long userNo=udto.getuserNo();
 		Long boardId=Long.parseLong(request.getParameter("boardId"));
 		Long postNo=Long.parseLong(request.getParameter("postNo"));
 		String commentContent=request.getParameter("commentContent");
 		Long parentId=Long.parseLong(request.getParameter("parentId"));
 		
-		CommentDTO dto = new CommentDTO(null, userNo, boardId, postNo, commentContent, null, null, parentId, null);
+		CommentDTO dto = new CommentDTO(null, userNo, boardId, postNo, commentContent, null, null, parentId, null,null);
 		//마이바티스 실행
 		SqlSession sql = sqlSessionFactory.openSession(true);
 		BoardMapper mapper = sql.getMapper(BoardMapper.class);
@@ -224,8 +231,9 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void postWrite(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		response.sendRedirect("post_write.jsp");
+		Long boardId = Long.parseLong(request.getParameter("boardId"));
+		request.setAttribute("boardId", boardId);
+		request.getRequestDispatcher("post_write.jsp").forward(request, response);
 	}
 
 
@@ -235,19 +243,12 @@ public class BoardServiceImpl implements BoardService {
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-//		int boardId = Integer.parseInt(request.getParameter("boardId"));
-	    String boardIdStr = request.getParameter("boardId");
+		Long boardId = Long.parseLong(request.getParameter("boardId"));
 
-	    Long boardId = 0L;
-	    if (boardIdStr != null && !boardIdStr.isEmpty()) {
-	        try {
-	            boardId = Long.parseLong(boardIdStr);
-	        } catch (NumberFormatException e) {
-	            // Handle the exception
-	            throw new ServletException("Invalid boardId format", e);
-	        }
-	    }
-		Long userNo = 1L;
+		HttpSession session = request.getSession();
+		UserDTO udto = new UserDTO();
+		udto = (UserDTO) session.getAttribute("user");
+		Long userNo = udto.getuserNo();
 
 //		TIMESTAMP regdate = new TIMESTAMP(Date.getCurrentDate());
 //		System.out.println(regdate);
@@ -265,7 +266,8 @@ public class BoardServiceImpl implements BoardService {
 		
 		sql.close();
 		
-		response.sendRedirect("post_list.board");
+		request.setAttribute("boardId", boardId);
+		request.getRequestDispatcher("postList.board").forward(request, response);
 	}
 	
 	@Override
@@ -302,4 +304,82 @@ public class BoardServiceImpl implements BoardService {
 		request.setAttribute("dto", dto);
 		request.getRequestDispatcher("post_view.jsp").forward(request, response);		
 	}
+
+	
+	@Override
+	public void getPostsByUser(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UserDTO udto = new UserDTO();
+		udto = (UserDTO) session.getAttribute("user");
+//		System.out.println(udto.getuserNo());
+
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = sqlSessionFactory.openSession();
+            BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+            ArrayList<BoardDTO> posts = mapper.getPostsByUser(udto.getuserNo());
+            request.setAttribute("posts", posts);
+            request.getRequestDispatcher("../user/mypage.jsp").forward(request, response);
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+		
+	}
+
+	@Override
+	public void getCommentsByUser(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		UserDTO udto = new UserDTO();
+		udto = (UserDTO) session.getAttribute("user");
+		System.out.println(udto.getuserNo());
+
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = sqlSessionFactory.openSession();
+            BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+            ArrayList<CommentDTO> comments = mapper.getCommentsByUser(udto.getuserNo());
+            request.setAttribute("comments", comments);
+            request.getRequestDispatcher("../user/mypage.jsp").forward(request, response);
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+	}
+
+	@Override
+	public void getUserActivityLog(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+        UserDTO udto = (UserDTO) session.getAttribute("user");
+
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = sqlSessionFactory.openSession();
+            BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
+
+            ArrayList<BoardDTO> posts = mapper.getPostsByUser(udto.getuserNo());
+            ArrayList<CommentDTO> comments = mapper.getCommentsByUser(udto.getuserNo());
+
+            request.setAttribute("posts", posts);
+            request.setAttribute("comments", comments);
+
+            request.getRequestDispatcher("../user/mypage.jsp").forward(request, response);
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+		
+	}
+
+	
+
+
+	
 }

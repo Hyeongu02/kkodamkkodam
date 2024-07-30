@@ -1,6 +1,10 @@
 package com.kkodamkkodam.board.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import com.kkodamkkodam.board.model.BoardDTO;
+import com.kkodamkkodam.board.model.CommentDTO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,7 +41,14 @@ public interface BoardService {
 	/////////////////////////
 	// 투표
 	void voteContent (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-	}
+	// 내가 쓴 글 목록 조회
+	void getPostsByUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+
+    // 내가 쓴 댓글 목록 조회
+    void getCommentsByUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    // 내가 쓴 글, 댓글 한번에 조회
+    void getUserActivityLog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+}
 
 
 
