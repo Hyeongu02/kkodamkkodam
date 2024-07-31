@@ -56,7 +56,7 @@ public class UserController extends HttpServlet{
 	        else if (command.equals("/user/logout.user")) {
 			HttpSession session = request.getSession();
 			session.invalidate();
-			response.sendRedirect(request.getContextPath()+"/index.jsp"); // 메인 화면으로
+			response.sendRedirect(request.getContextPath()+"/board/index.board"); // 메인 화면으로
 		} else if (command.equals("/user/delete.user")) {
 			request.getRequestDispatcher("delete.jsp").forward(request, response);
 		} else if (command.equals("/user/delete_check.user")) {
