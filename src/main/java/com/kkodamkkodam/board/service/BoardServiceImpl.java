@@ -429,52 +429,73 @@ public class BoardServiceImpl implements BoardService {
 		request.getRequestDispatcher("voteContent.board").forward(request, response);
 	}
 
-	////////////////////////////////
 	@Override
 	public void addVote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    try {
+	        Long postNo = Long.parseLong(request.getParameter("postNo"));
+	        String voteOption = request.getParameter("voteOption");
+	        String boardCategory = request.getParameter("boardCategory");
+	        String boardType = request.getParameter("boardType");
+	        
+	        // 세션에서 사용자 번호를 가져옵니다.
+	        HttpSession session = request.getSession();
+	        Long userNo = (Long) session.getAttribute("userNo");
 
-		try {
-			Long voteId = Long.parseLong(request.getParameter("voteId"));
-			Long postNo = Long.parseLong(request.getParameter("postNo"));
-			Long userNo = Long.parseLong(request.getParameter("userNo"));
-			Long yesVotes = Long.parseLong(request.getParameter("yesVotes"));
-			Long noVotes = Long.parseLong(request.getParameter("noVotes"));
-			String BoardCategory = request.getParameter("BoardCategory");
-			String boardType = request.getParameter("boardType");
+	        SqlSession sql = sqlSessionFactory.openSession(true);
+	        BoardMapper mapper = sql.getMapper(BoardMapper.class);
 
-			// 총 투표 수 계산
-			Long totalVotes = yesVotes + noVotes;
+	        // 사용자가 이미 투표했는지 확인
+	        if (mapper.hasUserVoted(postNo, userNo)) {
+	        	
+	            sql.close();
+	            response.setContentType("application/json");
+	            response.getWriter().write("{\"error\": \"이미 투표하셨습니다.\"}");
+	            return;
+	        }
 
-			// 찬성 비율
-			double yesPercentage = (yesVotes.doubleValue() / totalVotes.doubleValue()) * 100;
+	        // 현재 투표 상황을 가져옵니다.
+	        VoteDTO currentVote = mapper.getVoteByPostNo(postNo);
 
-			// 찬성 비율이 60% 이상인지 확인합니다.
-			if (totalVotes >= 20 & yesPercentage >= 60) {
-				// 찬성 비율이 60% 이상인 경우
-				VoteDTO dto = new VoteDTO(voteId, postNo, null, userNo, yesVotes, null, BoardCategory, boardType);
+	        if (currentVote == null) {
+	            currentVote = new VoteDTO();
+	            currentVote.setPostNo(postNo);
+	            currentVote.setYesVotes(0L);
+	            currentVote.setNoVotes(0L);
+	            currentVote.setBoardCategory(boardCategory);
+	            currentVote.setBoardType(boardType);
+	        }
 
-				SqlSession sql = sqlSessionFactory.openSession(true);
-				BoardMapper mapper = sql.getMapper(BoardMapper.class);
+	        // 투표를 업데이트합니다.
+	        if ("yes".equals(voteOption)) {
+	            currentVote.setYesVotes(currentVote.getYesVotes() + 1);
+	        } else if ("no".equals(voteOption)) {
+	            currentVote.setNoVotes(currentVote.getNoVotes() + 1);
+	        }
+	        currentVote.setUserNo(userNo);
 
-				// 데이터베이스 작업을 수행합니다.
-				// mapper.someMethod(dto);
+	        // 데이터베이스에 투표 결과를 저장 또는 업데이트합니다.
+	        if (currentVote.getVoteId() == null) {
+	            mapper.insertVote(currentVote);
+	        } else {
+	            mapper.updateVote(currentVote);
+	        }
 
-				sql.close(); // 마이바티스 세션 종료
+	        sql.close();
 
-				// 성공적인 작업 후 mini.jsp로 포워딩합니다.
-				request.getRequestDispatcher("mini.jsp").forward(request, response);
-//		    } else {
-//		        // 찬성 비율이 60% 미만인 경우
-//		        response.sendRedirect("notEnoughSupport.jsp"); // 찬성 비율 부족 페이지로 리다이렉트
-			}
-		} catch (NumberFormatException e) {
-			// 파라미터가 숫자 형식이 아닐 경우 에러 페이지로 리다이렉트합니다.
-			response.sendRedirect("error.jsp");
-		} catch (Exception e) {
-			// 기타 예외를 처리합니다.
-			response.sendRedirect("error.jsp");
-		}
+	        // 총 투표 수와 찬성 비율을 계산합니다.
+	        Long totalVotes = currentVote.getYesVotes() + currentVote.getNoVotes();
+	        double yesPercentage = (currentVote.getYesVotes().doubleValue() / totalVotes.doubleValue()) * 100;
+
+	        if (totalVotes >= 20 && yesPercentage >= 60) {
+	            // 조건이 충족되면 새로운 미니 게시판으로 리다이렉트
+	            response.sendRedirect("mini" + boardType + ".jsp");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        response.sendRedirect("voteContent.board?postNo=" + request.getParameter("postNo"));
+	    }
 	}
+	
 
 	@Override
 	public void getPostsByUser(HttpServletRequest request, HttpServletResponse response)

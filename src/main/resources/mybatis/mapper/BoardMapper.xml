@@ -184,14 +184,34 @@
   		SET LIKE_COUNT = LIKE_COUNT + 1 
   		WHERE POST_NO = #{postNo} 
   </update>
-  <!-- dsadasda -->
+  <!-- 나린 -->
   <insert id="addVote" parameterType="com.kkodamkkodam.board.model.VoteDTO">
-    INSERT INTO VOTE (VOTE_ID, POST_NO, REGDATE, USER_NO, YESVOTES,BOARD_CATEGORY,BOARD_TYPE )
-    VALUES (#{voteId}, #{postNo}, SYSTIMESTAMP, #{userNo}, #{yesVotes}, #{boardCategory}, #{boardType})
+    	INSERT INTO VOTE (VOTE_ID, POST_NO, REGDATE, USER_NO, YESVOTES,BOARD_CATEGORY,BOARD_TYPE )
+    	VALUES (#{voteId}, #{postNo}, SYSTIMESTAMP, #{userNo}, #{yesVotes}, #{boardCategory}, #{boardType})
   </insert>
+  <select id="getVoteByPostNo" resultType="com.kkodamkkodam.board.model.VoteDTO">
+  		SELECT * FROM VOTE WHERE POST_NO = #{postNo}
+  </select>
+
+  <insert id="insertVote" parameterType="com.kkodamkkodam.board.model.VoteDTO">
+        INSERT INTO VOTE (POST_NO, YES_VOTES, NO_VOTES, BOARD_CATEGORY, BOARD_TYPE)
+        VALUES (#{postNo}, #{yesVotes}, #{noVotes}, #{boardCategory}, #{boardType})
+  </insert>
+
+  <update id="updateVote" parameterType="com.kkodamkkodam.board.model.VoteDTO">
+        UPDATE VOTE 
+        SET YES_VOTES = #{yesVotes}, NO_VOTES = #{noVotes}
+        WHERE POST_NO = #{postNo}
+  </update>
+  <select id="hasUserVoted" resultType="boolean">
+	    SELECT COUNT(*)
+	    FROM VOTE
+	    WHERE POST_NO = #{postNo} AND USER_NO = #{userNo}
+</select>
+  
+  
   <!-- 작성글 보기 -->
   <select id="getPostsByUser" parameterType="Long" resultType="com.kkodamkkodam.board.model.BoardDTO">
-         
         SELECT 
             p.post_no,
             p.user_no,
