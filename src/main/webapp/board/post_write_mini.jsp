@@ -47,6 +47,7 @@
 		                            <li><a href="#" data-value="방송">방송</a></li>
 		                            <li><a href="#" data-value="만화/애니">만화/애니</a></li>
 		                            <li><a href="#" data-value="스포츠">스포츠</a></li>
+		                            <li><a href="#" data-value="스포츠">음식</a></li>
 		                            <li><a href="#" data-value="건강/심리">건강/심리</a></li>
 		                            <li><a href="#" data-value="생활">생활</a></li>
 		                            <li><a href="#" data-value="금융/재테크">금융/재테크</a></li>
@@ -67,8 +68,8 @@
 	        </div>
 	
 	        <div class="btn-wrap btns">
-	            <button type="submit" class="btn btn-default right">등록</button>
-	            <button type="button" class="btn btn-default right" onclick="location.href='${pageContext.request.contextPath }/board/post_mini_list.jsp'">취소</button>
+	            <button type="submit" class="btn btn-default right" style="background-color: #00AFB9; color: #fff;">등록</button>
+	            <button type="button" class="btn btn-default right" onclick="location.href='${pageContext.request.contextPath }/index.jsp'">취소</button>
 	        </div>
 	    </form>
     </div>  

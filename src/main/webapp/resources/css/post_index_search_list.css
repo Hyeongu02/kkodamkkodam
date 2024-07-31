@@ -102,14 +102,11 @@ tr:not(.bo_notice) .td_subject a {
     font-weight: normal; 
 }
 
-
-
-/* 페이지 번호 UI 추가 */
+/* 페이지 번호 */
 #wrapped .pagination-wrap {
     text-align: center;
     height: 60px;
 }
-
 
 #wrapped .pagination-wrap > .page-number > li > a {
     color: #333;

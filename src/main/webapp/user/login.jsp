@@ -7,6 +7,7 @@
 <%  // 쿠키 사용 - 최종 완성
 	Cookie[] cookies = request.getCookies();
 	String id = "";
+
 	boolean remember = false;
 	
 	if (cookies != null) {

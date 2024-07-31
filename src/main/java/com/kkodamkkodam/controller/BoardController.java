@@ -41,7 +41,10 @@ public class BoardController extends HttpServlet {
 		
 		BoardService service =new BoardServiceImpl();
 		
-		if(command.equals("/board/postList.board")) { //글 목록
+		if(command.equals("/board/index.board")) { //메인 페이지
+			service.getIndex(request, response);
+		}
+		else if(command.equals("/board/postList.board")) { //글 목록
 			service.getList(request, response);
 		}
 		else if(command.equals("/board/getContent.board")) { //글 내용 보기
@@ -55,6 +58,12 @@ public class BoardController extends HttpServlet {
 		}
 		else if(command.equals("/board/post_regi.board")) { //글 등록
 			service.postRegi(request, response);
+		}
+		else if(command.equals("/board/post_code_write.board")) { // 코드 작성 화면
+			service.postCodeWrite(request, response);
+		}
+		else if(command.equals("/board/post_code_regi.board")) { //코드 질문글 등록
+			service.postCodeRegi(request, response);
 		}
 		else if(command.equals("/board/updatePostPage.board")) { //글 수정페이지 이동
 			service.updatePostPage(request, response);
@@ -77,22 +86,34 @@ public class BoardController extends HttpServlet {
 		else if(command.equals("/board/increaseCommentLike.board")) { //댓글 좋아요 증가
 			service.increaseCommentLike(request, response);
 		}
-		else if(command.equals("/board/miniWrite.board")) {
+		else if(command.equals("/board/miniWrite.board")) {  // 미니 게시판 신설 요청
 	        request.getRequestDispatcher("/board/post_write_mini.jsp").forward(request, response);
 		}
-		else if(command.equals("/board/postMiniList.board")) {
+		else if(command.equals("/board/postMiniList.board")) { //  미니 요청 목록
 		    service.getMiniList(request, response);
 		}
-		else if(command.equals("/board/miniWriteForm.board")) {
+		else if(command.equals("/board/miniWriteForm.board")) { // 미니 신설 요청 등록
 	        service.miniWrite(request, response);
 		}    
-		else if(command.equals("/board/voteContent.board")) { // 투표
+		else if(command.equals("/board/voteContent.board")) { // 신청글 내용
 			service.voteContent(request, response);
+		}
+		else if(command.equals("/board/increaseVoteLike.board")) { // 신청글 좋아요
+			service.increaseVoteLike(request, response);
+		}
+		/////
+		else if(command.equals("/board/voteForm.board")) { // 투표 결과
+			service.addVote(request, response);
 		}
 		else if(command.equals("/board/mypage.board")) {         //내 글, 내 댓글 보기
 			service.getUserActivityLog(request, response);
 		}
+		
+		else if(command.equals("/board/searchPost.board")) {  	//게시판안에서  글 찾기
+			service.searchPost(request, response);
+		}
+		else if(command.equals("/searchPostIndex.board")) {	//메인페이지 글 찾기
+			service.searchPostIndex(request, response);
+		}
 	}
 }
-
-

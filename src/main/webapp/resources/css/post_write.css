@@ -63,6 +63,10 @@
     background-color: #00AFB9; border-color: #00AFB9;
 }
 
+.form-group > .input-group {
+	width : 400px;
+}
+
 
 /* 제목 UI 수정 */
 .form-group > .input-group {
@@ -75,5 +79,3 @@
 	box-shadow : none;
 	-webkit-box-shadow : none;
 }
-
-

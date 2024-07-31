@@ -65,7 +65,6 @@
             <table class="comment-page">
               <thead>
                 <tr>
-                  
                   <th>게시판</th>
                   <th>댓글 내용</th>
                   <th>작성일</th>
@@ -119,7 +118,7 @@
 </script>
 
 <script type="text/javascript">
-	// 전체 선택 기능 구현 스크립트
+	// 전체 선택 기능 구현 스크립트 (완성했으나 삭제 버튼 구현 못해서 의미없어짐)
 	function selectAll(all) {
 	    var checkbox = document.querySelectorAll(`#${toggleId} table tbody input[type=checkbox]`);
 	    var selectAllButton = document.querySelector(`#${toggleId} #select-all`); // 버튼의 id
