@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
 		                noCookie.setPath("/");
 		                response.addCookie(noCookie);
 		            }
-		            response.sendRedirect("../index.jsp");
+		            response.sendRedirect("../board/index.board");
 		            
 		        } else { // 로그인 실패 시
 		            request.setAttribute("error", "아이디 또는 비밀번호가 틀렸습니다.");

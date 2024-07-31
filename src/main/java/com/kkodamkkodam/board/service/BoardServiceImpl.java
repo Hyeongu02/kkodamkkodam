@@ -367,8 +367,8 @@ public class BoardServiceImpl implements BoardService {
 		String boardCategory = request.getParameter("boardCategory");
 		String boardType = request.getParameter("boardType");
 		String content = request.getParameter("content");
-
-		MiniDTO dto = new MiniDTO(null, boardType, boardCategory, content, null, null, userdto.getuserNo(), null);
+		
+		MiniDTO dto = new MiniDTO(null, boardType, boardCategory, content, null, null, userdto.getuserNo(), null,null,null);
 		SqlSession sql = sqlSessionFactory.openSession(true);
 		BoardMapper mapper = sql.getMapper(BoardMapper.class);
 		mapper.miniWrite(dto);
@@ -418,7 +418,7 @@ public class BoardServiceImpl implements BoardService {
 			throws ServletException, IOException {
 		Long postNo = Long.parseLong(request.getParameter("postNo"));
 
-		MiniDTO dto = new MiniDTO(postNo, null, null, null, null, null, null, null);
+		MiniDTO dto = new MiniDTO(postNo, null, null, null, null, null, null, null, null, null);
 
 		SqlSession sql = sqlSessionFactory.openSession(true);
 		BoardMapper mapper = sql.getMapper(BoardMapper.class);
@@ -439,13 +439,19 @@ public class BoardServiceImpl implements BoardService {
 	        
 	        // 세션에서 사용자 번호를 가져옵니다.
 	        HttpSession session = request.getSession();
-	        Long userNo = (Long) session.getAttribute("userNo");
+	        UserDTO udto = new UserDTO();
+			udto = (UserDTO) session.getAttribute("user");
+			Long userNo = udto.getuserNo();
 
 	        SqlSession sql = sqlSessionFactory.openSession(true);
 	        BoardMapper mapper = sql.getMapper(BoardMapper.class);
-
+	        
+	        Map<String, Object> params = new HashMap<>();
+			params.put("postNo", postNo);
+			params.put("userNo", userNo);
+			int x=mapper.hasUserVoted(params);
 	        // 사용자가 이미 투표했는지 확인
-	        if (mapper.hasUserVoted(postNo, userNo)) {
+	        if (x!=0) {
 	        	
 	            sql.close();
 	            response.setContentType("application/json");
@@ -454,37 +460,22 @@ public class BoardServiceImpl implements BoardService {
 	        }
 
 	        // 현재 투표 상황을 가져옵니다.
-	        VoteDTO currentVote = mapper.getVoteByPostNo(postNo);
-
-	        if (currentVote == null) {
-	            currentVote = new VoteDTO();
-	            currentVote.setPostNo(postNo);
-	            currentVote.setYesVotes(0L);
-	            currentVote.setNoVotes(0L);
-	            currentVote.setBoardCategory(boardCategory);
-	            currentVote.setBoardType(boardType);
+	        MiniDTO dto = new MiniDTO();
+	        dto.setPostNo(postNo);
+	        VoteDTO votodto=new VoteDTO(null,postNo,null,userNo);
+	        if (voteOption.equals("yes")) {
+	        	mapper.insertVoteYes(dto);
+	        	mapper.insertVote(votodto);
+	        }else {
+	        	mapper.insertVoteNo(dto);
+	        	mapper.insertVote(votodto);
 	        }
-
-	        // 투표를 업데이트합니다.
-	        if ("yes".equals(voteOption)) {
-	            currentVote.setYesVotes(currentVote.getYesVotes() + 1);
-	        } else if ("no".equals(voteOption)) {
-	            currentVote.setNoVotes(currentVote.getNoVotes() + 1);
-	        }
-	        currentVote.setUserNo(userNo);
-
-	        // 데이터베이스에 투표 결과를 저장 또는 업데이트합니다.
-	        if (currentVote.getVoteId() == null) {
-	            mapper.insertVote(currentVote);
-	        } else {
-	            mapper.updateVote(currentVote);
-	        }
-
+	        MiniDTO resultDTO = mapper.getMiniVote(dto);
 	        sql.close();
-
+	        
 	        // 총 투표 수와 찬성 비율을 계산합니다.
-	        Long totalVotes = currentVote.getYesVotes() + currentVote.getNoVotes();
-	        double yesPercentage = (currentVote.getYesVotes().doubleValue() / totalVotes.doubleValue()) * 100;
+	        Long totalVotes = resultDTO.getYes()+ resultDTO.getNo();
+	        double yesPercentage = (resultDTO.getYes().doubleValue() / totalVotes.doubleValue()) * 100;
 
 	        if (totalVotes >= 20 && yesPercentage >= 60) {
 	            // 조건이 충족되면 새로운 미니 게시판으로 리다이렉트

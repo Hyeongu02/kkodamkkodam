@@ -112,7 +112,7 @@ public class BoardController extends HttpServlet {
 		else if(command.equals("/board/searchPost.board")) {  	//게시판안에서  글 찾기
 			service.searchPost(request, response);
 		}
-		else if(command.equals("/searchPostIndex.board")) {	//메인페이지 글 찾기
+		else if(command.equals("/board/searchPostIndex.board")) {	//메인페이지 글 찾기
 			service.searchPostIndex(request, response);
 		}
 	}

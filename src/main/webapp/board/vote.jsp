@@ -32,12 +32,12 @@
 		</div>
 	</div>
 	
-    <form action="voteForm.board" method="post">
+    <form action="voteForm.board" method="post" id="voteForm">
 	    <input type="hidden" name="boardType" value="${dto.boardType}">
 	    <input type="hidden" name="boardCategory" value="${dto.boardCategory}">
 	    <input type="hidden" name="postNo" value="${dto.postNo}">
 		<div class="container">
-			<h4>${dto.boardType } 카테고리를 만드시는 걸 찬성하시겠습니까?</h4>
+			<h4>${dto.boardType} 카테고리를 만드시는 걸 찬성하시겠습니까?</h4>
 			<div class="grid">
 				<button type="submit" name="voteOption" value="yes" class="option" id="yes" style="border: 1px solid #ccc;">
 					<p class="text">찬성</p>
@@ -61,10 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
     noVotes = parseInt(localStorage.getItem('noVotes')) || 0;
     updatePercentages();
     
-    // 사용자가 이미 투표했는지 확인
-    if (getCookie("voted") === "true") {
-        disableVoting();
-    }
 });
 
 document.getElementById('yes').addEventListener('click', function() {
@@ -91,12 +87,7 @@ function submitVote(option) {
     localStorage.setItem('noVotes', noVotes);
     setCookie("voted", true, 7); // 7일 동안 쿠키 유지
     updatePercentages();
-    disableVoting();
 
-    // 서버에 투표를 전송
-    var form = document.getElementById('voteForm');
-    form.elements['voteOption'].value = option;
-    form.submit();
 }
 
 function updatePercentages() {
@@ -119,10 +110,6 @@ function updatePercentages() {
     }
 }
 
-function disableVoting() {
-    document.getElementById('yes').disabled = true;
-    document.getElementById('no').disabled = true;
-}
 
 function setCookie(name, value, days) {
     const date = new Date();

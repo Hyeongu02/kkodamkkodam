@@ -3,8 +3,6 @@ package com.kkodamkkodam.board.model;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
-
 public interface BoardMapper {
 	
 	public ArrayList<BoardDTO> getList(Long boardId); 					//글 목록 조회
@@ -32,10 +30,11 @@ public interface BoardMapper {
 	public void increaseVoteLike(MiniDTO dto); // 미니 신설 요청 글 좋아요 수
 	//////////////// 나린 /////////////
 	public void addVote(VoteDTO dto);
-	public VoteDTO getVoteByPostNo(Long postNo);
+	public void insertVoteYes(MiniDTO vote);
+	public void insertVoteNo(MiniDTO vote);
 	public void insertVote(VoteDTO vote);
-	public void updateVote(VoteDTO vote);
-	boolean hasUserVoted(Long postNo, Long userNo);
+	public MiniDTO getMiniVote(MiniDTO vote);
+	public int hasUserVoted(Map<String, Object> params);
 
 
 	
