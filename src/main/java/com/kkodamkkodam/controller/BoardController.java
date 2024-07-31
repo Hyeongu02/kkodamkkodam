@@ -59,6 +59,12 @@ public class BoardController extends HttpServlet {
 		else if(command.equals("/board/post_regi.board")) { //글 등록
 			service.postRegi(request, response);
 		}
+		else if(command.equals("/board/post_code_write.board")) { // 코드 작성 화면
+			service.postCodeWrite(request, response);
+		}
+		else if(command.equals("/board/post_code_regi.board")) { //코드 질문글 등록
+			service.postCodeRegi(request, response);
+		}
 		else if(command.equals("/board/updatePostPage.board")) { //글 수정페이지 이동
 			service.updatePostPage(request, response);
 		}
@@ -101,9 +107,6 @@ public class BoardController extends HttpServlet {
 		}
 		else if(command.equals("/board/mypage.board")) {         //내 글, 내 댓글 보기
 			service.getUserActivityLog(request, response);
-		}
-		else if(command.equals("/board/post_code_write.board")) { // 코드 작성 
-			service.postCodeWrite(request, response);
 		}
 		
 		else if(command.equals("/board/searchPost.board")) {  	//게시판안에서  글 찾기

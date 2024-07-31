@@ -33,6 +33,16 @@
 	    ORDER BY 
 	        p.regdate DESC
 	</select>
+	<select id="commentCount" resultType="Long">
+		SELECT 
+    	COUNT(PC.COMMENT_NO) AS COMMENT_COUNT
+		FROM 
+			AA.POST P
+		LEFT JOIN 
+    		AA.POST_COMMENT PC ON P.POST_NO = PC.POST_NO
+		WHERE 
+    		P.BOARD_ID = #{boardId} AND P.POST_NO = #{postNo}
+	</select>
 
 	<select id="getBestList" resultType="com.kkodamkkodam.board.model.BoardDTO">
 	    <![CDATA[
@@ -73,9 +83,10 @@
 	<select id="getContent" resultType="com.kkodamkkodam.board.model.BoardDTO">
 		SELECT * FROM post WHERE board_id = #{boardId} AND POST_No = #{postNo}
 	</select>
+
 	<select id="getComment" resultType="com.kkodamkkodam.board.model.CommentDTO">
 		SELECT
-			c.comment_no,
+		    c.comment_no,
 		    c.user_no,
 		    c.board_id,
 		    c.post_no,
@@ -85,10 +96,17 @@
 		    c.parent_id,
 		    COUNT(*) OVER (PARTITION BY c.post_no) AS comment_count
 		FROM post p
-		join post_comment c
-		on p.post_no=c.post_no
-		WHERE p.board_id =  #{boardId} AND p.POST_No = #{postNo}
-        order by c.comment_no asc, c.parent_id asc
+		JOIN post_comment c ON p.post_no = c.post_no
+		WHERE p.board_id = #{boardId} AND p.post_no = #{postNo}
+		ORDER BY 
+		    CASE 
+		        WHEN c.parent_id IS NULL THEN c.comment_no
+		        ELSE c.parent_id
+		    END ASC,
+		    CASE 
+		        WHEN c.parent_id IS NOT NULL THEN c.comment_no
+		        ELSE 0
+		    END ASC
 	</select>
 	<update id="increaseView" parameterType="Map">
 		UPDATE post SET VIEW_COUNT = VIEW_COUNT + 1 WHERE board_id = #{boardId} AND POST_No = #{postNo}
@@ -130,10 +148,15 @@
 		)
 	</insert>
 	
-	<update id="postRegi" parameterType="com.kkodamkkodam.board.model.BoardDTO">
+	<insert id="postRegi" parameterType="com.kkodamkkodam.board.model.BoardDTO">
 		INSERT INTO POST (post_no, title, content, user_no, board_id)
 		values(post_seq.nextval, #{title}, #{content}, #{userNo}, #{boardId})
-	</update>
+	</insert>
+ 
+ 	<insert id="postCodeRegi" parameterType="com.kkodamkkodam.board.model.BoardDTO">
+		INSERT INTO POST (post_no, title, content, user_no, board_id,CODE_LANGUAGE, CODE_CONTENT)
+		values(post_seq.nextval, #{title}, #{content}, #{userNo}, #{boardId}, #{codeLanguage},#{codeContent})
+	</insert>
  
 	<update id="increaseCommentLike" parameterType="com.kkodamkkodam.board.model.CommentDTO">
 		UPDATE POST_COMMENT SET LIKE_COUNT = LIKE_COUNT + 1 WHERE COMMENT_NO = #{commentNo}
@@ -182,6 +205,7 @@
         FROM post p
         JOIN board b ON p.board_id = b.board_id
         WHERE p.user_no = #{userNo}
+        ORDER BY p.regdate DESC
   </select>  
 	
 	<!-- 내가 쓴 댓글 목록 조회 -->
@@ -199,6 +223,7 @@
         JOIN post p ON c.post_no = p.post_no
         JOIN board b ON p.board_id = b.board_id
         WHERE c.user_no = #{userNo}
+        ORDER BY c.regdate DESC
   </select>	
   
 	<delete id="deletePost" parameterType="com.kkodamkkodam.board.model.BoardDTO">

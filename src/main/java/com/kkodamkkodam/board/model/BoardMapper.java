@@ -10,9 +10,11 @@ public interface BoardMapper {
   
 	public void postWrite(Map<String, Object> params); //글작성 화면
 	public void postRegi(BoardDTO postregi); //글 작성 등록
+	public void postCodeRegi(BoardDTO dto);								//코드 질문글 등록
 	public void updatePost(BoardDTO dto); 								//글 수정
 	public void deletePost(BoardDTO dto);								//글 삭제
-
+	public Long commentCount(BoardDTO dto);								//댓글 수 세기
+	
 	public BoardDTO getContent(Map<String, Object> params); 			//글 보기
 	public ArrayList<CommentDTO> getComment(Map<String, Object> params);//댓글 보기
 	public void increaseView(Map<String, Object> params); 				//조회수
