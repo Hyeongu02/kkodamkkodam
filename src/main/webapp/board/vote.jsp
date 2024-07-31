@@ -53,66 +53,93 @@
 </div>
 
 <script>
-        var yesVotes = 0;
-        var noVotes = 0;
+var yesVotes = 0;
+var noVotes = 0;
 
-        document.addEventListener('DOMContentLoaded', function () {
-            yesVotes = parseInt(localStorage.getItem('yesVotes')) || 0;
-            noVotes = parseInt(localStorage.getItem('noVotes')) || 0;
-            updatePercentages();
-        });
+document.addEventListener('DOMContentLoaded', function () {
+    yesVotes = parseInt(localStorage.getItem('yesVotes')) || 0;
+    noVotes = parseInt(localStorage.getItem('noVotes')) || 0;
+    updatePercentages();
+    
+    // 사용자가 이미 투표했는지 확인
+    if (getCookie("voted") === "true") {
+        disableVoting();
+    }
+});
 
-        document.getElementById('yes').addEventListener('click', function() {
-            submitVote('yes');
-        });
+document.getElementById('yes').addEventListener('click', function() {
+    submitVote('yes');
+});
 
-        document.getElementById('no').addEventListener('click', function() {
-            submitVote('no');
-        });
+document.getElementById('no').addEventListener('click', function() {
+    submitVote('no');
+});
 
-        function submitVote(option) {
-            if (option === 'yes') {
-                yesVotes++;
-            } else if (option === 'no') {
-                noVotes++;
-            }
+function submitVote(option) {
+    if (getCookie("voted") === "true") {
+        alert("이미 투표하셨습니다.");
+        return;
+    }
 
-            localStorage.setItem('yesVotes', yesVotes);
-            localStorage.setItem('noVotes', noVotes);
-            setCookie("voted", true, 7); // 7일 동안 쿠키 유지
-            updatePercentages();
+    if (option === 'yes') {
+        yesVotes++;
+    } else if (option === 'no') {
+        noVotes++;
+    }
 
-            // 실제 서버에 투표를 전송합니다.
-            var form = document.getElementById('voteForm');
-            form.elements['voteOption'].value = option;
-            form.submit(); // 폼 제출
-        }
+    localStorage.setItem('yesVotes', yesVotes);
+    localStorage.setItem('noVotes', noVotes);
+    setCookie("voted", true, 7); // 7일 동안 쿠키 유지
+    updatePercentages();
+    disableVoting();
 
-        function updatePercentages() {
-            var totalVotes = yesVotes + noVotes;
-            var percentageYes = totalVotes === 0 ? 0 : (yesVotes / totalVotes) * 100;
-            var percentageNo = totalVotes === 0 ? 0 : (noVotes / totalVotes) * 100;
+    // 서버에 투표를 전송
+    var form = document.getElementById('voteForm');
+    form.elements['voteOption'].value = option;
+    form.submit();
+}
 
-            document.getElementById('percentageYes').innerText = Math.round(percentageYes) + '%';
-            document.getElementById('percentageNo').innerText = Math.round(percentageNo) + '%';
+function updatePercentages() {
+    var totalVotes = yesVotes + noVotes;
+    var percentageYes = totalVotes === 0 ? 0 : (yesVotes / totalVotes) * 100;
+    var percentageNo = totalVotes === 0 ? 0 : (noVotes / totalVotes) * 100;
 
-            var yesOption = document.getElementById('yes');
-            var noOption = document.getElementById('no');
+    document.getElementById('percentageYes').innerText = Math.round(percentageYes) + '%';
+    document.getElementById('percentageNo').innerText = Math.round(percentageNo) + '%';
 
-            if (percentageYes > percentageNo) {
-                yesOption.style.background = 'linear-gradient(to right, #00AFB9D5 ' + percentageYes + '%, #fff ' + percentageYes + '%)';
-                noOption.style.background = 'linear-gradient(to right, #ddd ' + percentageNo + '%, #fff ' + percentageNo + '%)';
-            } else {
-                yesOption.style.background = 'linear-gradient(to right, #ddd ' + percentageYes + '%, #fff ' + percentageYes + '%)';
-                noOption.style.background = 'linear-gradient(to right, #00AFB9D5 ' + percentageNo + '%, #fff ' + percentageNo + '%)';
-            }
-        }
+    var yesOption = document.getElementById('yes');
+    var noOption = document.getElementById('no');
 
-        function setCookie(name, value, days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // 현재 시간에 유효 기간을 더해서 만료 시간 설정
-            const expires = "expires=" + date.toUTCString(); // 만료 시간을 UTC 형식의 문자열로 변환
-            document.cookie = name + "=" + value + ";" + expires + ";path=/"; 
-        }
-    </script>
+    if (percentageYes > percentageNo) {
+        yesOption.style.background = 'linear-gradient(to right, #00AFB9D5 ' + percentageYes + '%, #fff ' + percentageYes + '%)';
+        noOption.style.background = 'linear-gradient(to right, #ddd ' + percentageNo + '%, #fff ' + percentageNo + '%)';
+    } else {
+        yesOption.style.background = 'linear-gradient(to right, #ddd ' + percentageYes + '%, #fff ' + percentageYes + '%)';
+        noOption.style.background = 'linear-gradient(to right, #00AFB9D5 ' + percentageNo + '%, #fff ' + percentageNo + '%)';
+    }
+}
+
+function disableVoting() {
+    document.getElementById('yes').disabled = true;
+    document.getElementById('no').disabled = true;
+}
+
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+</script>
 <%@ include file="../include/footer.jsp"%>
