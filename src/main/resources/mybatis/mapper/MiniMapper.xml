@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kkodamkkodam.mini.model.MiniMapper">
+	<!-- 미니 신청 게시판 목록 -->
+	<select id="getMiniList"
+		resultType="com.kkodamkkodam.mini.model.MiniDTO">
+		select * from post_mini
+	</select>
+
+	<!-- 미니 게시판 신청 -->
+	<insert id="miniWrite"
+		parameterType="com.kkodamkkodam.mini.model.MiniDTO">
+		INSERT INTO POST_MINI (BOARD_TYPE, BOARD_CATEGORY, CONTENT, REGDATE, USER_NO)
+		VALUES (#{boardType}, #{boardCategory}, #{content}, SYSTIMESTAMP, #{userNo})
+	</insert>
+	
+	<!-- 미니 신청 게시판 상세 내용 -->
+	<select id="voteContent" resultType="com.kkodamkkodam.mini.model.MiniDTO">
+	    SELECT POST_NO, BOARD_TYPE, BOARD_CATEGORY, REGDATE, VIEW_COUNT,USER_NO, LIKE_COUNT,YES,NO
+	    FROM POST_MINI
+	    WHERE POST_NO = #{postNo}
+  	</select>
+  	
+  	<!-- 미니 신청 게시판 조회수 증가 -->
+  	<update id="miniListView" parameterType="Map">
+	    UPDATE POST_MINI 
+    	SET VIEW_COUNT = VIEW_COUNT + 1 
+    	WHERE POST_NO = #{postNo}
+  </update>
+</mapper>
+
+
+
+
+
+
+
+

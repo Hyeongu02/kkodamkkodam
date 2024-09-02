@@ -162,29 +162,6 @@
 		UPDATE POST_COMMENT SET LIKE_COUNT = LIKE_COUNT + 1 WHERE COMMENT_NO = #{commentNo}
 	</update>
   
-  <select id="getMiniList" resultType="com.kkodamkkodam.board.model.MiniDTO">
-		select * from post_mini
-	</select>
-  <insert id="miniWrite" parameterType="com.kkodamkkodam.board.model.MiniDTO">
-		INSERT INTO POST_MINI (BOARD_TYPE, BOARD_CATEGORY, CONTENT, REGDATE, USER_NO)
-    	VALUES (#{boardType}, #{boardCategory}, #{content}, SYSTIMESTAMP, #{userNo})
-  </insert>
-  <select id="voteContent" resultType="com.kkodamkkodam.board.model.MiniDTO">
-	    SELECT POST_NO, BOARD_TYPE, BOARD_CATEGORY, REGDATE, VIEW_COUNT,USER_NO, LIKE_COUNT,YES,NO
-	    FROM POST_MINI
-	    WHERE POST_NO = #{postNo}
-  </select>
-  <update id="miniListView" parameterType="Map">
-	    UPDATE POST_MINI 
-    	SET VIEW_COUNT = VIEW_COUNT + 1 
-    	WHERE POST_NO = #{postNo}
-  </update>
-  <update id="increaseVoteLike" parameterType="com.kkodamkkodam.board.model.MiniDTO">
-  		UPDATE POST_MINI
-  		SET LIKE_COUNT = LIKE_COUNT + 1 
-  		WHERE POST_NO = #{postNo} 
-  </update>
-
   
   
   <!-- 작성글 보기 -->
@@ -291,41 +268,6 @@
         WHERE (p.title LIKE '%' || #{title} || '%' OR p.content LIKE '%' || #{content} || '%')
         ORDER BY p.regdate DESC
 	</select> 
-	
-	<update id="insertVoteYes" parameterType="com.kkodamkkodam.board.model.MiniDTO">
-		UPDATE POST_MINI
-		SET YES = YES + 1
-		WHERE POST_NO = #{postNo}
-	</update>
-	
-	<update id="insertVoteNo" parameterType="com.kkodamkkodam.board.model.MiniDTO">
-		UPDATE POST_MINI
-		SET NO = NO + 1
-		WHERE POST_NO = #{postNo}
-	</update>
-	<select id="getMiniVote" resultType="com.kkodamkkodam.board.model.MiniDTO">
-		select * from POST_MINI where POST_NO=#{postNo}
-	</select>
-	  <!-- 나린 -->
-	  <insert id="addVote" parameterType="com.kkodamkkodam.board.model.VoteDTO">
-	    	INSERT INTO VOTE (VOTE_ID, POST_NO, REGDATE, USER_NO, YESVOTES,BOARD_CATEGORY,BOARD_TYPE )
-	    	VALUES (#{voteId}, #{postNo}, SYSTIMESTAMP, #{userNo}, #{yesVotes}, #{boardCategory}, #{boardType})
-	  </insert>
-	
-	  <update id="updateVote" parameterType="com.kkodamkkodam.board.model.VoteDTO">
-	        UPDATE VOTE 
-	        SET YES_VOTES = #{yesVotes}, NO_VOTES = #{noVotes}
-	        WHERE POST_NO = #{postNo}
-	  </update>
-	  <select id="hasUserVoted" parameterType="map" resultType="int">
-		    SELECT COUNT(*)
-		    FROM VOTE
-		    WHERE POST_NO = #{postNo} AND USER_NO = #{userNo}
-		</select>
-		<insert id="insertVote" parameterType="com.kkodamkkodam.board.model.VoteDTO" >
-			INSERT INTO "AA"."VOTE" (POST_NO, REGDATE, USER_NO)
-			VALUES (#{postNo} , SYSTIMESTAMP, #{userNo})
-		</insert>
 </mapper>
 
 

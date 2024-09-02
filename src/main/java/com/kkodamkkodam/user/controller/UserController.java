@@ -1,4 +1,4 @@
-package com.kkodamkkodam.controller;
+package com.kkodamkkodam.user.controller;
 
 import java.io.IOException;
 

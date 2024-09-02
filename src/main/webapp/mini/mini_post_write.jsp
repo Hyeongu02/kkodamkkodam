@@ -25,7 +25,7 @@
 	        <p>데뷔 예정 그룹의 경우 데뷔명이 확정되지 않아도 신청이 가능합니다.</p>
 	    </div>
 	
-    	<form action="miniWriteForm.board" method="post">
+    	<form action="miniWriteForm.mini" method="post">
 	        <div class="form-group title">
 	            <div class="title">게시판 이름</div>
 	            <div class="input-group"> 

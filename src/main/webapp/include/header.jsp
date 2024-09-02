@@ -60,9 +60,9 @@
 					data-toggle="dropdown">미니 게시판</button>
 				<!-- ----------------------------------------------------------- -->
 				<ul class="dropdown-menu drop-menu">
-					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/post_write_mini.jsp">개설 신청</a></li>
-					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/postMiniList.board">개설 신청 목록</a></li>
-					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/board/mini.jsp">게시판 전체보기</a></li>
+					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/mini/mini_post_write.jsp">개설 신청</a></li>
+					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/mini/postMiniList.mini">개설 신청 목록</a></li>
+					<li><a class="dropdown-item drop-list" href="${pageContext.request.contextPath }/mini/mini_board_list.jsp">게시판 전체보기</a></li>
 				</ul>
 			</div>
 		</div>

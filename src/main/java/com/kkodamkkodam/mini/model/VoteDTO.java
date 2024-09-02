@@ -1,4 +1,4 @@
-package com.kkodamkkodam.board.model;
+package com.kkodamkkodam.mini.model;
 
 import java.sql.Timestamp;
 

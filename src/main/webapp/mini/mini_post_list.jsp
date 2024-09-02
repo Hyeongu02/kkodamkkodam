@@ -70,7 +70,7 @@
 			<tr>
 				<td>${dto.postNo}</td>
 				<td>
-					<a href="${pageContext.request.contextPath}/board/voteContent.board?postNo=${dto.postNo}">${dto.boardType}</a>
+					<a href="${pageContext.request.contextPath}/mini/voteContent.mini?postNo=${dto.postNo}">${dto.boardType}</a>
 				</td>
 				<td><fmt:formatDate value="${dto.regdate}" pattern="MM-dd"/></td>
 				<td>${dto.viewCount}</td>

@@ -8,9 +8,9 @@
 <div id="wrapped">
 	<div class="top">
 		<ul class="top_text">
-			<li><a href="${pageContext.request.contextPath }/board/post_write_mini.jsp"><span class="glyphicon glyphicon-flag"></span>
+			<li><a href="${pageContext.request.contextPath }/mini/post_write_mini.jsp"><span class="glyphicon glyphicon-flag"></span>
 					개설신청</a></li>
-			<li><a href="${pageContext.request.contextPath }/board/mini.jsp"><span class="glyphicon glyphicon-list"></span> 
+			<li><a href="${pageContext.request.contextPath }/mini/mini.jsp"><span class="glyphicon glyphicon-list"></span> 
 					전체 카테고리</a></li>
 		</ul>
 	</div>
@@ -19,10 +19,10 @@
 		<p>
 			<fmt:formatDate value="${dto.regdate}" pattern="YYYY-MM-dd HH:MM" />| 조회 ${dto.viewCount} | <span class="glyphicon glyphicon-thumbs-up"></span>${dto.likeCount }
 		</p>
-		<button type="button" class="title_right" onclick="location.href='increaseVoteLike.board?postNo=${dto.postNo}'">
+		<button type="button" class="title_right" onclick="location.href='increaseVoteLike.mini?postNo=${dto.postNo}'">
 			<span class="glyphicon glyphicon-thumbs-up">${dto.likeCount }</span>		
 		</button>
-		<button type="button" class="title_left" onclick="location.href='${pageContext.request.contextPath }/board/post_write_mini.jsp'">새 글(write)</button>
+		<button type="button" class="title_left" onclick="location.href='${pageContext.request.contextPath }/mini/post_write_mini.jsp'">새 글(write)</button>
 	</div>
 
 	<div class="content">
@@ -33,7 +33,7 @@
 		</div>
 	</div>
 	
-    <form action="voteForm.board" method="post" id="voteForm">
+    <form action="voteForm.mini" method="post" id="voteForm">
 	    <input type="hidden" name="boardType" value="${dto.boardType}">
 	    <input type="hidden" name="boardCategory" value="${dto.boardCategory}">
 	    <input type="hidden" name="postNo" value="${dto.postNo}">
