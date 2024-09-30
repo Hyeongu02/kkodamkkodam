@@ -1,6 +1,20 @@
 # 익명 커뮤니티 서비스
 
 - **개발 기간** : 2024/07/02 ~ 09/31
+- 
+## 개발 환경 및 기술 스택
+
+| 항목 | 내용 |
+|---|---|
+| **프로그래밍 언어** | Java 11 |
+| **프레임워크** | JSP (Java Server Pages), Servlets |
+| **빌드 도구** | Eclipse WTP (Web Tools Platform) |
+| **프로젝트 유형** | Dynamic Web Project |
+| **데이터베이스(DB)** | Oracle 21c |
+| **데이터베이스 연동** | MyBatis |
+| **웹 서버** | Apache Tomcat 10.1.26 |
+| **개발 도구(IDE)** | Eclipse IDE |
+
 
 ## 팀원 구성
 
