@@ -1,3 +1,20 @@
+# 익명 커뮤니티 서비스
+
+- **개발 기간** : 2024/07/02 ~ 09/31
+
+## 팀원 구성
+
+<div align="center">
+
+| **강현구** | **유선화** | **홍나린** | **손민** |
+| :------: |  :------: | :------: | :------: |
+| [<img src="https://avatars.githubusercontent.com/u/80089798?s=64&v=4" height=150 width=150> <br/> @Hyeongu02](https://github.com/Hyeongu02) | [<img src="https://avatars.githubusercontent.com/u/172234027?s=64&v=4" height=150 width=150> <br/> @CUTLETER](https://github.com/CUTLETER) | [<img src="https://avatars.githubusercontent.com/u/172233963?s=64&v=4" height=150 width=150> <br/> @Hong-NaRin](https://github.com/Hong-NaRin) | [<img src="https://avatars.githubusercontent.com/u/172233940?s=64&v=4" height=150 width=150> <br/> @huhuhahahaha](https://github.com/huhuhahahaha) |
+
+</div>
+
+<br>
+
+
 ![kkodamkkodam_page-0001](https://github.com/user-attachments/assets/48cf13b4-1c70-45b5-a1d6-0c68d883c4b8)
 ![kkodamkkodam_page-0002](https://github.com/user-attachments/assets/c0474e8f-d7f7-48fe-b312-2b794b5fe451)
 ![kkodamkkodam_page-0003](https://github.com/user-attachments/assets/701ce925-5a06-47e4-a0c8-3fc6457fa315)
