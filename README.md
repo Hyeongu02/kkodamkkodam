@@ -25,9 +25,9 @@
 
 <div align="center">
 
-| **강현구** | **유선화** | **홍나린** | **손민** |
+| **강현구** | **유선화** | **홍나린** | **손민석** |
 | :------: |  :------: | :------: | :------: |
-| [<img src="https://avatars.githubusercontent.com/u/80089798?s=64&v=4" height=150 width=150> <br/> @Hyeongu02](https://github.com/Hyeongu02) | [<img src="https://avatars.githubusercontent.com/u/172234027?s=64&v=4" height=150 width=150> <br/> @CUTLETER](https://github.com/CUTLETER) | [<img src="https://avatars.githubusercontent.com/u/172233963?s=64&v=4" height=150 width=150> <br/> @Hong-NaRin](https://github.com/Hong-NaRin) | [<img src="https://avatars.githubusercontent.com/u/172233940?s=64&v=4" height=150 width=150> <br/> @huhuhahahaha](https://github.com/huhuhahahaha) |
+| [<img src="https://avatars.githubusercontent.com/u/80089798?s=64&v=4" height=110> <br/> @Hyeongu02](https://github.com/Hyeongu02) | [<img src="https://avatars.githubusercontent.com/u/172234027?s=64&v=4" height=110> <br/> @CUTLETER](https://github.com/CUTLETER) | [<img src="https://avatars.githubusercontent.com/u/172233963?s=64&v=4" height=110> <br/> @Hong-NaRin](https://github.com/Hong-NaRin) | [<img src="https://avatars.githubusercontent.com/u/172233940?s=64&v=4" height=110> <br/> @huhuhahahaha](https://github.com/huhuhahahaha) |
 
 </div>
 
