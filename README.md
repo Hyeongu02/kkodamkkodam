@@ -1,6 +1,8 @@
 # 익명 커뮤니티 서비스
 
 - **개발 기간** : 2024/07/02 ~ 07/31
+
+<br>
   
 ## 개발 환경 및 기술 스택
 
@@ -16,6 +18,9 @@
 | **개발 도구(IDE)** | Eclipse IDE |
 
 
+<br>
+
+
 ## 팀원 구성
 
 <div align="center">
@@ -26,6 +31,7 @@
 
 </div>
 
+<br>
 
 ## 구현화면
 ![screencapture-localhost-8181-kkodamkkodam-board-index-board-2024-10-01-10_33_51](https://github.com/user-attachments/assets/68c3558d-d933-45db-8fc2-3565cced35ae)
@@ -42,8 +48,6 @@
 ![screencapture-localhost-8181-kkodamkkodam-user-modify-user-2024-10-01-10_37_31](https://github.com/user-attachments/assets/6bd97af1-9c4d-4ef3-b8ee-648e4ec735ad)
 ![screencapture-localhost-8181-kkodamkkodam-board-mypage-board-2024-10-01-10_37_40](https://github.com/user-attachments/assets/f88e0e15-946f-48a6-8449-314638856ac4)
 ![screencapture-localhost-8181-kkodamkkodam-board-mypage-board-2024-10-01-10_37_45](https://github.com/user-attachments/assets/ca368f67-7c21-4a44-8a30-b9e3c3f33f8e)
-
-
 
 
 
