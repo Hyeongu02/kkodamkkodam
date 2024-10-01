@@ -26,8 +26,30 @@
 
 </div>
 
+
+## 구현화면
+![screencapture-localhost-8181-kkodamkkodam-board-index-board-2024-10-01-10_33_51](https://github.com/user-attachments/assets/68c3558d-d933-45db-8fc2-3565cced35ae)
+![screencapture-localhost-8181-kkodamkkodam-board-postList-board-2024-10-01-10_34_20](https://github.com/user-attachments/assets/c6bcaee6-5c25-4a86-a661-93649a8a929b)
+![screencapture-localhost-8181-kkodamkkodam-board-postList-board-2024-10-01-10_46_38](https://github.com/user-attachments/assets/737e1c7e-f96f-4a83-931e-8299a6a34fc9)
+![screencapture-localhost-8181-kkodamkkodam-board-getContent-board-2024-10-01-10_45_25](https://github.com/user-attachments/assets/f6c9a41e-4891-4b0a-8a01-818eab0ff4e5)
+![screencapture-localhost-8181-kkodamkkodam-board-getContent-board-2024-10-01-10_45_56](https://github.com/user-attachments/assets/df0e602b-e5b2-419c-b0d9-6411bafaa536)
+![screencapture-localhost-8181-kkodamkkodam-board-post-write-board-2024-10-01-10_43_37](https://github.com/user-attachments/assets/6b0805a1-d5b0-4937-9de2-ae92ce577e34)
+![screencapture-localhost-8181-kkodamkkodam-board-post-code-write-board-2024-10-01-10_47_42](https://github.com/user-attachments/assets/b07c8e30-dd7f-48f7-968d-42fc14679f57)
+![screencapture-localhost-8181-kkodamkkodam-board-post-write-mini-jsp-2024-10-01-10_38_31](https://github.com/user-attachments/assets/802ab237-a13e-4cc8-b609-235c992ade69)
+![screencapture-localhost-8181-kkodamkkodam-board-postMiniList-board-2024-10-01-10_38_43](https://github.com/user-attachments/assets/20b38715-589a-40e4-9757-08215341054f)
+![screencapture-localhost-8181-kkodamkkodam-board-voteForm-board-2024-10-01-10_39_02](https://github.com/user-attachments/assets/c7fab326-cb51-42f3-be92-b6085175b8b1)
+![screencapture-localhost-8181-kkodamkkodam-board-mini-jsp-2024-10-01-10_59_58](https://github.com/user-attachments/assets/d1333b19-2e93-466e-873c-53c6072b1a92)
+![screencapture-localhost-8181-kkodamkkodam-user-modify-user-2024-10-01-10_37_31](https://github.com/user-attachments/assets/6bd97af1-9c4d-4ef3-b8ee-648e4ec735ad)
+![screencapture-localhost-8181-kkodamkkodam-board-mypage-board-2024-10-01-10_37_40](https://github.com/user-attachments/assets/f88e0e15-946f-48a6-8449-314638856ac4)
+![screencapture-localhost-8181-kkodamkkodam-board-mypage-board-2024-10-01-10_37_45](https://github.com/user-attachments/assets/ca368f67-7c21-4a44-8a30-b9e3c3f33f8e)
+
+
+
+
+
 <br>
 
+## 발표자료
 
 ![kkodamkkodam_page-0001](https://github.com/user-attachments/assets/48cf13b4-1c70-45b5-a1d6-0c68d883c4b8)
 ![kkodamkkodam_page-0002](https://github.com/user-attachments/assets/c0474e8f-d7f7-48fe-b312-2b794b5fe451)
